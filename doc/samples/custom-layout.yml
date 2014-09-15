@@ -1,0 +1,39 @@
+frame: 
+  x: 38
+  y: 38
+  width: 750
+  height: 1050
+  radius: 25
+title:
+  x: 125
+  y: 50
+  width: 625
+  height: 100
+  align: !ruby/symbol center #see http://www.yaml.org/YAML_for_ruby.html#symbols
+  valign: !ruby/symbol middle  
+subtitle:
+  x: 150
+  y: 150
+  width: 575
+  height: 60
+  align: !ruby/symbol center
+  valign: !ruby/symbol middle
+
+# Yaml has this beautfiul feature for us: merge keys
+# http://www.yaml.org/YAML_for_ruby.html#merge_key
+# Define an alias with &foo, then use <<: *foo to include it
+# Everything gets merged, with later merges overriding 
+icon: &icon
+  width: 125
+  height: 125
+  y: 250
+icon_left:
+  <<: *icon 
+  x: 150
+icon_middle:
+  <<: *icon
+  x: 350
+  y: 400  #overrides the y inherited from icon
+icon_right:
+  <<: *icon
+  x: 550

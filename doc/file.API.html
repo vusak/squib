@@ -1,0 +1,221 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>
+  File: API
+  
+    &mdash; Documentation by YARD 0.8.7.4
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '';
+  framesUrl = "frames.html#!file.API.html";
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html">Index</a> &raquo; 
+    <span class="title">File: API</span>
+  
+
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+      Class List
+    </a>
+  
+    <a class="full_list_link" id="method_list_link"
+        href="method_list.html">
+      Method List
+    </a>
+  
+    <a class="full_list_link" id="file_list_link"
+        href="file_list.html">
+      File List
+    </a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+
+    <iframe id="search_frame"></iframe>
+
+    <div id="content"><div id='filecontents'>
+<h1 id="label-Squib+API">Squib API</h1>
+
+<h1 id="label-Squib%3A%3ADeck+and+Squib%3A%3ACard">Squib::Deck and Squib::Card</h1>
+
+<p>Squib essentially has two main classes: <code>Deck</code> and
+<code>Card</code>. <code>Deck</code> is the front-end, and
+<code>Card</code> is the back-end. The contract of <code>Deck</code> is to
+do the various manipulations of options and then delegate the operation to
+<code>Card</code> to do the low-level graphical operations.</p>
+
+<p>For most users, I recommending solely using <code>Deck</code> methods. If
+you want to roll up your sleeves and get your hands messy, you can access
+the Cairo or Pango contexts the directly via the <code>Card</code> class.</p>
+
+<h1 id="label-Specifying+Parameters">Specifying Parameters</h1>
+
+<p>Squib makes extensive use of <a
+href="http://www.ruby-doc.org/core-2.0.0/doc/syntax/calling_methods_rdoc.html#label-Keyword+Arguments">Ruby
+2.0’s named parameters</a>. This means you can specify your parameters in
+any order you please. In fact, with named parameters you <em>must</em>
+specify which argument ties to which parameter. If you get an error like
+this:</p>
+
+<pre class="code ruby"><code class="ruby">C:/Ruby200/lib/ruby/gems/2.0.0/gems/squib-0.0.2/lib/squib/api/text.rb:17:in `text&#39;: wrong number of arguments (1 for 0)
+(ArgumentError)
+        from hello-world.rb:5:in `block in &lt;main&gt;&#39;
+        from C:/Ruby200/lib/ruby/gems/2.0.0/gems/squib-0.0.2/lib/squib/deck.rb:21:in `instance_eval&#39;
+        from C:/Ruby200/lib/ruby/gems/2.0.0/gems/squib-0.0.2/lib/squib/deck.rb:21:in `initialize&#39;
+        from hello-world.rb:4:in `new&#39;
+        from hello-world.rb:4:in `&lt;main&gt;&#39;</code></pre>
+
+<p>…then you&#39;re not specifying the parameters explicitly (e.g. the above
+example was with <code>text &#39;X&#39;</code> instead of <code>text str:
+&#39;X&#39;</code>)</p>
+
+<p>All parameters are optional. For example <code>x</code> and <code>y</code>
+default to 0 (i.e. the upper-left corner of the card).</p>
+
+<p>Any parameter that is specified in the command overrides any Squib
+defaults, <code>config.yml</code> settings, or layout rules.</p>
+
+<h1 id="label-Specifying+Ranges">Specifying Ranges</h1>
+
+<p>Most public <code>Deck</code> methods allow a range to be specified as a
+first parameter. This parameter is used to access an internal
+<code>Array</code> of <code>Squib::Cards</code>. This can be an actual Ruby
+range, or anything that implements <code>#each</code> (thus can be an
+<code>Enumerable</code>). Integers are also supported for changing one card
+only. Negatives work from the back of the deck. Here are some examples from
+<code>samples/ranges.rb</code> found <a
+href="https://github.com/andymeneely/squib/tree/master/samples/ranges.rb">here</a></p>
+
+<p><pre class="code ruby"><span class='comment'>#!/usr/bin/env ruby
+</span><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>squib</span><span class='tstring_end'>&#39;</span></span>
+
+<span class='id identifier rubyid_data'>data</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>name</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Thief</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Grifter</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Mastermind</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> 
+        <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>type</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Thug</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Thinker</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Thinker</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='comma'>,</span>
+        <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>level</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span><span class='int'>1</span><span class='comma'>,</span><span class='int'>2</span><span class='comma'>,</span><span class='int'>3</span><span class='rbracket'>]</span><span class='rbrace'>}</span>
+
+<span class='const'>Squib</span><span class='op'>::</span><span class='const'>Deck</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>width:</span> <span class='int'>825</span><span class='comma'>,</span> <span class='label'>height:</span> <span class='int'>1125</span><span class='comma'>,</span> <span class='label'>cards:</span> <span class='int'>3</span><span class='rparen'>)</span> <span class='kw'>do</span>
+  <span class='comment'># Default range is :all
+</span>  <span class='id identifier rubyid_background'>background</span> <span class='label'>color:</span> <span class='symbol'>:white</span>
+  <span class='id identifier rubyid_text'>text</span> <span class='label'>str:</span> <span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>name</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>x:</span> <span class='int'>250</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>55</span><span class='comma'>,</span> <span class='label'>font:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Arial 54</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_text'>text</span> <span class='label'>str:</span> <span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>level</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>x:</span> <span class='int'>65</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>40</span><span class='comma'>,</span> <span class='label'>font:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Arial 72</span><span class='tstring_end'>&#39;</span></span>
+
+  <span class='comment'># Could be explicit about using :all, too
+</span>  <span class='id identifier rubyid_text'>text</span> <span class='label'>range:</span> <span class='symbol'>:all</span><span class='comma'>,</span> 
+       <span class='label'>str:</span> <span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>type</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>x:</span> <span class='int'>40</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>128</span><span class='comma'>,</span> <span class='label'>font:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Arial 18</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> 
+       <span class='label'>width:</span> <span class='int'>100</span><span class='comma'>,</span> <span class='label'>align:</span> <span class='symbol'>:center</span>
+
+  <span class='comment'># Ranges are inclusive, zero-based
+</span>  <span class='id identifier rubyid_text'>text</span> <span class='label'>range:</span> <span class='int'>0</span><span class='op'>..</span><span class='int'>1</span><span class='comma'>,</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Thief and Grifter only!!</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>x:</span> <span class='int'>25</span><span class='comma'>,</span> <span class='label'>y:</span><span class='int'>200</span>
+
+  <span class='comment'># Integers are also allowed
+</span>  <span class='id identifier rubyid_text'>text</span> <span class='label'>range:</span> <span class='int'>0</span><span class='comma'>,</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Thief only!</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>x:</span> <span class='int'>25</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>250</span>
+
+  <span class='comment'># Negatives go from the back of the deck
+</span>  <span class='id identifier rubyid_text'>text</span> <span class='label'>range:</span> <span class='op'>-</span><span class='int'>1</span><span class='comma'>,</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Mastermind only!</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>x:</span> <span class='int'>25</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>250</span>
+  <span class='id identifier rubyid_text'>text</span> <span class='label'>range:</span> <span class='op'>-</span><span class='int'>2</span><span class='op'>..</span><span class='op'>-</span><span class='int'>1</span><span class='comma'>,</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Grifter and Mastermind only!</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>x:</span> <span class='int'>25</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>650</span>
+
+  <span class='comment'># We can use Arrays too!
+</span>  <span class='id identifier rubyid_text'>text</span> <span class='label'>range:</span> <span class='lbracket'>[</span><span class='int'>0</span><span class='comma'>,</span><span class='int'>2</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Thief and Mastermind only!!</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>x:</span> <span class='int'>25</span><span class='comma'>,</span> <span class='label'>y:</span><span class='int'>300</span>
+
+  <span class='comment'># Useful idiom: construct a hash from card names back to its index (ID),
+</span>  <span class='comment'># then use a range. No need to memorize IDs, and you can add cards easily
+</span>  <span class='id identifier rubyid_id'>id</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span> <span class='semicolon'>;</span> <span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>name</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_each_with_index'>each_with_index</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span> <span class='id identifier rubyid_id'>id</span><span class='lbracket'>[</span><span class='id identifier rubyid_name'>name</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_i'>i</span><span class='rbrace'>}</span>
+  <span class='id identifier rubyid_text'>text</span> <span class='label'>range:</span> <span class='id identifier rubyid_id'>id</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Thief</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='op'>..</span><span class='id identifier rubyid_id'>id</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Grifter</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> 
+       <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Thief through Grifter with id lookup!!</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>  
+       <span class='label'>x:</span><span class='int'>25</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>400</span>
+
+  <span class='comment'># Useful idiom: generate arrays from a column called &#39;type&#39;
+</span>  <span class='id identifier rubyid_type'>type</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='semicolon'>;</span> <span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>type</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_each_with_index'>each_with_index</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_t'>t</span><span class='comma'>,</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span> <span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='lbracket'>[</span><span class='id identifier rubyid_t'>t</span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_i'>i</span><span class='rbrace'>}</span>
+  <span class='id identifier rubyid_text'>text</span> <span class='label'>range:</span> <span class='id identifier rubyid_type'>type</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Thinker</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> 
+       <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Only for Thinkers!</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>  
+       <span class='label'>x:</span><span class='int'>25</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>500</span>
+       
+  <span class='id identifier rubyid_save'>save</span> <span class='label'>prefix:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ranges_</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>format:</span> <span class='symbol'>:png</span>
+<span class='kw'>end</span></pre></p>
+
+<p>Many more examples can be found in <code>ranges.rb</code> in the <a
+href="https://github.com/andymeneely/squib/tree/master/samples/">samples</a>
+folder . In particular, take a look at some idioms that uses hashes to
+denote things like card “types”, or future-proofing against creating and
+deleting cards with an ID column.</p>
+
+<h1 id="label-Pixels+and+Other+Units">Pixels and Other Units</h1>
+
+<p>By default, Squib thinks in pixels. This decision was made so that we can
+have pixel-perfect layouts without automatically scaling everything, even
+though working in units is sometimes easier. To convert, we provide the
+<code>Deck#inch</code> method, as shown in</p>
+
+<p><code>samples/units.rb</code> found <a
+href="https://github.com/andymeneely/squib/tree/master/samples/units.rb">here</a></p>
+
+<h1 id="label-Specifying+Colors">Specifying Colors</h1>
+
+<p>Squib uses the <code>rcairo</code> <a
+href="https://github.com/rcairo/rcairo/blob/master/lib/cairo/color.rb">color
+parser</a> to accepts a variety of color specifications, along with over <a
+href="https://github.com/rcairo/rcairo/blob/master/lib/cairo/colors.rb">300
+pre-defined constants</a>. Here are some examples from
+<code>samples/colors.rb</code> found <a
+href="https://github.com/andymeneely/squib/tree/master/samples/colors.rb">here</a></p>
+
+<p><pre class="code ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>squib</span><span class='tstring_end'>&#39;</span></span>
+
+<span class='const'>Squib</span><span class='op'>::</span><span class='const'>Deck</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>width:</span> <span class='int'>825</span><span class='comma'>,</span> <span class='label'>height:</span> <span class='int'>1125</span><span class='comma'>,</span> <span class='label'>cards:</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_background'>background</span> <span class='label'>color:</span> <span class='symbol'>:white</span>
+
+  <span class='id identifier rubyid_y'>y</span> <span class='op'>=</span> <span class='int'>0</span>
+  <span class='id identifier rubyid_text'>text</span> <span class='label'>color:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>#f00</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>3-hex</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>x:</span> <span class='int'>50</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='id identifier rubyid_y'>y</span><span class='op'>+=</span><span class='int'>50</span>
+  <span class='id identifier rubyid_text'>text</span> <span class='label'>color:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>#f00</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>3-hex (alpha)</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>x:</span> <span class='int'>50</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='id identifier rubyid_y'>y</span><span class='op'>+=</span><span class='int'>50</span>
+  <span class='id identifier rubyid_text'>text</span> <span class='label'>color:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>#ff0000</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>6-hex</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>x:</span> <span class='int'>50</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='id identifier rubyid_y'>y</span><span class='op'>+=</span><span class='int'>50</span>
+  <span class='id identifier rubyid_text'>text</span> <span class='label'>color:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>#ff000099</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>8-hex(alpha) *</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>x:</span> <span class='int'>50</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='id identifier rubyid_y'>y</span><span class='op'>+=</span><span class='int'>50</span>
+  <span class='id identifier rubyid_text'>text</span> <span class='label'>color:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>#ffff00000000</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>12-hex</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>x:</span> <span class='int'>50</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='id identifier rubyid_y'>y</span><span class='op'>+=</span><span class='int'>50</span>
+  <span class='id identifier rubyid_text'>text</span> <span class='label'>color:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>#ffff000000009999</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>12-hex (alpha)</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>x:</span> <span class='int'>50</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='id identifier rubyid_y'>y</span><span class='op'>+=</span><span class='int'>50</span>
+  <span class='id identifier rubyid_text'>text</span> <span class='label'>color:</span> <span class='symbol'>:burnt_orange</span><span class='comma'>,</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Symbols of constants too</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>x:</span> <span class='int'>50</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='id identifier rubyid_y'>y</span><span class='op'>+=</span><span class='int'>50</span>
+  <span class='id identifier rubyid_text'>text</span> <span class='label'>color:</span> <span class='lbracket'>[</span><span class='float'>1.0</span><span class='comma'>,</span> <span class='float'>0.0</span><span class='comma'>,</span> <span class='float'>0.0</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Array of percentages</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>x:</span> <span class='int'>50</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='id identifier rubyid_y'>y</span><span class='op'>+=</span><span class='int'>50</span>
+
+  <span class='id identifier rubyid_save_png'>save_png</span> <span class='label'>prefix:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>colors_</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre></p>
+
+<h1 id="label-Specifying+Files">Specifying Files</h1>
+
+<p>All files opened for reading (e.g. for <code>png</code> and
+<code>xlsx</code>) are opened relative to the current directory.</p>
+</div></div>
+
+    <div id="footer">
+  Generated on Mon Jul 28 16:03:59 2014 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.8.7.4 (ruby-2.0.0).
+</div>
+
+  </body>
+</html>
