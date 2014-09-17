@@ -44,12 +44,13 @@ module Squib
     # @example
     #   showcase file: 'showcase_output.png', trim: 78, trim_radius: 32
     #
-    # @option opts range [Enumerable, :all] (:all) the range of cards over which this will be rendered. See {file:README.md#Specifying_Ranges Specifying Ranges}
-    # @option opts trim [Fixnum] (0) the margin around the card to trim before putting into the showcase
-    # @option opts trim_radius [Fixnum] (0) the rounded rectangle radius around the card to trim before putting into the showcase
+    # @option opts [Enumerable, :all] range (:all) the range of cards over which this will be rendered. See {file:README.md#Specifying_Ranges Specifying Ranges}
+    # @option opts [Fixnum] trim (0) the margin around the card to trim before putting into the showcase
+    # @option opts [Fixnum] trim_radius (0) the rounded rectangle radius around the card to trim before putting into the showcase
+    # @option opts [String] dir (_output) the directory for the output to be sent to. Will be created if it doesn't exist.
     def showcase(opts = {})
-      opts = needs(opts,[:range, :trim, :trim_radius, :file_to_save])
-      render_showcase(opts[:range], opts[:trim], opts[:trim_radius], opts[:file_to_save])
+      opts = needs(opts,[:range, :trim, :trim_radius, :creatable_dir, :file_to_save])
+      render_showcase(opts[:range], opts[:trim], opts[:trim_radius], opts[:dir], opts[:file])
     end
 
   end
