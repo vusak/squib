@@ -48,7 +48,7 @@ module Squib
       cards = range.collect { |i| @cards[i] }
 
       cards.each_with_index do |card, i|
-        surface = perspective_reflect(trim(card.cairo_surface), angle, scale)
+        surface = perspective_reflect(trim_rounded(card.cairo_surface), angle, scale)
         out_cc.set_source(surface, 25 + i * (surface.width*offset + 25) ,75)
         out_cc.paint
       end
@@ -56,7 +56,7 @@ module Squib
       out_cc.target.write_to_png("#{dir}/#{file_to_save}.png")
     end
 
-    def trim(surface)
+    def trim_rounded(surface)
       margin = 39
       radius = 32
       trim_cc = Cairo::Context.new(Cairo::ImageSurface.new(surface.width-2.0*margin, surface.height-2.0*margin))
