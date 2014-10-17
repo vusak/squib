@@ -63,7 +63,7 @@
 
     <div id="content"><div id='filecontents'><h1>Squib <a href="https://rubygems.org/gems/squib"><img src="https://badge.fury.io/rb/squib.svg" alt="Gem Version"></a> <a href="https://travis-ci.org/andymeneely/squib"><img src="https://secure.travis-ci.org/andymeneely/squib.svg?branch=master" alt="Build Status"></a> <a href="https://gemnasium.com/andymeneely/squib"><img src="https://gemnasium.com/andymeneely/squib.svg" alt="Dependency Status"></a> <a href="https://coveralls.io/r/andymeneely/squib"><img src="https://img.shields.io/coveralls/andymeneely/squib.svg" alt="Coverage Status"></a> <a href="http://inch-ci.org/github/andymeneely/squib"><img src="http://inch-ci.org/github/andymeneely/squib.png?branch=master" alt="Inline docs"></a></h1>
 
-<p>Squib is a Ruby <a href="http://en.wikipedia.org/wiki/Domain-specific_language">DSL</a> for prototyping card and board games. With Squib, you just write a little bit of Ruby and you can compile your game&#39;s data and images into a series of images raedy for print-and-play or even print-on-demand. Squib is very data-driven - think of it like <a href="http://www.nand.it/nandeck/">nanDeck</a> done &quot;the Ruby way&quot;. Squib supports:</p>
+<p>Squib is a Ruby <a href="http://en.wikipedia.org/wiki/Domain-specific_language">DSL</a> for prototyping card and board games. With Squib, you just write a little bit of Ruby and you can compile your game&#39;s data and images into a series of images ready for print-and-play or even print-on-demand. Squib is very data-driven - think of it like <a href="http://www.nand.it/nandeck/">nanDeck</a> done &quot;the Ruby way&quot;. Squib supports:</p>
 
 <ul>
 <li>A concise set of rules for laying out your cards</li>
@@ -342,13 +342,24 @@ $ yard server --gems
 
 <p>Since Layouts are in Yaml, we have the full power of that data format. One particular feature you should look into are <a href="http://www.yaml.org/YAML_for_ruby.html#merge_key">&quot;merge keys&quot;</a>. With merge keys, you can define base styles in one entry, then include those keys elsewhere. For example:</p>
 
-<pre class="code sh"><code class="sh">icon: &amp;icon
+<pre class="code yaml"><code class="yaml">icon: &amp;icon
   width: 50
   height: 50
 icon_left
   &lt;&lt;: *icon
   x: 100
 # The layout for icon_left will have the width/height from icon!
+</code></pre>
+
+<p>Also!! Squib provides a more feature-rich way of merging: the <code>extends</code> key in layouts. When defining an extends key, we can merge in another key and modify data coming in if we want to. This allows us to do things like set an inner object that changes its location based on its parent. </p>
+
+<pre class="code yaml"><code class="yaml">yin: 
+  x: 100
+  y: 100
+  radius: 100
+yang: 
+  extends: yin
+  x: += 50
 </code></pre>
 
 <p>See the <code>use_layout</code> sample found <a href="https://github.com/andymeneely/squib/tree/master/samples/">here</a></p>
@@ -368,10 +379,15 @@ icon_left
   <span class='comment'># Lots of commands have the :layout option
 </span>  <span class='id identifier rubyid_text'>text</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>The Title</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>layout:</span> <span class='symbol'>:title</span>
 
-  <span class='comment'># Layouts also support an &quot;extends&quot; attribute to reuse settings
+  <span class='comment'># Layouts also support YAML merge keys toreuse settings
 </span>  <span class='id identifier rubyid_svg'>svg</span> <span class='label'>file:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>spanner.svg</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>layout:</span> <span class='symbol'>:icon_left</span>
   <span class='id identifier rubyid_png'>png</span> <span class='label'>file:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>shiny-purse.png</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>layout:</span> <span class='symbol'>:icon_middle</span>
   <span class='id identifier rubyid_svg'>svg</span> <span class='label'>file:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>spanner.svg</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>layout:</span> <span class='symbol'>:icon_right</span>
+
+  <span class='comment'># Squib has its own, richer merge key: &quot;extends&quot;
+</span>  <span class='id identifier rubyid_rect'>rect</span> <span class='label'>fill_color:</span> <span class='symbol'>:black</span><span class='comma'>,</span> <span class='label'>layout:</span> <span class='symbol'>:bonus</span>
+  <span class='id identifier rubyid_rect'>rect</span> <span class='label'>fill_color:</span> <span class='symbol'>:white</span><span class='comma'>,</span> <span class='label'>layout:</span> <span class='symbol'>:bonus_inner</span>
+  <span class='id identifier rubyid_text'>text</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Extends!</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>    <span class='label'>layout:</span> <span class='symbol'>:bonus_text</span>
 
   <span class='comment'># Strings can also be used to specify a layout (e.g. from a data file)
 </span>  <span class='id identifier rubyid_text'>text</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>subtitle</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>layout:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>subtitle</span><span class='tstring_end'>&#39;</span></span>
@@ -379,7 +395,7 @@ icon_left
   <span class='comment'># For debugging purposes, you can always print out the loaded layout
 </span>  <span class='comment'>#require &#39;pp&#39;
 </span>  <span class='comment'>#pp @layout
-</span>
+</span>  
   <span class='id identifier rubyid_save_png'>save_png</span> <span class='label'>prefix:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>layout_</span><span class='tstring_end'>&#39;</span></span>
 <span class='kw'>end</span></pre></p>
 
@@ -490,7 +506,7 @@ icon_left
 </div></div>
 
     <div id="footer">
-  Generated on Mon Sep 15 09:19:21 2014 by
+  Generated on Fri Oct 17 08:48:41 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.4 (ruby-2.0.0).
 </div>

@@ -651,24 +651,7 @@ If your game requires multiple different sizes or orientations, I recommend usin
       
       
         &mdash;
-        <div class='inline'><p>the Yaml file used for global settings of this deck</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>layout:</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-        <em class="default">(defaults to: <tt>nil</tt>)</em>
-      
-      
-        &mdash;
-        <div class='inline'><p>the Yaml file used for layouts.</p>
+        <div class='inline'><p>the file used for global settings of this deck</p>
 </div>
       
     </li>
@@ -697,6 +680,7 @@ If your game requires multiple different sizes or orientations, I recommend usin
       <pre class="lines">
 
 
+55
 56
 57
 58
@@ -714,7 +698,7 @@ If your game requires multiple different sizes or orientations, I recommend usin
 70</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/squib/deck.rb', line 56</span>
+      <pre class="code"><span class="info file"># File 'lib/squib/deck.rb', line 55</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>width:</span> <span class='int'>825</span><span class='comma'>,</span> <span class='label'>height:</span> <span class='int'>1125</span><span class='comma'>,</span> <span class='label'>cards:</span> <span class='int'>1</span><span class='comma'>,</span> <span class='label'>dpi:</span> <span class='int'>300</span><span class='comma'>,</span> <span class='label'>config:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>config.yml</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>layout:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='ivar'>@width</span><span class='op'>=</span><span class='id identifier rubyid_width'>width</span><span class='semicolon'>;</span> <span class='ivar'>@height</span><span class='op'>=</span><span class='id identifier rubyid_height'>height</span>
@@ -724,9 +708,10 @@ If your game requires multiple different sizes or orientations, I recommend usin
   <span class='ivar'>@custom_colors</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='ivar'>@img_dir</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>.</span><span class='tstring_end'>&#39;</span></span>
   <span class='ivar'>@progress_bar</span> <span class='op'>=</span> <span class='const'>Squib</span><span class='op'>::</span><span class='const'>Progress</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>false</span><span class='rparen'>)</span>
+  <span class='ivar'>@text_hint</span> <span class='op'>=</span> <span class='symbol'>:off</span>
   <span class='id identifier rubyid_cards'>cards</span><span class='period'>.</span><span class='id identifier rubyid_times'>times</span><span class='lbrace'>{</span> <span class='ivar'>@cards</span> <span class='op'>&lt;&lt;</span> <span class='const'>Squib</span><span class='op'>::</span><span class='const'>Card</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_width'>width</span><span class='comma'>,</span> <span class='id identifier rubyid_height'>height</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
   <span class='id identifier rubyid_load_config'>load_config</span><span class='lparen'>(</span><span class='id identifier rubyid_config'>config</span><span class='rparen'>)</span>
-  <span class='ivar'>@layout</span> <span class='op'>=</span> <span class='const'>YAML</span><span class='period'>.</span><span class='id identifier rubyid_load_file'>load_file</span><span class='lparen'>(</span><span class='id identifier rubyid_layout'>layout</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_layout'>layout</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+  <span class='id identifier rubyid_load_layout'>load_layout</span><span class='lparen'>(</span><span class='id identifier rubyid_layout'>layout</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
     <span class='id identifier rubyid_instance_eval'>instance_eval</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
@@ -1111,7 +1096,7 @@ Setting a hint to nil or to :off will disable hints. @see samples/text.rb</p>
     
       
       <pre class="example code"><code><span class='id identifier rubyid_hint'>hint</span> <span class='label'>text:</span> <span class='symbol'>:cyan</span>
-<span class='id identifier rubyid_hint'>hint</span> <span class='label'>text:</span> <span class='symbol'>:cyan</span><span class='comma'>,</span> <span class='label'>progress_bar:</span> <span class='kw'>true</span></code></pre>
+<span class='id identifier rubyid_hint'>hint</span> <span class='label'>text:</span> <span class='symbol'>:cyan</span></code></pre>
     
   </div>
 <p class="tag_title">Parameters:</p>
@@ -1128,21 +1113,6 @@ Setting a hint to nil or to :off will disable hints. @see samples/text.rb</p>
       
         &mdash;
         <div class='inline'><p>the color of the text hint. To turn off use :off. @see README.md</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>progress_bar</span>
-      
-      
-        <span class='type'>(<tt>Boolean</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'><p>enable progress bars on long-running operations</p>
 </div>
       
     </li>
@@ -1173,12 +1143,12 @@ Setting a hint to nil or to :off will disable hints. @see samples/text.rb</p>
       <pre class="lines">
 
 
+15
 16
-17
-18</pre>
+17</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/squib/api/settings.rb', line 16</span>
+      <pre class="code"><span class="info file"># File 'lib/squib/api/settings.rb', line 15</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_hint'>hint</span><span class='lparen'>(</span><span class='label'>text:</span> <span class='symbol'>:off</span><span class='rparen'>)</span>
   <span class='ivar'>@text_hint</span> <span class='op'>=</span> <span class='id identifier rubyid_text'>text</span>
@@ -2673,14 +2643,14 @@ Note: scaling not currently supported for PNGs.</p>
       <pre class="lines">
 
 
+30
 31
 32
 33
-34
-35</pre>
+34</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/squib/api/settings.rb', line 31</span>
+      <pre class="code"><span class="info file"># File 'lib/squib/api/settings.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_set'>set</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='id identifier rubyid_needs'>needs</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='symbol'>:font</span><span class='comma'>,</span> <span class='symbol'>:img_dir</span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -3085,6 +3055,21 @@ See the <a href="../file.text-options.html" title="samples/text.rb">samples/text
         </li>
       
         <li>
+          <span class="name">font_size</span>
+          <span class="type">(<tt>Integer</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>nil</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>an override of font string description, for scaling the font according to the size of the string</p>
+</div>
+          
+        </li>
+      
+        <li>
           <span class="name">x</span>
           <span class="type">(<tt>Integer</tt>)</span>
           <span class="default">
@@ -3203,6 +3188,21 @@ Options are <code>:none, :word, :char, :word_char</code>. Also: <code>true</code
         </li>
       
         <li>
+          <span class="name">spacing</span>
+          <span class="type">(<tt>Integer</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>0</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Adjust the spacing when the text is multiple lines. No effect when the text does not wrap.</p>
+</div>
+          
+        </li>
+      
+        <li>
           <span class="name">align</span>
           <span class="type">(<tt>:left</tt>, <tt>right</tt>, <tt>:center</tt>)</span>
           <span class="default">
@@ -3242,7 +3242,7 @@ Options are <code>:none, :word, :char, :word_char</code>. Also: <code>true</code
             
           </span>
           
-            &mdash; <div class='inline'><p>When width and height are set, align text vertically according to the logical extents of the text.</p>
+            &mdash; <div class='inline'><p>When width and height are set, align text vertically according to the ink extents of the text.</p>
 </div>
           
         </li>
@@ -3258,6 +3258,21 @@ Options are <code>:none, :word, :char, :word_char</code>. Also: <code>true</code
           </span>
           
             &mdash; <div class='inline'><p>When width and height are set, determines the behavior of overflowing text. Also: <code>true</code> maps to <code>:end</code> and <code>false</code> maps to <code>:none</code>. Default <code>:end</code></p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">angle</span>
+          <span class="type">(<tt>FixNum</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>0</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Rotation of the text in radians.</p>
 </div>
           
         </li>
@@ -3304,9 +3319,6 @@ Options are <code>:none, :word, :char, :word_char</code>. Also: <code>true</code
       <pre class="lines">
 
 
-38
-39
-40
 41
 42
 43
@@ -3314,20 +3326,23 @@ Options are <code>:none, :word, :char, :word_char</code>. Also: <code>true</code
 45
 46
 47
-48</pre>
+48
+49
+50
+51</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/squib/api/text.rb', line 38</span>
+      <pre class="code"><span class="info file"># File 'lib/squib/api/text.rb', line 41</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_text'>text</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='id identifier rubyid_needs'>needs</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='symbol'>:range</span><span class='comma'>,</span> <span class='symbol'>:str</span><span class='comma'>,</span> <span class='symbol'>:font</span><span class='comma'>,</span> <span class='symbol'>:x</span><span class='comma'>,</span> <span class='symbol'>:y</span><span class='comma'>,</span> <span class='symbol'>:width</span><span class='comma'>,</span> <span class='symbol'>:height</span><span class='comma'>,</span> <span class='symbol'>:color</span><span class='comma'>,</span> <span class='symbol'>:wrap</span><span class='comma'>,</span>
-                      <span class='symbol'>:align</span><span class='comma'>,</span> <span class='symbol'>:justify</span><span class='comma'>,</span> <span class='symbol'>:spacing</span><span class='comma'>,</span> <span class='symbol'>:valign</span><span class='comma'>,</span> <span class='symbol'>:markup</span><span class='comma'>,</span> <span class='symbol'>:ellipsize</span><span class='comma'>,</span> <span class='symbol'>:hint</span><span class='comma'>,</span> <span class='symbol'>:layout</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='id identifier rubyid_needs'>needs</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='symbol'>:range</span><span class='comma'>,</span> <span class='symbol'>:str</span><span class='comma'>,</span> <span class='symbol'>:font</span><span class='comma'>,</span> <span class='symbol'>:font_size</span><span class='comma'>,</span> <span class='symbol'>:x</span><span class='comma'>,</span> <span class='symbol'>:y</span><span class='comma'>,</span> <span class='symbol'>:width</span><span class='comma'>,</span> <span class='symbol'>:height</span><span class='comma'>,</span> <span class='symbol'>:color</span><span class='comma'>,</span> <span class='symbol'>:wrap</span><span class='comma'>,</span>
+                      <span class='symbol'>:align</span><span class='comma'>,</span> <span class='symbol'>:justify</span><span class='comma'>,</span> <span class='symbol'>:spacing</span><span class='comma'>,</span> <span class='symbol'>:valign</span><span class='comma'>,</span> <span class='symbol'>:markup</span><span class='comma'>,</span> <span class='symbol'>:ellipsize</span><span class='comma'>,</span> <span class='symbol'>:hint</span><span class='comma'>,</span> <span class='symbol'>:layout</span><span class='comma'>,</span> <span class='symbol'>:angle</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:range</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
-    <span class='ivar'>@cards</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_text'>text</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:str</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:font</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:color</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span>
+    <span class='ivar'>@cards</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_text'>text</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:str</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:font</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:font_size</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:color</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span>
                    <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:x</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:y</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:width</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:height</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span>
                    <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:markup</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:justify</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:wrap</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> 
                    <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:ellipsize</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:spacing</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:align</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> 
-                   <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:valign</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:hint</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+                   <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:valign</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:hint</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:angle</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -3643,7 +3658,7 @@ Options are <code>:none, :word, :char, :word_char</code>. Also: <code>true</code
 </div>
 
     <div id="footer">
-  Generated on Mon Sep 15 09:19:22 2014 by
+  Generated on Fri Oct 17 08:48:42 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.4 (ruby-2.0.0).
 </div>

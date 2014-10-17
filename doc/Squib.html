@@ -117,7 +117,10 @@
           <div class="docstring">
   <div class="discussion">
     <p>The next version to be released.
-Uses semantic versioning</p>
+Uses semantic versioning: <a href="http://semver.org/">http://semver.org/</a></p>
+
+<p>Most of the time this is in the alpha of the next release. 
+e.g. v0.0.5a is on its way to becoming v0.0.5</p>
 
 
   </div>
@@ -127,7 +130,7 @@ Uses semantic versioning</p>
 
 </div>
         </dt>
-        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>0.0.4</span><span class='tstring_end'>&quot;</span></span></pre></dd>
+        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>0.0.5a</span><span class='tstring_end'>&quot;</span></span></pre></dd>
       
         <dt id="SYSTEM_DEFAULTS-constant" class="">SYSTEM_DEFAULTS =
           <div class="docstring">
@@ -145,6 +148,7 @@ Uses semantic versioning</p>
         <dd><pre class="code"><span class='lbrace'>{</span> 
   <span class='symbol'>:align</span> <span class='op'>=&gt;</span> <span class='symbol'>:left</span><span class='comma'>,</span>
   <span class='symbol'>:alpha</span> <span class='op'>=&gt;</span> <span class='float'>1.0</span><span class='comma'>,</span>
+  <span class='symbol'>:angle</span> <span class='op'>=&gt;</span> <span class='int'>0</span><span class='comma'>,</span>
   <span class='symbol'>:blend</span> <span class='op'>=&gt;</span> <span class='symbol'>:none</span><span class='comma'>,</span>
   <span class='symbol'>:color</span> <span class='op'>=&gt;</span> <span class='symbol'>:black</span><span class='comma'>,</span>
   <span class='symbol'>:default_font</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Arial 36</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
@@ -153,6 +157,7 @@ Uses semantic versioning</p>
   <span class='symbol'>:fill_color</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>#0000</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
   <span class='symbol'>:force_id</span> <span class='op'>=&gt;</span> <span class='kw'>false</span><span class='comma'>,</span>
   <span class='symbol'>:font</span> <span class='op'>=&gt;</span> <span class='symbol'>:use_set</span><span class='comma'>,</span>
+  <span class='symbol'>:font_size</span> <span class='op'>=&gt;</span> <span class='kw'>nil</span><span class='comma'>,</span>
   <span class='symbol'>:format</span> <span class='op'>=&gt;</span> <span class='symbol'>:png</span><span class='comma'>,</span>
   <span class='symbol'>:gap</span> <span class='op'>=&gt;</span> <span class='int'>0</span><span class='comma'>,</span>
   <span class='symbol'>:height</span> <span class='op'>=&gt;</span> <span class='symbol'>:native</span><span class='comma'>,</span>
@@ -526,7 +531,7 @@ See the example <code>samples/excel.rb</code> in the <a href="https://github.com
 </div>
 
     <div id="footer">
-  Generated on Mon Sep 15 09:19:21 2014 by
+  Generated on Fri Oct 17 08:48:41 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.4 (ruby-2.0.0).
 </div>
