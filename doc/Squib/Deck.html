@@ -147,7 +147,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'><p>Fills the background with the given color  Options support Arrays, see <a href="../index.html#Arrays_and_Singleton_Expansion" title="Arrays and Singleon Expansion">Arrays and Singleon Expansion</a>.</p>
+    <span class="summary_desc"><div class='inline'><p>Fills the background with the given color Options support Arrays, see <a href="../index.html#Arrays_and_Singleton_Expansion" title="Arrays and Singleon Expansion">Arrays and Singleon Expansion</a>.</p>
 </div></span>
   
 </li>
@@ -265,29 +265,6 @@
 
   
     <span class="summary_desc"><div class='inline'><p>Draw a line using the given coordinates.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#location-instance_method" title="#location (instance method)">- (Object) <strong>location</strong>(opts) </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'><p>Shows a descriptive place of the location.</p>
 </div></span>
   
 </li>
@@ -549,8 +526,8 @@
   <div class="discussion">
     <p>Squib&#39;s constructor that sets the immutable properties.</p>
 
-<p>This is the starting point for Squib. In providing a block to the constructor, you have access to all of Deck&#39;s instance methods. 
-The documented methods in Deck are the ones intended for use by most users. 
+<p>This is the starting point for Squib. In providing a block to the constructor, you have access to all of Deck&#39;s instance methods.
+The documented methods in Deck are the ones intended for use by most users.
 If your game requires multiple different sizes or orientations, I recommend using multiple <code>Squib::Deck</code>s in your <code>deck.rb</code>. You can modify the internals of <code>Squib::Deck</code> (e.g. <code>@cards</code>), but that&#39;s not recommended.</p>
 
 
@@ -562,10 +539,10 @@ If your game requires multiple different sizes or orientations, I recommend usin
     <p class="tag_title">Examples:</p>
     
       
-      <pre class="example code"><code><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>squib</span><span class='tstring_end'>&#39;</span></span>
-<span class='const'>Squib</span><span class='op'>::</span><span class='const'>Deck</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='kw'>do</span>
-  <span class='id identifier rubyid_text'>text</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Hello, World!</span><span class='tstring_end'>&#39;</span></span>
-<span class='kw'>end</span></code></pre>
+      <pre class="example code"><code>require &#39;squib&#39;
+Squib::Deck.new do
+  text str: &#39;Hello, World!&quot;
+end</code></pre>
     
   </div>
 <p class="tag_title">Parameters:</p>
@@ -573,13 +550,11 @@ If your game requires multiple different sizes or orientations, I recommend usin
   
     <li>
       
-        <span class='name'>width:</span>
+        <span class='name'>width</span>
       
       
         <span class='type'>(<tt>Integer</tt>)</span>
       
-      
-        <em class="default">(defaults to: <tt>825</tt>)</em>
       
       
         &mdash;
@@ -590,13 +565,11 @@ If your game requires multiple different sizes or orientations, I recommend usin
   
     <li>
       
-        <span class='name'>height:</span>
+        <span class='name'>height</span>
       
       
         <span class='type'>(<tt>Integer</tt>)</span>
       
-      
-        <em class="default">(defaults to: <tt>1125</tt>)</em>
       
       
         &mdash;
@@ -607,13 +580,11 @@ If your game requires multiple different sizes or orientations, I recommend usin
   
     <li>
       
-        <span class='name'>cards:</span>
+        <span class='name'>cards</span>
       
       
         <span class='type'>(<tt>Integer</tt>)</span>
       
-      
-        <em class="default">(defaults to: <tt>1</tt>)</em>
       
       
         &mdash;
@@ -624,13 +595,11 @@ If your game requires multiple different sizes or orientations, I recommend usin
   
     <li>
       
-        <span class='name'>dpi:</span>
+        <span class='name'>dpi</span>
       
       
         <span class='type'>(<tt>Integer</tt>)</span>
       
-      
-        <em class="default">(defaults to: <tt>300</tt>)</em>
       
       
         &mdash;
@@ -641,13 +610,11 @@ If your game requires multiple different sizes or orientations, I recommend usin
   
     <li>
       
-        <span class='name'>config:</span>
+        <span class='name'>config</span>
       
       
         <span class='type'>(<tt>String</tt>)</span>
       
-      
-        <em class="default">(defaults to: <tt>&#39;config.yml&#39;</tt>)</em>
       
       
         &mdash;
@@ -739,7 +706,7 @@ If your game requires multiple different sizes or orientations, I recommend usin
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Fills the background with the given color 
+    <p>Fills the background with the given color
 Options support Arrays, see <a href="../index.html#Arrays_and_Singleton_Expansion" title="Arrays and Singleon Expansion">Arrays and Singleon Expansion</a></p>
 
 
@@ -1061,7 +1028,7 @@ Options support Arrays, see <a href="../index.html#Arrays_and_Singleton_Expansio
   <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='id identifier rubyid_needs'>needs</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='symbol'>:range</span><span class='comma'>,</span> <span class='symbol'>:x</span><span class='comma'>,</span> <span class='symbol'>:y</span><span class='comma'>,</span> <span class='symbol'>:circle_radius</span><span class='comma'>,</span> <span class='symbol'>:layout</span><span class='comma'>,</span>
                       <span class='symbol'>:fill_color</span><span class='comma'>,</span> <span class='symbol'>:stroke_color</span><span class='comma'>,</span> <span class='symbol'>:stroke_width</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:range</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
-    <span class='ivar'>@cards</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_circle'>circle</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:x</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:y</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:radius</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> 
+    <span class='ivar'>@cards</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_circle'>circle</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:x</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:y</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:radius</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span>
       <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:fill_color</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:stroke_color</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:stroke_width</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -1081,7 +1048,7 @@ Options support Arrays, see <a href="../index.html#Arrays_and_Singleton_Expansio
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Toggle hints globally. </p>
+    <p>Toggle hints globally.</p>
 
 <p>Text hints are rectangles around where the text will be laid out. They are intended to be temporary.
 Setting a hint to nil or to :off will disable hints. @see samples/text.rb</p>
@@ -1188,7 +1155,7 @@ Setting a hint to nil or to :off will disable hints. @see samples/text.rb</p>
   
     <li>
       
-        <span class='name'>n,</span>
+        <span class='name'>n</span>
       
       
         <span class='type'>(<tt>Decimal</tt>)</span>
@@ -1196,7 +1163,7 @@ Setting a hint to nil or to :off will disable hints. @see samples/text.rb</p>
       
       
         &mdash;
-        <div class='inline'><p>the number of inches</p>
+        <div class='inline'><p>, the number of inches</p>
 </div>
       
     </li>
@@ -1453,46 +1420,6 @@ Setting a hint to nil or to :off will disable hints. @see samples/text.rb</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="location-instance_method">
-  
-    - (<tt>Object</tt>) <strong>location</strong>(opts) 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    <p>Shows a descriptive place of the location</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-87
-88
-89</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/squib/deck.rb', line 87</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_location'>location</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:layout</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> @ </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:x</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>,</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:y</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
   <h3 class="signature " id="png-instance_method">
   
     - (<tt>nil</tt>) <strong>png</strong>(opts = {}) 
@@ -1653,6 +1580,21 @@ Note: scaling not currently supported for PNGs.</p>
           
         </li>
       
+        <li>
+          <span class="name">angle</span>
+          <span class="type">(<tt>FixNum</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>0</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Rotation of the in radians. Note that this rotates around the upper-left corner, making the placement of x-y coordinates slightly tricky. Supports Arrays, see <a href="../index.html#Arrays_and_Singleton_Expansion" title="Arrays and Singleon Expansion">Arrays and Singleon Expansion</a></p>
+</div>
+          
+        </li>
+      
     </ul>
   
 
@@ -1680,7 +1622,6 @@ Note: scaling not currently supported for PNGs.</p>
       <pre class="lines">
 
 
-20
 21
 22
 23
@@ -1690,17 +1631,20 @@ Note: scaling not currently supported for PNGs.</p>
 27
 28
 29
-30</pre>
+30
+31
+32</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/squib/api/image.rb', line 20</span>
+      <pre class="code"><span class="info file"># File 'lib/squib/api/image.rb', line 21</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_png'>png</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='id identifier rubyid_needs'>needs</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='symbol'>:range</span><span class='comma'>,</span> <span class='symbol'>:files</span><span class='comma'>,</span> <span class='symbol'>:x</span><span class='comma'>,</span> <span class='symbol'>:y</span><span class='comma'>,</span> <span class='symbol'>:alpha</span><span class='comma'>,</span> <span class='symbol'>:layout</span><span class='comma'>,</span> <span class='symbol'>:blend</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='id identifier rubyid_needs'>needs</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='symbol'>:range</span><span class='comma'>,</span> <span class='symbol'>:files</span><span class='comma'>,</span> <span class='symbol'>:x</span><span class='comma'>,</span> <span class='symbol'>:y</span><span class='comma'>,</span> <span class='symbol'>:alpha</span><span class='comma'>,</span> <span class='symbol'>:layout</span><span class='comma'>,</span> <span class='symbol'>:blend</span><span class='comma'>,</span> <span class='symbol'>:angle</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='const'>Dir</span><span class='period'>.</span><span class='id identifier rubyid_chdir'>chdir</span><span class='lparen'>(</span><span class='ivar'>@img_dir</span><span class='rparen'>)</span> <span class='kw'>do</span>
-    <span class='ivar'>@progress_bar</span><span class='period'>.</span><span class='id identifier rubyid_start'>start</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Loading PNG(s)</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:range</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_bar'>bar</span><span class='op'>|</span>
-      <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:range</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span> 
-        <span class='ivar'>@cards</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_png'>png</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:file</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:x</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:y</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:alpha</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:blend</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='rparen'>)</span> 
+    <span class='ivar'>@progress_bar</span><span class='period'>.</span><span class='id identifier rubyid_start'>start</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Loading PNG(s)</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:range</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_bar'>bar</span><span class='op'>|</span>
+      <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:range</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
+        <span class='ivar'>@cards</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_png'>png</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:file</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:x</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:y</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span>
+                      <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:alpha</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:blend</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:angle</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='rparen'>)</span>
         <span class='id identifier rubyid_bar'>bar</span><span class='period'>.</span><span class='id identifier rubyid_increment'>increment</span>
       <span class='kw'>end</span>
     <span class='kw'>end</span>
@@ -1985,9 +1929,9 @@ Note: scaling not currently supported for PNGs.</p>
   <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='id identifier rubyid_needs'>needs</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='symbol'>:range</span><span class='comma'>,</span> <span class='symbol'>:x</span><span class='comma'>,</span> <span class='symbol'>:y</span><span class='comma'>,</span> <span class='symbol'>:width</span><span class='comma'>,</span> <span class='symbol'>:height</span><span class='comma'>,</span> <span class='symbol'>:rect_radius</span><span class='comma'>,</span> <span class='symbol'>:x_radius</span><span class='comma'>,</span> <span class='symbol'>:y_radius</span><span class='comma'>,</span>
                       <span class='symbol'>:fill_color</span><span class='comma'>,</span> <span class='symbol'>:stroke_color</span><span class='comma'>,</span> <span class='symbol'>:stroke_width</span><span class='comma'>,</span> <span class='symbol'>:layout</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:range</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
-    <span class='ivar'>@cards</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_rect'>rect</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:x</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:y</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:width</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:height</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> 
-                   <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:x_radius</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:y_radius</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> 
-                   <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:fill_color</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:stroke_color</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> 
+    <span class='ivar'>@cards</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_rect'>rect</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:x</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:y</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:width</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:height</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span>
+                   <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:x_radius</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:y_radius</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span>
+                   <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:fill_color</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:stroke_color</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span>
                    <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:stroke_width</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -2335,20 +2279,23 @@ Note: scaling not currently supported for PNGs.</p>
 36
 37
 38
-39</pre>
+39
+40
+41</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/squib/graphics/save_doc.rb', line 16</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_save_pdf'>save_pdf</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_p'>p</span> <span class='op'>=</span> <span class='id identifier rubyid_needs'>needs</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='symbol'>:file_to_save</span><span class='comma'>,</span> <span class='symbol'>:creatable_dir</span><span class='comma'>,</span> <span class='symbol'>:margin</span><span class='comma'>,</span> <span class='symbol'>:gap</span><span class='comma'>,</span> <span class='symbol'>:trim</span><span class='rbracket'>]</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_width'>width</span> <span class='op'>=</span> <span class='int'>11</span> <span class='op'>*</span> <span class='ivar'>@dpi</span> <span class='semicolon'>;</span> <span class='id identifier rubyid_height'>height</span> <span class='op'>=</span> <span class='float'>8.5</span> <span class='op'>*</span> <span class='ivar'>@dpi</span> <span class='comment'>#TODO: allow this to be specified too
+  <span class='id identifier rubyid_p'>p</span> <span class='op'>=</span> <span class='id identifier rubyid_needs'>needs</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='symbol'>:range</span><span class='comma'>,</span> <span class='symbol'>:file_to_save</span><span class='comma'>,</span> <span class='symbol'>:creatable_dir</span><span class='comma'>,</span> <span class='symbol'>:margin</span><span class='comma'>,</span> <span class='symbol'>:gap</span><span class='comma'>,</span> <span class='symbol'>:trim</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_width'>width</span>  <span class='op'>=</span> <span class='int'>11</span>  <span class='op'>*</span> <span class='ivar'>@dpi</span>
+  <span class='id identifier rubyid_height'>height</span> <span class='op'>=</span> <span class='float'>8.5</span> <span class='op'>*</span> <span class='ivar'>@dpi</span> <span class='comment'>#TODO: allow this to be specified too
 </span>  <span class='id identifier rubyid_cc'>cc</span> <span class='op'>=</span> <span class='const'>Cairo</span><span class='op'>::</span><span class='const'>Context</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'>Cairo</span><span class='op'>::</span><span class='const'>PDFSurface</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:dir</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:file</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_width'>width</span><span class='comma'>,</span> <span class='id identifier rubyid_height'>height</span><span class='rparen'>)</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_x'>x</span> <span class='op'>=</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:margin</span><span class='rbracket'>]</span> <span class='semicolon'>;</span> <span class='id identifier rubyid_y'>y</span> <span class='op'>=</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:margin</span><span class='rbracket'>]</span>
-
+  <span class='id identifier rubyid_x'>x</span> <span class='op'>=</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:margin</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_y'>y</span> <span class='op'>=</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:margin</span><span class='rbracket'>]</span>
   <span class='ivar'>@progress_bar</span><span class='period'>.</span><span class='id identifier rubyid_start'>start</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Saving PDF to </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:dir</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:file</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:range</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_bar'>bar</span><span class='op'>|</span>
-    <span class='ivar'>@cards</span><span class='period'>.</span><span class='id identifier rubyid_each_with_index'>each_with_index</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_card'>card</span><span class='comma'>,</span> <span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
-      <span class='id identifier rubyid_surface'>surface</span> <span class='op'>=</span> <span class='id identifier rubyid_trim'>trim</span><span class='lparen'>(</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_cairo_surface'>cairo_surface</span><span class='comma'>,</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:trim</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='ivar'>@width</span><span class='comma'>,</span> <span class='ivar'>@height</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:range</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
+      <span class='id identifier rubyid_surface'>surface</span> <span class='op'>=</span> <span class='id identifier rubyid_trim'>trim</span><span class='lparen'>(</span><span class='ivar'>@cards</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_cairo_surface'>cairo_surface</span><span class='comma'>,</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:trim</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='ivar'>@width</span><span class='comma'>,</span> <span class='ivar'>@height</span><span class='rparen'>)</span>
       <span class='id identifier rubyid_cc'>cc</span><span class='period'>.</span><span class='id identifier rubyid_set_source'>set_source</span><span class='lparen'>(</span><span class='id identifier rubyid_surface'>surface</span><span class='comma'>,</span> <span class='id identifier rubyid_x'>x</span><span class='comma'>,</span> <span class='id identifier rubyid_y'>y</span><span class='rparen'>)</span>
       <span class='id identifier rubyid_cc'>cc</span><span class='period'>.</span><span class='id identifier rubyid_paint'>paint</span>
       <span class='id identifier rubyid_bar'>bar</span><span class='period'>.</span><span class='id identifier rubyid_increment'>increment</span>
@@ -2357,12 +2304,13 @@ Note: scaling not currently supported for PNGs.</p>
         <span class='id identifier rubyid_x'>x</span> <span class='op'>=</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:margin</span><span class='rbracket'>]</span>
         <span class='id identifier rubyid_y'>y</span> <span class='op'>+=</span> <span class='id identifier rubyid_surface'>surface</span><span class='period'>.</span><span class='id identifier rubyid_height'>height</span> <span class='op'>+</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:gap</span><span class='rbracket'>]</span>
         <span class='kw'>if</span> <span class='id identifier rubyid_y'>y</span> <span class='op'>&gt;</span> <span class='lparen'>(</span><span class='id identifier rubyid_height'>height</span> <span class='op'>-</span> <span class='id identifier rubyid_surface'>surface</span><span class='period'>.</span><span class='id identifier rubyid_height'>height</span> <span class='op'>-</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:margin</span><span class='rbracket'>]</span><span class='rparen'>)</span>
-          <span class='id identifier rubyid_x'>x</span> <span class='op'>=</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:margin</span><span class='rbracket'>]</span> <span class='semicolon'>;</span> <span class='id identifier rubyid_y'>y</span> <span class='op'>=</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:margin</span><span class='rbracket'>]</span>
+          <span class='id identifier rubyid_x'>x</span> <span class='op'>=</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:margin</span><span class='rbracket'>]</span>
+          <span class='id identifier rubyid_y'>y</span> <span class='op'>=</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:margin</span><span class='rbracket'>]</span>
           <span class='id identifier rubyid_cc'>cc</span><span class='period'>.</span><span class='id identifier rubyid_show_page'>show_page</span> <span class='comment'>#next page
 </span>        <span class='kw'>end</span>
       <span class='kw'>end</span>
     <span class='kw'>end</span>
-<span class='kw'>end</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2525,7 +2473,7 @@ Note: scaling not currently supported for PNGs.</p>
 <span class='kw'>def</span> <span class='id identifier rubyid_save_png'>save_png</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='id identifier rubyid_needs'>needs</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span><span class='lbracket'>[</span><span class='symbol'>:range</span><span class='comma'>,</span> <span class='symbol'>:creatable_dir</span><span class='comma'>,</span> <span class='symbol'>:prefix</span><span class='comma'>,</span> <span class='symbol'>:rotate</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='ivar'>@progress_bar</span><span class='period'>.</span><span class='id identifier rubyid_start'>start</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Saving PNGs to </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:dir</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:prefix</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>*</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='ivar'>@cards</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_bar'>bar</span><span class='op'>|</span>
-    <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:range</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span> 
+    <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:range</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
       <span class='ivar'>@cards</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_save_png'>save_png</span><span class='lparen'>(</span><span class='id identifier rubyid_i'>i</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:dir</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:prefix</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:rotate</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:angle</span><span class='rbracket'>]</span><span class='rparen'>)</span>
       <span class='id identifier rubyid_bar'>bar</span><span class='period'>.</span><span class='id identifier rubyid_increment'>increment</span>
     <span class='kw'>end</span>
@@ -2882,6 +2830,21 @@ Note: scaling not currently supported for PNGs.</p>
           
         </li>
       
+        <li>
+          <span class="name">angle</span>
+          <span class="type">(<tt>FixNum</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>0</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Rotation of the in radians. Note that this rotates around the upper-left corner, making the placement of x-y coordinates slightly tricky. Supports Arrays, see <a href="../index.html#Arrays_and_Singleton_Expansion" title="Arrays and Singleon Expansion">Arrays and Singleon Expansion</a></p>
+</div>
+          
+        </li>
+      
     </ul>
   
 
@@ -2909,9 +2872,6 @@ Note: scaling not currently supported for PNGs.</p>
       <pre class="lines">
 
 
-51
-52
-53
 54
 55
 56
@@ -2922,19 +2882,22 @@ Note: scaling not currently supported for PNGs.</p>
 61
 62
 63
-64</pre>
+64
+65
+66
+67</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/squib/api/image.rb', line 51</span>
+      <pre class="code"><span class="info file"># File 'lib/squib/api/image.rb', line 54</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_svg'>svg</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_p'>p</span> <span class='op'>=</span> <span class='id identifier rubyid_needs'>needs</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span><span class='lbracket'>[</span><span class='symbol'>:range</span><span class='comma'>,</span> <span class='symbol'>:files</span><span class='comma'>,</span> <span class='symbol'>:svgid</span><span class='comma'>,</span> <span class='symbol'>:force_svgid</span><span class='comma'>,</span> <span class='symbol'>:x</span><span class='comma'>,</span> <span class='symbol'>:y</span><span class='comma'>,</span> <span class='symbol'>:width</span><span class='comma'>,</span> <span class='symbol'>:height</span><span class='comma'>,</span> <span class='symbol'>:layout</span><span class='comma'>,</span> <span class='symbol'>:alpha</span><span class='comma'>,</span> <span class='symbol'>:blend</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_p'>p</span> <span class='op'>=</span> <span class='id identifier rubyid_needs'>needs</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span><span class='lbracket'>[</span><span class='symbol'>:range</span><span class='comma'>,</span> <span class='symbol'>:files</span><span class='comma'>,</span> <span class='symbol'>:svgid</span><span class='comma'>,</span> <span class='symbol'>:force_svgid</span><span class='comma'>,</span> <span class='symbol'>:x</span><span class='comma'>,</span> <span class='symbol'>:y</span><span class='comma'>,</span> <span class='symbol'>:width</span><span class='comma'>,</span> <span class='symbol'>:height</span><span class='comma'>,</span> <span class='symbol'>:layout</span><span class='comma'>,</span> <span class='symbol'>:alpha</span><span class='comma'>,</span> <span class='symbol'>:blend</span><span class='comma'>,</span> <span class='symbol'>:angle</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='const'>Dir</span><span class='period'>.</span><span class='id identifier rubyid_chdir'>chdir</span><span class='lparen'>(</span><span class='ivar'>@img_dir</span><span class='rparen'>)</span> <span class='kw'>do</span>
-    <span class='ivar'>@progress_bar</span><span class='period'>.</span><span class='id identifier rubyid_start'>start</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Loading SVG(s)</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:range</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_bar'>bar</span><span class='op'>|</span>
+    <span class='ivar'>@progress_bar</span><span class='period'>.</span><span class='id identifier rubyid_start'>start</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Loading SVG(s)</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:range</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_bar'>bar</span><span class='op'>|</span>
       <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:range</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
         <span class='kw'>unless</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:force_id</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
-          <span class='ivar'>@cards</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_svg'>svg</span><span class='lparen'>(</span><span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:file</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:x</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:y</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> 
-                        <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:width</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:height</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:alpha</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:blend</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='rparen'>)</span> 
+          <span class='ivar'>@cards</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_svg'>svg</span><span class='lparen'>(</span><span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:file</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:x</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:y</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span>
+                        <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:width</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:height</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:alpha</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:blend</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:angle</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='rparen'>)</span>
         <span class='kw'>end</span>
         <span class='id identifier rubyid_bar'>bar</span><span class='period'>.</span><span class='id identifier rubyid_increment'>increment</span>
       <span class='kw'>end</span>
@@ -2959,7 +2922,7 @@ Note: scaling not currently supported for PNGs.</p>
   <div class="discussion">
     <p>Renders a string at a given location, width, alignment, font, etc.</p>
 
-<p>Unix-like newlines are interpreted even on Windows. 
+<p>Unix-like newlines are interpreted even on Windows.
   See the <a href="../file.text-options.html" title="samples/text.rb">samples/text.rb</a> for a lengthy example.</p>
 
 <p>Options support Arrays, see <a href="../index.html#Arrays_and_Singleton_Expansion" title="Arrays and Singleon Expansion">Arrays and Singleon Expansion</a></p>
@@ -3047,7 +3010,7 @@ Note: scaling not currently supported for PNGs.</p>
           
             &mdash; <div class='inline'><p>the Font description string, including family, styles, and size.
 (e.g. <code>&#39;Arial bold italic 12&#39;</code>)
-For the official documentation, see the <a href="http://ruby-gnome2.sourceforge.jp/hiki.cgi?Pango%3A%3AFontDescription#style">Pango docs</a>. 
+For the official documentation, see the <a href="http://ruby-gnome2.sourceforge.jp/hiki.cgi?Pango%3A%3AFontDescription#style">Pango docs</a>.
 This <a href="http://www.pygtk.org/pygtk2reference/class-pangofontdescription.html">description</a> is also quite good.
 See the <a href="../file.text-options.html" title="samples/text.rb">samples/text.rb</a> as well.</p>
 </div>
@@ -3181,7 +3144,7 @@ See the <a href="../file.text-options.html" title="samples/text.rb">samples/text
             
           </span>
           
-            &mdash; <div class='inline'><p>When height is set, determines the behavior of how the string wraps. The <code>:word_char</code> option will break at words, but then fall back to characters when the word cannot fit.    #<br>
+            &mdash; <div class='inline'><p>When height is set, determines the behavior of how the string wraps. The <code>:word_char</code> option will break at words, but then fall back to characters when the word cannot fit.    #
 Options are <code>:none, :word, :char, :word_char</code>. Also: <code>true</code> is the same as <code>:word_char</code>, <code>false</code> is the same as <code>:none</code>. Default <code>:word_char</code></p>
 </div>
           
@@ -3272,7 +3235,7 @@ Options are <code>:none, :word, :char, :word_char</code>. Also: <code>true</code
             
           </span>
           
-            &mdash; <div class='inline'><p>Rotation of the text in radians.</p>
+            &mdash; <div class='inline'><p>Rotation of the text in radians. Note that this rotates around the upper-left corner of the text box, making the placement of x-y coordinates slightly tricky.</p>
 </div>
           
         </li>
@@ -3340,8 +3303,8 @@ Options are <code>:none, :word, :char, :word_char</code>. Also: <code>true</code
   <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:range</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
     <span class='ivar'>@cards</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_text'>text</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:str</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:font</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:font_size</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:color</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span>
                    <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:x</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:y</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:width</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:height</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span>
-                   <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:markup</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:justify</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:wrap</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> 
-                   <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:ellipsize</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:spacing</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:align</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> 
+                   <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:markup</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:justify</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:wrap</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span>
+                   <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:ellipsize</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:spacing</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:align</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span>
                    <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:valign</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:hint</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:angle</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -3601,10 +3564,10 @@ Options are <code>:none, :word, :char, :word_char</code>. Also: <code>true</code
   <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='id identifier rubyid_needs'>needs</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='symbol'>:range</span><span class='comma'>,</span> <span class='symbol'>:x1</span><span class='comma'>,</span> <span class='symbol'>:y1</span><span class='comma'>,</span> <span class='symbol'>:x2</span><span class='comma'>,</span> <span class='symbol'>:y2</span><span class='comma'>,</span> <span class='symbol'>:x3</span><span class='comma'>,</span> <span class='symbol'>:y3</span><span class='comma'>,</span> <span class='symbol'>:layout</span><span class='comma'>,</span>
                       <span class='symbol'>:fill_color</span><span class='comma'>,</span> <span class='symbol'>:stroke_color</span><span class='comma'>,</span> <span class='symbol'>:stroke_width</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:range</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
-    <span class='ivar'>@cards</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_triangle'>triangle</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:x1</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:y1</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> 
-                       <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:x2</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:y2</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> 
-                       <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:x3</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:y3</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> 
-                       <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:fill_color</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:stroke_color</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> 
+    <span class='ivar'>@cards</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_triangle'>triangle</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:x1</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:y1</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span>
+                       <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:x2</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:y2</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span>
+                       <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:x3</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:y3</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span>
+                       <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:fill_color</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:stroke_color</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span>
                        <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:stroke_width</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -3658,7 +3621,7 @@ Options are <code>:none, :word, :char, :word_char</code>. Also: <code>true</code
 </div>
 
     <div id="footer">
-  Generated on Fri Oct 17 08:48:42 2014 by
+  Generated on Mon Nov  3 23:49:12 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.4 (ruby-2.0.0).
 </div>

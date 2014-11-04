@@ -61,16 +61,15 @@
 
     <iframe id="search_frame"></iframe>
 
-    <div id="content"><div id='filecontents'><pre class="code ruby"><span class='comment'>#!/usr/bin/env ruby
-</span><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>squib</span><span class='tstring_end'>&#39;</span></span>
+    <div id="content"><div id='filecontents'><pre class="code ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>squib</span><span class='tstring_end'>&#39;</span></span>
 
-<span class='const'>Squib</span><span class='op'>::</span><span class='const'>Deck</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='kw'>do</span>
-  <span class='id identifier rubyid_text'>text</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Hello, World!</span><span class='tstring_end'>&#39;</span></span>  
+<span class='const'>Squib</span><span class='op'>::</span><span class='const'>Deck</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>cards:</span> <span class='int'>2</span><span class='rparen'>)</span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_text'>text</span> <span class='label'>str:</span> <span class='qwords_beg'>%w(</span><span class='tstring_content'>Hello</span><span class='words_sep'> </span><span class='tstring_content'>World!</span><span class='words_sep'>)</span>
   <span class='id identifier rubyid_save_png'>save_png</span>
 <span class='kw'>end</span></pre></div></div>
 
     <div id="footer">
-  Generated on Fri Oct 17 08:48:41 2014 by
+  Generated on Mon Nov  3 23:49:11 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.4 (ruby-2.0.0).
 </div>
