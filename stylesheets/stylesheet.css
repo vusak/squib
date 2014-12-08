@@ -118,7 +118,7 @@ a.button {
   display: block;
   float: left;
   width: 179px;
-  margin-right: 14px;  
+  margin-right: 9px;  
   background: #fdfdfd; /* Old browsers */
   background: -moz-linear-gradient(top,  #fdfdfd 0%, #f2f2f2 100%); /* FF3.6+ */
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fdfdfd), color-stop(100%,#f2f2f2)); /* Chrome,Safari4+ */
@@ -152,6 +152,10 @@ a.button span {
   height: 23px;
 }
 
+a.button:hover{
+  text-decoration: none;
+}
+
 #download-zip span {
   background: transparent url(../images/zip-icon.png) 12px 50% no-repeat;
 }
@@ -161,8 +165,9 @@ a.button span {
 #view-on-github span {
   background: transparent url(../images/octocat-icon.png) 12px 50% no-repeat;
 }
-#view-on-github {
-  margin-right: 0;
+
+#docs span {
+  background: transparent url(../images/glyphicons-72-book.png) 12px 50% no-repeat;
 }
 
 code, pre {
