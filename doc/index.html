@@ -6,7 +6,7 @@
 <title>
   File: README
   
-    &mdash; Documentation by YARD 0.8.7.4
+    &mdash; Squib API Documentation
   
 </title>
 
@@ -69,7 +69,7 @@
 <li>A concise set of rules for laying out your cards</li>
 <li>Loading PNGs and SVGs using <a href="http://cairographics.org/">Cairo</a></li>
 <li>Complex text rendering using <a href="http://www.pango.org/">Pango</a></li>
-<li>Reading <code>.xlsx</code> files</li>
+<li>Reading <code>xlsx</code> and <code>csv</code> files</li>
 <li>Basic shape drawing</li>
 <li>Rendering decks to PNGs and PDFs</li>
 <li>Data-driven layouts</li>
@@ -106,7 +106,7 @@
 <pre class="code ruby"><code class="ruby">$ bundle
 </code></pre>
 
-<p>Note: Squib has some native dependencies, such as <a href="https://github.com/rcairo/rcairo">Cairo</a>, <a href="http://ruby-gnome2.sourceforge.jp/hiki.cgi?Pango%3A%3ALayout">Pango</a>, and <a href="http://nokogiri.org/">Nokogiri</a>, which all require DevKit to compile C code. This is usually not painful, but can cause headaches on some setups. For Windows users, I <em>strongly</em> recommend using the <em>non-64 bit</em> RubyInstaller at <a href="http://rubyinstaller.org">http://rubyinstaller.org</a>. For Mac, I recommend using <a href="https://rvm.io">rvm</a>.</p>
+<p>Note: Squib has some native dependencies, such as <a href="https://github.com/rcairo/rcairo">Cairo</a>, <a href="http://ruby-gnome2.sourceforge.jp/hiki.cgi?Pango%3A%3ALayout">Pango</a>, and <a href="http://nokogiri.org/">Nokogiri</a>, which all require DevKit to compile C code. This is usually not painful, but can cause headaches on some setups. For Windows users, I <em>strongly</em> recommend using the <em>non-64 bit</em> RubyInstaller at <a href="http://rubyinstaller.org">http://rubyinstaller.org</a> along with installing DevKit. For Mac, I recommend using <a href="https://rvm.io">rvm</a>.</p>
 
 <p>Note: Squib requires Ruby 2.0 or later.</p>
 
@@ -221,8 +221,7 @@ $ yard server --gems
 
 <p>Most public <code>Deck</code> methods allow a <code>range</code> to be specified as a first parameter. This parameter is used to access an internal <code>Array</code> of <code>Squib::Cards</code>. This can be an actual Ruby range, or anything that implements <code>#each</code> (thus can be an <code>Enumerable</code>). Integers are also supported for changing one card only. Negatives work from the back of the deck. Here are some examples from <code>samples/ranges.rb</code> found <a href="https://github.com/andymeneely/squib/tree/master/samples/ranges.rb">here</a></p>
 
-<p><pre class="code ruby"><span class='comment'>#!/usr/bin/env ruby
-</span><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>squib</span><span class='tstring_end'>&#39;</span></span>
+<p><pre class="code ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>squib</span><span class='tstring_end'>&#39;</span></span>
 
 <span class='id identifier rubyid_data'>data</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>name</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Thief</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Grifter</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Mastermind</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='comma'>,</span>
         <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>type</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Thug</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Thinker</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Thinker</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='comma'>,</span>
@@ -282,7 +281,7 @@ $ yard server --gems
 
 <p><pre class="code ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>squib</span><span class='tstring_end'>&#39;</span></span>
 
-<span class='const'>Squib</span><span class='op'>::</span><span class='const'>Deck</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>width:</span> <span class='int'>825</span><span class='comma'>,</span> <span class='label'>height:</span> <span class='int'>1125</span><span class='comma'>,</span> <span class='label'>cards:</span> <span class='int'>3</span><span class='rparen'>)</span> <span class='kw'>do</span>
+<span class='const'>Squib</span><span class='op'>::</span><span class='const'>Deck</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>width:</span> <span class='int'>825</span><span class='comma'>,</span> <span class='label'>height:</span> <span class='int'>1125</span><span class='rparen'>)</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_background'>background</span> <span class='label'>color:</span> <span class='symbol'>:white</span>
 
   <span class='id identifier rubyid_bleed'>bleed</span> <span class='op'>=</span> <span class='id identifier rubyid_inches'>inches</span><span class='lparen'>(</span><span class='float'>0.125</span><span class='rparen'>)</span>
@@ -336,6 +335,72 @@ $ yard server --gems
 <li>If still anything was not yet specified, use what was given in Squib&#39;s defaults.</li>
 </ul>
 
+<p>Layouts also allow merging, extending, and combining layouts. The sample demonstrates this, but they are also explained below. See the <code>layouts.rb</code> sample found <a href="https://github.com/andymeneely/squib/tree/master/samples/">here</a></p>
+
+<p><pre class="code ruby"><span class='comment'># encoding: utf-8
+</span><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>squib</span><span class='tstring_end'>&#39;</span></span>
+
+<span class='const'>Squib</span><span class='op'>::</span><span class='const'>Deck</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>layout:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>custom-layout.yml</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_background'>background</span> <span class='label'>color:</span> <span class='symbol'>:white</span>
+  <span class='id identifier rubyid_hint'>hint</span> <span class='label'>text:</span> <span class='symbol'>:cyan</span>
+
+  <span class='comment'># Layouts are YAML files that specify any option as a default
+</span>  <span class='id identifier rubyid_rect'>rect</span> <span class='label'>layout:</span> <span class='symbol'>:frame</span>
+
+  <span class='comment'># You can also override a given layout entry in the command
+</span>  <span class='id identifier rubyid_circle'>circle</span> <span class='label'>layout:</span> <span class='symbol'>:frame</span><span class='comma'>,</span> <span class='label'>x:</span> <span class='int'>50</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>50</span><span class='comma'>,</span> <span class='label'>radius:</span> <span class='int'>25</span>
+
+  <span class='comment'># Lots of commands have the :layout option
+</span>  <span class='id identifier rubyid_text'>text</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>The Title</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>layout:</span> <span class='symbol'>:title</span>
+
+  <span class='comment'># Layouts also support YAML merge keys toreuse settings
+</span>  <span class='id identifier rubyid_svg'>svg</span> <span class='label'>file:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>spanner.svg</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>     <span class='label'>layout:</span> <span class='symbol'>:icon_left</span>
+  <span class='id identifier rubyid_png'>png</span> <span class='label'>file:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>shiny-purse.png</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>layout:</span> <span class='symbol'>:icon_middle</span>
+  <span class='id identifier rubyid_svg'>svg</span> <span class='label'>file:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>spanner.svg</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>     <span class='label'>layout:</span> <span class='symbol'>:icon_right</span>
+
+  <span class='comment'># Squib has its own, richer merge key: &quot;extends&quot;
+</span>  <span class='id identifier rubyid_rect'>rect</span> <span class='label'>fill_color:</span> <span class='symbol'>:black</span><span class='comma'>,</span> <span class='label'>layout:</span> <span class='symbol'>:bonus</span>
+  <span class='id identifier rubyid_rect'>rect</span> <span class='label'>fill_color:</span> <span class='symbol'>:white</span><span class='comma'>,</span> <span class='label'>layout:</span> <span class='symbol'>:bonus_inner</span>
+  <span class='id identifier rubyid_text'>text</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Extends!</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>    <span class='label'>layout:</span> <span class='symbol'>:bonus_text</span>
+
+  <span class='comment'># Strings can also be used to specify a layout (e.g. from a data file)
+</span>  <span class='id identifier rubyid_text'>text</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>subtitle</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>layout:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>subtitle</span><span class='tstring_end'>&#39;</span></span>
+
+  <span class='comment'># For debugging purposes, you can always print out the loaded layout
+</span>  <span class='comment'>#require &#39;pp&#39;
+</span>  <span class='comment'>#pp @layout
+</span>
+  <span class='id identifier rubyid_save_png'>save_png</span> <span class='label'>prefix:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>layout_</span><span class='tstring_end'>&#39;</span></span>
+<span class='kw'>end</span>
+
+<span class='const'>Squib</span><span class='op'>::</span><span class='const'>Deck</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>layout:</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>custom-layout.yml</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>custom-layout2.yml</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_text'>text</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>The Title</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>       <span class='label'>layout:</span> <span class='symbol'>:title</span>       <span class='comment'># from custom-layout.yml
+</span>  <span class='id identifier rubyid_text'>text</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>The Subtitle</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>    <span class='label'>layout:</span> <span class='symbol'>:subtitle</span>    <span class='comment'># redefined in custom-layout2.yml
+</span>  <span class='id identifier rubyid_text'>text</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>The Description</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>layout:</span> <span class='symbol'>:description</span> <span class='comment'># from custom-layout2.yml
+</span>  <span class='id identifier rubyid_save_png'>save_png</span> <span class='label'>prefix:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>layout2_</span><span class='tstring_end'>&#39;</span></span>
+<span class='kw'>end</span>
+
+<span class='comment'># Built-in layouts are easy to use and extend
+</span><span class='const'>Squib</span><span class='op'>::</span><span class='const'>Deck</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>layout:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>playing-card.yml</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_text'>text</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>A\u2660</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>      <span class='label'>layout:</span> <span class='symbol'>:bonus_ul</span><span class='comma'>,</span> <span class='label'>font:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Sans bold 100</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>hint:</span> <span class='symbol'>:red</span>
+  <span class='id identifier rubyid_text'>text</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>A\u2660</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>      <span class='label'>layout:</span> <span class='symbol'>:bonus_lr</span><span class='comma'>,</span> <span class='label'>font:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Sans bold 100</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>hint:</span> <span class='symbol'>:red</span>
+  <span class='id identifier rubyid_text'>text</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>artwork here</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>layout:</span> <span class='symbol'>:art</span><span class='comma'>,</span> <span class='label'>hint:</span> <span class='symbol'>:red</span>
+  <span class='id identifier rubyid_save_png'>save_png</span> <span class='label'>prefix:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>layout_builtin_playing_card_</span><span class='tstring_end'>&#39;</span></span>
+<span class='kw'>end</span>
+
+<span class='comment'># Built-in layouts are easy to use and extend
+</span><span class='const'>Squib</span><span class='op'>::</span><span class='const'>Deck</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>layout:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>hand.yml</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
+  <span class='qwords_beg'>%w(</span><span class='tstring_content'>title</span><span class='words_sep'> </span><span class='tstring_content'>bonus1</span><span class='words_sep'> </span><span class='tstring_content'>bonus2</span><span class='words_sep'> </span><span class='tstring_content'>bonus3</span><span class='words_sep'> </span><span class='tstring_content'>bonus4</span><span class='words_sep'> </span><span class='tstring_content'>bonus5</span><span class='words_sep'>
+</span><span class='tstring_content'>    description</span><span class='words_sep'> </span><span class='tstring_content'>snark</span><span class='words_sep'> </span><span class='tstring_content'>art</span><span class='words_sep'>)</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_icon'>icon</span><span class='op'>|</span>
+    <span class='id identifier rubyid_text'>text</span> <span class='label'>str:</span> <span class='id identifier rubyid_icon'>icon</span><span class='period'>.</span><span class='id identifier rubyid_capitalize'>capitalize</span><span class='comma'>,</span> <span class='label'>layout:</span> <span class='id identifier rubyid_icon'>icon</span><span class='comma'>,</span>
+         <span class='label'>hint:</span> <span class='symbol'>:red</span><span class='comma'>,</span> <span class='label'>valign:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>middle</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>align:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>center</span><span class='tstring_end'>&#39;</span></span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_png'>png</span> <span class='label'>file:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>pokercard.png</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>alpha:</span> <span class='float'>0.5</span>
+  <span class='id identifier rubyid_save_png'>save_png</span> <span class='label'>prefix:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>layout_builtin_hand_</span><span class='tstring_end'>&#39;</span></span>
+<span class='kw'>end</span></pre></p>
+
+<h3>Merge Keys and <code>extends</code></h3>
+
 <p>Since Layouts are in Yaml, we have the full power of that data format. One particular feature you should look into are <a href="http://www.yaml.org/YAML_for_ruby.html#merge_key">&quot;merge keys&quot;</a>. With merge keys, you can define base styles in one entry, then include those keys elsewhere. For example:</p>
 
 <pre class="code yaml"><code class="yaml">icon: &amp;icon
@@ -358,42 +423,48 @@ yang:
   x: += 50
 </code></pre>
 
-<p>See the <code>use_layout</code> sample found <a href="https://github.com/andymeneely/squib/tree/master/samples/">here</a></p>
+<h3>Multiple layout files</h3>
 
-<p><pre class="code ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>squib</span><span class='tstring_end'>&#39;</span></span>
+<p>Squib also supports the combination of multiple layout files. As shown in the above example, if you provide an <code>Array</code> of files then Squib will merge them sequentially. Colliding keys will be completely re-defined by the later file. Extends is processed after <em>each file</em>. YAML merge keys are NOT supported across multiple files - use extends instead. Here&#39;s a demonstrative example:</p>
 
-<span class='const'>Squib</span><span class='op'>::</span><span class='const'>Deck</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>layout:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>custom-layout.yml</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
-  <span class='id identifier rubyid_background'>background</span> <span class='label'>color:</span> <span class='symbol'>:white</span>
-  <span class='id identifier rubyid_hint'>hint</span> <span class='label'>text:</span> <span class='symbol'>:cyan</span>
+<pre class="code yaml"><code class="yaml"># load order: a.yml, b.yml
 
-  <span class='comment'># Layouts are YAML files that specify any option as a default
-</span>  <span class='id identifier rubyid_rect'>rect</span> <span class='label'>layout:</span> <span class='symbol'>:frame</span>
+##############
+# file a.yml #
+##############
+grandparent:
+  x: 100
+parent_a:
+  extends: grandparent
+  x: += 10   # evaluates to 110
+parent_b:
+  extends: grandparent
+  x: += 20   # evaluates to 120
 
-  <span class='comment'># You can also override a given layout entry in the command
-</span>  <span class='id identifier rubyid_circle'>circle</span> <span class='label'>layout:</span> <span class='symbol'>:frame</span><span class='comma'>,</span> <span class='label'>x:</span> <span class='int'>50</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>50</span><span class='comma'>,</span> <span class='label'>radius:</span> <span class='int'>25</span>
+##############
+# file b.yml #
+##############
+child_a:
+  extends: parent_a
+  x: += 3    # evaluates to 113
+parent_b:    # redefined
+  extends: grandparent
+  x: += 30   # evaluates to 130
+child_b:
+  extends: parent_b
+  x: += 3    # evaluates to 133
+</code></pre>
 
-  <span class='comment'># Lots of commands have the :layout option
-</span>  <span class='id identifier rubyid_text'>text</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>The Title</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>layout:</span> <span class='symbol'>:title</span>
+<p>This can hopefully be helpful for:</p>
 
-  <span class='comment'># Layouts also support YAML merge keys toreuse settings
-</span>  <span class='id identifier rubyid_svg'>svg</span> <span class='label'>file:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>spanner.svg</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>layout:</span> <span class='symbol'>:icon_left</span>
-  <span class='id identifier rubyid_png'>png</span> <span class='label'>file:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>shiny-purse.png</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>layout:</span> <span class='symbol'>:icon_middle</span>
-  <span class='id identifier rubyid_svg'>svg</span> <span class='label'>file:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>spanner.svg</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>layout:</span> <span class='symbol'>:icon_right</span>
+<ul>
+<li>Creating a base layout for structure, and one for color (for easier color/black-and-white switching)</li>
+<li>Sharing base layouts with other designers</li>
+</ul>
 
-  <span class='comment'># Squib has its own, richer merge key: &quot;extends&quot;
-</span>  <span class='id identifier rubyid_rect'>rect</span> <span class='label'>fill_color:</span> <span class='symbol'>:black</span><span class='comma'>,</span> <span class='label'>layout:</span> <span class='symbol'>:bonus</span>
-  <span class='id identifier rubyid_rect'>rect</span> <span class='label'>fill_color:</span> <span class='symbol'>:white</span><span class='comma'>,</span> <span class='label'>layout:</span> <span class='symbol'>:bonus_inner</span>
-  <span class='id identifier rubyid_text'>text</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Extends!</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>    <span class='label'>layout:</span> <span class='symbol'>:bonus_text</span>
+<h3>Built-in Layout Files</h3>
 
-  <span class='comment'># Strings can also be used to specify a layout (e.g. from a data file)
-</span>  <span class='id identifier rubyid_text'>text</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>subtitle</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>layout:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>subtitle</span><span class='tstring_end'>&#39;</span></span>
-
-  <span class='comment'># For debugging purposes, you can always print out the loaded layout
-</span>  <span class='comment'>#require &#39;pp&#39;
-</span>  <span class='comment'>#pp @layout
-</span>
-  <span class='id identifier rubyid_save_png'>save_png</span> <span class='label'>prefix:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>layout_</span><span class='tstring_end'>&#39;</span></span>
-<span class='kw'>end</span></pre></p>
+<p>If your layout file is not found in the current directory, Squib will search for its own set of layout files (here&#39;s the latest the development version <a href="https://github.com/andymeneely/squib/tree/master/lib/squib/layouts">on GitHub</a>. See the <code>layouts.rb</code> sample found <a href="https://github.com/andymeneely/squib/tree/master/samples/">here</a> for some demonstrative examples.</p>
 
 <h2>Configuration File</h2>
 
@@ -410,8 +481,7 @@ yang:
 
 <p>See the <code>custom_config</code> sample found <a href="https://github.com/andymeneely/squib/tree/master/samples/">here</a></p>
 
-<p><pre class="code ruby"><span class='comment'>#!/usr/bin/env ruby
-</span><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>squib</span><span class='tstring_end'>&#39;</span></span>
+<p><pre class="code ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>squib</span><span class='tstring_end'>&#39;</span></span>
 
 <span class='const'>Squib</span><span class='op'>::</span><span class='const'>Deck</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>config:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>custom-config.yml</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
   <span class='comment'># Custom color defined in our config
@@ -429,6 +499,40 @@ yang:
   <span class='id identifier rubyid_save_pdf'>save_pdf</span> <span class='label'>file:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>custom-config-out.pdf</span><span class='tstring_end'>&#39;</span></span>
 
 <span class='kw'>end</span></pre></p>
+
+<h2>Importing from Excel and CSV</h2>
+
+<p>Squib supports importing data from <code>xlsx</code> files and <code>csv</code> files. These methods are column-based, which means that they assume you have a header row in your table, and that header row will define the column. Squib will return a <code>Hash</code> of <code>Arrays</code> correspoding to each row. Warnings are thrown on things like duplicate columns. See the <code>excel.rb</code> and the <code>csv_import.rb</code> sample found <a href="https://github.com/andymeneely/squib/tree/master/samples/">here</a>.</p>
+
+<p><pre class="code ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>squib</span><span class='tstring_end'>&#39;</span></span>
+
+<span class='const'>Squib</span><span class='op'>::</span><span class='const'>Deck</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>cards:</span> <span class='int'>3</span><span class='rparen'>)</span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_background'>background</span> <span class='label'>color:</span> <span class='symbol'>:white</span>
+
+  <span class='comment'># Takes the first sheet by default
+</span>  <span class='comment'># Outputs a hash of arrays with the header names as keys
+</span>  <span class='id identifier rubyid_data'>data</span> <span class='op'>=</span> <span class='id identifier rubyid_xlsx'>xlsx</span> <span class='label'>file:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>sample.xlsx</span><span class='tstring_end'>&#39;</span></span>
+
+  <span class='id identifier rubyid_text'>text</span> <span class='label'>str:</span> <span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Name</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>x:</span> <span class='int'>250</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>55</span><span class='comma'>,</span> <span class='label'>font:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Arial 54</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_text'>text</span> <span class='label'>str:</span> <span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Level</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>x:</span> <span class='int'>65</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>65</span><span class='comma'>,</span> <span class='label'>font:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Arial 72</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_text'>text</span> <span class='label'>str:</span> <span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Description</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>x:</span> <span class='int'>65</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>600</span><span class='comma'>,</span> <span class='label'>font:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Arial 36</span><span class='tstring_end'>&#39;</span></span>
+
+  <span class='comment'># You can also specify the sheet, starting at 0
+</span>  <span class='id identifier rubyid_data'>data</span> <span class='op'>=</span> <span class='id identifier rubyid_xlsx'>xlsx</span> <span class='label'>file:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>sample.xlsx</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>sheet:</span> <span class='int'>2</span>
+
+  <span class='id identifier rubyid_save'>save</span> <span class='label'>format:</span> <span class='symbol'>:png</span><span class='comma'>,</span> <span class='label'>prefix:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>sample_excel_</span><span class='tstring_end'>&#39;</span></span>
+<span class='kw'>end</span></pre></p>
+
+<p>Of course, you can always import your game data other ways using just Ruby. There&#39;s nothing special about Squib&#39;s methods other than their convenience.</p>
+
+<h2>Making Squib Verbose</h2>
+
+<p>By default, Squib&#39;s logger is set to WARN, but more fine-grained logging is embedded in the code. To set the logger, just put this at the top of your script:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'>Squib</span><span class='op'>::</span><span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_level'>level</span> <span class='op'>=</span> <span class='const'>Logger</span><span class='op'>::</span><span class='const'>INFO</span>
+</code></pre>
+
+<p>If you REALLY want to see tons of output, you can also set DEBUG, but that&#39;s not intended for general consumption.</p>
 
 <h2>Staying DRY</h2>
 
@@ -509,9 +613,9 @@ yang:
 </div></div>
 
     <div id="footer">
-  Generated on Mon Nov  3 23:49:11 2014 by
+  Generated on Mon Dec  8 00:11:00 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.4 (ruby-2.0.0).
+  0.8.7.6 (ruby-2.0.0).
 </div>
 
   </body>

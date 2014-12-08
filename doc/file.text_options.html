@@ -6,7 +6,7 @@
 <title>
   File: text_options
   
-    &mdash; Documentation by YARD 0.8.7.4
+    &mdash; Squib API Documentation
   
 </title>
 
@@ -61,7 +61,7 @@
 
     <iframe id="search_frame"></iframe>
 
-    <div id="content"><div id='filecontents'><pre class="code ruby"><span class='comment'>#!/usr/bin/env ruby
+    <div id="content"><div id='filecontents'><pre class="code ruby"><span class='comment'># encoding: UTF-8
 </span><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>squib</span><span class='tstring_end'>&#39;</span></span>
 
 <span class='id identifier rubyid_data'>data</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>name</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Thief</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Grifter</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Mastermind</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='comma'>,</span>
@@ -91,11 +91,22 @@
   <span class='id identifier rubyid_text'>text</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>This text has fixed width, fixed height, center-aligned, middle-valigned, and has a red hint</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
        <span class='label'>hint:</span> <span class='symbol'>:red</span><span class='comma'>,</span>
        <span class='label'>x:</span> <span class='int'>65</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>400</span><span class='comma'>,</span>
-       <span class='label'>width:</span> <span class='int'>300</span><span class='comma'>,</span> <span class='label'>height:</span> <span class='int'>200</span><span class='comma'>,</span>
+       <span class='label'>width:</span> <span class='int'>300</span><span class='comma'>,</span> <span class='label'>height:</span> <span class='int'>125</span><span class='comma'>,</span>
        <span class='label'>align:</span> <span class='symbol'>:center</span><span class='comma'>,</span> <span class='label'>valign:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>MIDDLE</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='comment'>#case-insenstive strings allowed too.
 </span>       <span class='label'>font:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Arial 18</span><span class='tstring_end'>&#39;</span></span>
 
-  <span class='id identifier rubyid_text'>text</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Ellipsization!\nThe ultimate question of life, the universe, and everything to life and everything is 42</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+  <span class='id identifier rubyid_extents'>extents</span> <span class='op'>=</span> <span class='id identifier rubyid_text'>text</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Ink extent return value</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+       <span class='label'>x:</span> <span class='int'>65</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>550</span><span class='comma'>,</span>
+       <span class='label'>font:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Sans Bold</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>font_size:</span> <span class='lbracket'>[</span><span class='int'>16</span><span class='comma'>,</span> <span class='int'>20</span><span class='comma'>,</span> <span class='int'>24</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_margin'>margin</span> <span class='op'>=</span> <span class='int'>10</span>
+  <span class='comment'># Extents come back as an array of hashes, which can get split out like this
+</span>  <span class='id identifier rubyid_ws'>ws</span> <span class='op'>=</span> <span class='id identifier rubyid_extents'>extents</span><span class='period'>.</span><span class='id identifier rubyid_inject'>inject</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_arr'>arr</span><span class='comma'>,</span> <span class='id identifier rubyid_ext'>ext</span><span class='op'>|</span> <span class='id identifier rubyid_arr'>arr</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_ext'>ext</span><span class='lbracket'>[</span><span class='symbol'>:width</span><span class='rbracket'>]</span> <span class='op'>+</span> <span class='int'>10</span><span class='semicolon'>;</span> <span class='id identifier rubyid_arr'>arr</span> <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_hs'>hs</span> <span class='op'>=</span> <span class='id identifier rubyid_extents'>extents</span><span class='period'>.</span><span class='id identifier rubyid_inject'>inject</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_arr'>arr</span><span class='comma'>,</span> <span class='id identifier rubyid_ext'>ext</span><span class='op'>|</span> <span class='id identifier rubyid_arr'>arr</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_ext'>ext</span><span class='lbracket'>[</span><span class='symbol'>:height</span><span class='rbracket'>]</span> <span class='op'>+</span> <span class='int'>10</span><span class='semicolon'>;</span> <span class='id identifier rubyid_arr'>arr</span> <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_rect'>rect</span> <span class='label'>x:</span> <span class='int'>65</span> <span class='op'>-</span> <span class='id identifier rubyid_margin'>margin</span><span class='op'>/</span><span class='int'>2</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>550</span> <span class='op'>-</span> <span class='id identifier rubyid_margin'>margin</span><span class='op'>/</span><span class='int'>2</span><span class='comma'>,</span>
+       <span class='label'>width:</span> <span class='id identifier rubyid_ws'>ws</span><span class='comma'>,</span> <span class='label'>height:</span> <span class='id identifier rubyid_hs'>hs</span><span class='comma'>,</span>
+       <span class='label'>radius:</span> <span class='int'>10</span><span class='comma'>,</span> <span class='label'>stroke_color:</span> <span class='symbol'>:black</span>
+
+  <span class='id identifier rubyid_text'>text</span> <span class='label'>str:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Ellipsization!\nThe ultimate question of life, the universe, and everything to life and everything is 42</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
        <span class='label'>hint:</span> <span class='symbol'>:green</span><span class='comma'>,</span> <span class='label'>font:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Arial 22</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
        <span class='label'>x:</span> <span class='int'>450</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>400</span><span class='comma'>,</span>
        <span class='label'>width:</span> <span class='int'>280</span><span class='comma'>,</span> <span class='label'>height:</span> <span class='int'>180</span><span class='comma'>,</span>
@@ -130,9 +141,9 @@
 <span class='kw'>end</span></pre></div></div>
 
     <div id="footer">
-  Generated on Mon Nov  3 23:49:11 2014 by
+  Generated on Mon Dec  8 00:11:00 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.4 (ruby-2.0.0).
+  0.8.7.6 (ruby-2.0.0).
 </div>
 
   </body>

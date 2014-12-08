@@ -1,11 +1,10 @@
 require 'squib'
 
-Squib::Deck.new(cards: 3) do
+Squib::Deck.new(cards: 2) do
   background color: :white
 
-  # Takes the first sheet by default
   # Outputs a hash of arrays with the header names as keys
-  data = xlsx file: 'sample.xlsx'
+  data = csv file: 'sample.csv'
 
   text str: data['Name'], x: 250, y: 55, font: 'Arial 54'
   text str: data['Level'], x: 65, y: 65, font: 'Arial 72'

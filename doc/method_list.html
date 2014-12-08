@@ -20,7 +20,11 @@
   </head>
   <body>
     <script type="text/javascript" charset="utf-8">
-      if (window.top.frames.main) {
+      var hasFrames = false;
+      try {
+        hasFrames = window.top.frames.main ? true : false;
+      } catch (e) { }
+      if (hasFrames) {
         document.getElementById('base_target').target = 'main';
         document.body.className = 'frames';
       }
@@ -56,6 +60,18 @@
   <li class="r2 ">
     <span class='object_link'><a href="Squib/Deck.html#circle-instance_method" title="Squib::Deck#circle (method)">#circle</a></span>
     <small>Squib::Deck</small>
+  </li>
+  
+
+  <li class="r1 ">
+    <span class='object_link'><a href="Squib/Deck.html#csv-instance_method" title="Squib::Deck#csv (method)">#csv</a></span>
+    <small>Squib::Deck</small>
+  </li>
+  
+
+  <li class="r2 ">
+    <span class='object_link'><a href="Squib.html#csv-class_method" title="Squib.csv (method)">csv</a></span>
+    <small>Squib</small>
   </li>
   
 
@@ -126,19 +142,31 @@
   
 
   <li class="r2 ">
-    <span class='object_link'><a href="Squib/Deck.html#svg-instance_method" title="Squib::Deck#svg (method)">#svg</a></span>
+    <span class='object_link'><a href="Squib/Deck.html#show_info-instance_method" title="Squib::Deck#show_info (method)">#show_info</a></span>
     <small>Squib::Deck</small>
   </li>
   
 
   <li class="r1 ">
-    <span class='object_link'><a href="Squib/Deck.html#text-instance_method" title="Squib::Deck#text (method)">#text</a></span>
+    <span class='object_link'><a href="Squib/Deck.html#svg-instance_method" title="Squib::Deck#svg (method)">#svg</a></span>
     <small>Squib::Deck</small>
   </li>
   
 
   <li class="r2 ">
+    <span class='object_link'><a href="Squib/Deck.html#text-instance_method" title="Squib::Deck#text (method)">#text</a></span>
+    <small>Squib::Deck</small>
+  </li>
+  
+
+  <li class="r1 ">
     <span class='object_link'><a href="Squib/Deck.html#triangle-instance_method" title="Squib::Deck#triangle (method)">#triangle</a></span>
+    <small>Squib::Deck</small>
+  </li>
+  
+
+  <li class="r2 ">
+    <span class='object_link'><a href="Squib/Deck.html#xlsx-instance_method" title="Squib::Deck#xlsx (method)">#xlsx</a></span>
     <small>Squib::Deck</small>
   </li>
   
@@ -146,12 +174,6 @@
   <li class="r1 ">
     <span class='object_link'><a href="Squib.html#xlsx-class_method" title="Squib.xlsx (method)">xlsx</a></span>
     <small>Squib</small>
-  </li>
-  
-
-  <li class="r2 ">
-    <span class='object_link'><a href="Squib/Deck.html#xlsx-instance_method" title="Squib::Deck#xlsx (method)">#xlsx</a></span>
-    <small>Squib::Deck</small>
   </li>
   
 

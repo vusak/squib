@@ -6,7 +6,7 @@
 <title>
   File: cairo_access
   
-    &mdash; Documentation by YARD 0.8.7.4
+    &mdash; Squib API Documentation
   
 </title>
 
@@ -64,7 +64,7 @@
     <div id="content"><div id='filecontents'><pre class="code ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>squib</span><span class='tstring_end'>&#39;</span></span>
 
 <span class='const'>Squib</span><span class='op'>::</span><span class='const'>Deck</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>cards:</span> <span class='int'>2</span><span class='rparen'>)</span> <span class='kw'>do</span>
-
+  <span class='id identifier rubyid_background'>background</span> <span class='label'>color:</span> <span class='symbol'>:white</span>
   <span class='comment'># If you really need something custom-made, the underlying cairo context
 </span>  <span class='comment'># can be accessed directly via each Squib::Card
 </span>  <span class='comment'>#
@@ -74,8 +74,9 @@
 </span>  <span class='comment'># I also recommend wrapping it in a Cairo save/restore, which Squib calls &quot;use_cairo&quot;
 </span>  <span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_card'>card</span><span class='op'>|</span>
     <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_use_cairo'>use_cairo</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_cairo_context'>cairo_context</span><span class='op'>|</span>
-      <span class='id identifier rubyid_cairo_context'>cairo_context</span><span class='period'>.</span><span class='id identifier rubyid_set_source_color'>set_source_color</span><span class='lparen'>(</span><span class='symbol'>:white</span><span class='rparen'>)</span>
-      <span class='id identifier rubyid_cairo_context'>cairo_context</span><span class='period'>.</span><span class='id identifier rubyid_paint'>paint</span>
+      <span class='id identifier rubyid_cairo_context'>cairo_context</span><span class='period'>.</span><span class='id identifier rubyid_set_source_color'>set_source_color</span><span class='lparen'>(</span><span class='symbol'>:blue</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_cairo_context'>cairo_context</span><span class='period'>.</span><span class='id identifier rubyid_circle'>circle</span><span class='lparen'>(</span><span class='int'>150</span><span class='comma'>,</span> <span class='int'>150</span><span class='comma'>,</span> <span class='int'>150</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_cairo_context'>cairo_context</span><span class='period'>.</span><span class='id identifier rubyid_fill'>fill</span>
     <span class='kw'>end</span>
   <span class='kw'>end</span>
 
@@ -90,9 +91,9 @@
 <span class='kw'>end</span></pre></div></div>
 
     <div id="footer">
-  Generated on Mon Nov  3 23:49:11 2014 by
+  Generated on Mon Dec  8 00:11:00 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.4 (ruby-2.0.0).
+  0.8.7.6 (ruby-2.0.0).
 </div>
 
   </body>

@@ -6,7 +6,7 @@
 <title>
   Module: Squib
   
-    &mdash; Documentation by YARD 0.8.7.4
+    &mdash; Squib API Documentation
   
 </title>
 
@@ -130,7 +130,7 @@ e.g. v0.0.5a is on its way to becoming v0.0.5</p>
 
 </div>
         </dt>
-        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>0.0.5a</span><span class='tstring_end'>&#39;</span></span></pre></dd>
+        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>0.0.6</span><span class='tstring_end'>&#39;</span></span></pre></dd>
       
         <dt id="SYSTEM_DEFAULTS-constant" class="">SYSTEM_DEFAULTS =
           <div class="docstring">
@@ -232,6 +232,29 @@ e.g. v0.0.5a is on its way to becoming v0.0.5</p>
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#csv-class_method" title="csv (class method)">+ (Hash) <strong>csv</strong>(opts = {}) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Pulls CSV data from <code>.csv</code> files into a column-based hash.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#logger-class_method" title="logger (class method)">+ (Logger) <strong>logger</strong> </a>
     
 
@@ -285,7 +308,141 @@ e.g. v0.0.5a is on its way to becoming v0.0.5</p>
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="logger-class_method">
+  <h3 class="signature first" id="csv-class_method">
+  
+    + (<tt>Hash</tt>) <strong>csv</strong>(opts = {}) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Pulls CSV data from <code>.csv</code> files into a column-based hash</p>
+
+<p>Pulls the data into a Hash of arrays based on the columns. First row is assumed to be the header row.
+See the example <code>samples/csv.rb</code> in the <a href="https://github.com/andymeneely/squib/tree/master/samples">source repository</a></p>
+
+<p>Parsing uses Ruby&#39;s CSV, options: true, converters: :numeric
+<a href="http://www.ruby-doc.org/stdlib-2.0/libdoc/csv/rdoc/CSV.html">http://www.ruby-doc.org/stdlib-2.0/libdoc/csv/rdoc/CSV.html</a></p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+      <pre class="example code"><code># File data.csv looks like this (without the comment symbols)
+# h1,h2
+# 1,2
+# 3,4
+data = csv file: &#39;data.csv&#39;
+=&gt; {&#39;h1&#39; =&gt; [1,3], &#39;h2&#39; =&gt; [2,4]}</code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>opts</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>a customizable set of options</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  
+    
+    
+    <p class="tag_title">Options Hash (<tt>opts</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">file</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>the CSV-formatted file to open. Opens relative to the current directory.</p>
+</div>
+          
+        </li>
+      
+    </ul>
+  
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>a hash of arrays based on columns in the spreadsheet</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/squib/api/data.rb', line 63</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_csv'>csv</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='const'>Squib</span><span class='op'>::</span><span class='const'>SYSTEM_DEFAULTS</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='const'>Squib</span><span class='op'>::</span><span class='const'>InputHelpers</span><span class='period'>.</span><span class='id identifier rubyid_fileify'>fileify</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_table'>table</span> <span class='op'>=</span> <span class='const'>CSV</span><span class='period'>.</span><span class='id identifier rubyid_read'>read</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:file</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>headers:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>converters:</span> <span class='symbol'>:numeric</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_check_duplicate_csv_headers'>check_duplicate_csv_headers</span><span class='lparen'>(</span><span class='id identifier rubyid_table'>table</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_hash'>hash</span> <span class='op'>=</span> <span class='const'>Hash</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+  <span class='id identifier rubyid_table'>table</span><span class='period'>.</span><span class='id identifier rubyid_headers'>headers</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_header'>header</span><span class='op'>|</span>
+    <span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='id identifier rubyid_header'>header</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='id identifier rubyid_table'>table</span><span class='lbracket'>[</span><span class='id identifier rubyid_header'>header</span><span class='rbracket'>]</span>
+  <span class='kw'>end</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_hash'>hash</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="logger-class_method">
   
     + (<tt>Logger</tt>) <strong>logger</strong> 
   
@@ -481,7 +638,6 @@ See the example <code>samples/excel.rb</code> in the <a href="https://github.com
       <pre class="lines">
 
 
-23
 24
 25
 26
@@ -498,10 +654,11 @@ See the example <code>samples/excel.rb</code> in the <a href="https://github.com
 37
 38
 39
-40</pre>
+40
+41</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/squib/api/data.rb', line 23</span>
+      <pre class="code"><span class="info file"># File 'lib/squib/api/data.rb', line 24</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_xlsx'>xlsx</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='const'>Squib</span><span class='op'>::</span><span class='const'>SYSTEM_DEFAULTS</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span>
@@ -531,9 +688,9 @@ See the example <code>samples/excel.rb</code> in the <a href="https://github.com
 </div>
 
     <div id="footer">
-  Generated on Mon Nov  3 23:49:11 2014 by
+  Generated on Mon Dec  8 00:11:00 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.4 (ruby-2.0.0).
+  0.8.7.6 (ruby-2.0.0).
 </div>
 
   </body>

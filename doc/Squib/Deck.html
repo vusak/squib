@@ -6,7 +6,7 @@
 <title>
   Class: Squib::Deck
   
-    &mdash; Documentation by YARD 0.8.7.4
+    &mdash; Squib API Documentation
   
 </title>
 
@@ -172,6 +172,28 @@
   
     <span class="summary_desc"><div class='inline'><p>Draw a circle centered at the given coordinates.</p>
 </div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#csv-instance_method" title="#csv (instance method)">- (Object) <strong>csv</strong>(opts = {}) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -411,6 +433,28 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#show_info-instance_method" title="#show_info (instance method)">- (Object) <strong>show_info</strong>(config, layout) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#svg-instance_method" title="#svg (instance method)">- (nil) <strong>svg</strong>(opts = {}) </a>
     
 
@@ -434,7 +478,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#text-instance_method" title="#text (instance method)">- (nil) <strong>text</strong>(opts = {}) </a>
+      <a href="#text-instance_method" title="#text (instance method)">- (Array) <strong>text</strong>(opts = {}) </a>
     
 
     
@@ -494,7 +538,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'><p>Convenience call for Squib.xlsx.</p>
+    <span class="summary_desc"><div class='inline'><p>Convenience call on deck goes to the module function.</p>
 </div></span>
   
 </li>
@@ -625,6 +669,21 @@ end</code></pre>
   
     <li>
       
+        <span class='name'>layout</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>Array</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>load a YML file of custom layouts. Multiple files are merged sequentially, redefining collisons. See README and sample for details.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
         <span class='name'>block</span>
       
       
@@ -647,7 +706,6 @@ end</code></pre>
       <pre class="lines">
 
 
-55
 56
 57
 58
@@ -662,10 +720,12 @@ end</code></pre>
 67
 68
 69
-70</pre>
+70
+71
+72</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/squib/deck.rb', line 55</span>
+      <pre class="code"><span class="info file"># File 'lib/squib/deck.rb', line 56</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>width:</span> <span class='int'>825</span><span class='comma'>,</span> <span class='label'>height:</span> <span class='int'>1125</span><span class='comma'>,</span> <span class='label'>cards:</span> <span class='int'>1</span><span class='comma'>,</span> <span class='label'>dpi:</span> <span class='int'>300</span><span class='comma'>,</span> <span class='label'>config:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>config.yml</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>layout:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='ivar'>@width</span><span class='op'>=</span><span class='id identifier rubyid_width'>width</span><span class='semicolon'>;</span> <span class='ivar'>@height</span><span class='op'>=</span><span class='id identifier rubyid_height'>height</span>
@@ -677,6 +737,7 @@ end</code></pre>
   <span class='ivar'>@progress_bar</span> <span class='op'>=</span> <span class='const'>Squib</span><span class='op'>::</span><span class='const'>Progress</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>false</span><span class='rparen'>)</span>
   <span class='ivar'>@text_hint</span> <span class='op'>=</span> <span class='symbol'>:off</span>
   <span class='id identifier rubyid_cards'>cards</span><span class='period'>.</span><span class='id identifier rubyid_times'>times</span><span class='lbrace'>{</span> <span class='ivar'>@cards</span> <span class='op'>&lt;&lt;</span> <span class='const'>Squib</span><span class='op'>::</span><span class='const'>Card</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_width'>width</span><span class='comma'>,</span> <span class='id identifier rubyid_height'>height</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_show_info'>show_info</span><span class='lparen'>(</span><span class='id identifier rubyid_config'>config</span><span class='comma'>,</span> <span class='id identifier rubyid_layout'>layout</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_load_config'>load_config</span><span class='lparen'>(</span><span class='id identifier rubyid_config'>config</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_load_layout'>load_layout</span><span class='lparen'>(</span><span class='id identifier rubyid_layout'>layout</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
@@ -1031,6 +1092,45 @@ Options support Arrays, see <a href="../index.html#Arrays_and_Singleton_Expansio
     <span class='ivar'>@cards</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_circle'>circle</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:x</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:y</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:radius</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span>
       <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:fill_color</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:stroke_color</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:stroke_width</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="csv-instance_method">
+  
+    - (<tt>Object</tt>) <strong>csv</strong>(opts = {}) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+93
+94
+95</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/squib/api/data.rb', line 93</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_csv'>csv</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='const'>Squib</span><span class='period'>.</span><span class='id identifier rubyid_csv'>csv</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2611,6 +2711,47 @@ Note: scaling not currently supported for PNGs.</p>
 </div>
     
       <div class="method_details ">
+  <h3 class="signature " id="show_info-instance_method">
+  
+    - (<tt>Object</tt>) <strong>show_info</strong>(config, layout) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+172
+173
+174
+175</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/squib/deck.rb', line 172</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_show_info'>show_info</span><span class='lparen'>(</span><span class='id identifier rubyid_config'>config</span><span class='comma'>,</span> <span class='id identifier rubyid_layout'>layout</span><span class='rparen'>)</span>
+  <span class='const'>Squib</span><span class='op'>::</span><span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Squib v</span><span class='embexpr_beg'>#{</span><span class='const'>Squib</span><span class='op'>::</span><span class='const'>VERSION</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='const'>Squib</span><span class='op'>::</span><span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>  building </span><span class='embexpr_beg'>#{</span><span class='ivar'>@cards</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='embexpr_end'>}</span><span class='tstring_content'> </span><span class='embexpr_beg'>#{</span><span class='ivar'>@width</span><span class='embexpr_end'>}</span><span class='tstring_content'>x</span><span class='embexpr_beg'>#{</span><span class='ivar'>@height</span><span class='embexpr_end'>}</span><span class='tstring_content'> cards</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
   <h3 class="signature " id="svg-instance_method">
   
     - (<tt>nil</tt>) <strong>svg</strong>(opts = {}) 
@@ -2912,7 +3053,7 @@ Note: scaling not currently supported for PNGs.</p>
       <div class="method_details ">
   <h3 class="signature " id="text-instance_method">
   
-    - (<tt>nil</tt>) <strong>text</strong>(opts = {}) 
+    - (<tt>Array</tt>) <strong>text</strong>(opts = {}) 
   
 
   
@@ -3264,12 +3405,12 @@ Options are <code>:none, :word, :char, :word_char</code>. Also: <code>true</code
     <li>
       
       
-        <span class='type'>(<tt>nil</tt>)</span>
+        <span class='type'>(<tt>Array</tt>)</span>
       
       
       
         &mdash;
-        <div class='inline'><p>Returns nothing</p>
+        <div class='inline'><p>Returns an Array of hashes keyed by :width and :height that mark the ink extents of the text rendered.</p>
 </div>
       
     </li>
@@ -3292,7 +3433,9 @@ Options are <code>:none, :word, :char, :word_char</code>. Also: <code>true</code
 48
 49
 50
-51</pre>
+51
+52
+53</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/squib/api/text.rb', line 41</span>
@@ -3300,13 +3443,15 @@ Options are <code>:none, :word, :char, :word_char</code>. Also: <code>true</code
 <span class='kw'>def</span> <span class='id identifier rubyid_text'>text</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='id identifier rubyid_needs'>needs</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='symbol'>:range</span><span class='comma'>,</span> <span class='symbol'>:str</span><span class='comma'>,</span> <span class='symbol'>:font</span><span class='comma'>,</span> <span class='symbol'>:font_size</span><span class='comma'>,</span> <span class='symbol'>:x</span><span class='comma'>,</span> <span class='symbol'>:y</span><span class='comma'>,</span> <span class='symbol'>:width</span><span class='comma'>,</span> <span class='symbol'>:height</span><span class='comma'>,</span> <span class='symbol'>:color</span><span class='comma'>,</span> <span class='symbol'>:wrap</span><span class='comma'>,</span>
                       <span class='symbol'>:align</span><span class='comma'>,</span> <span class='symbol'>:justify</span><span class='comma'>,</span> <span class='symbol'>:spacing</span><span class='comma'>,</span> <span class='symbol'>:valign</span><span class='comma'>,</span> <span class='symbol'>:markup</span><span class='comma'>,</span> <span class='symbol'>:ellipsize</span><span class='comma'>,</span> <span class='symbol'>:hint</span><span class='comma'>,</span> <span class='symbol'>:layout</span><span class='comma'>,</span> <span class='symbol'>:angle</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_extents'>extents</span> <span class='op'>=</span> <span class='const'>Array</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='ivar'>@cards</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:range</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
-    <span class='ivar'>@cards</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_text'>text</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:str</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:font</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:font_size</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:color</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span>
+    <span class='id identifier rubyid_extents'>extents</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='ivar'>@cards</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_text'>text</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:str</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:font</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:font_size</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:color</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span>
                    <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:x</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:y</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:width</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:height</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span>
                    <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:markup</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:justify</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:wrap</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span>
                    <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:ellipsize</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:spacing</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:align</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span>
                    <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:valign</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:hint</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:angle</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_extents'>extents</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -3587,7 +3732,7 @@ Options are <code>:none, :word, :char, :word_char</code>. Also: <code>true</code
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Convenience call for Squib.xlsx</p>
+    <p>Convenience call on deck goes to the module function</p>
 
 
   </div>
@@ -3601,12 +3746,12 @@ Options are <code>:none, :word, :char, :word_char</code>. Also: <code>true</code
       <pre class="lines">
 
 
-46
-47
-48</pre>
+89
+90
+91</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/squib/api/data.rb', line 46</span>
+      <pre class="code"><span class="info file"># File 'lib/squib/api/data.rb', line 89</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_xlsx'>xlsx</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='const'>Squib</span><span class='period'>.</span><span class='id identifier rubyid_xlsx'>xlsx</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span>
@@ -3621,9 +3766,9 @@ Options are <code>:none, :word, :char, :word_char</code>. Also: <code>true</code
 </div>
 
     <div id="footer">
-  Generated on Mon Nov  3 23:49:12 2014 by
+  Generated on Mon Dec  8 00:11:01 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.4 (ruby-2.0.0).
+  0.8.7.6 (ruby-2.0.0).
 </div>
 
   </body>
