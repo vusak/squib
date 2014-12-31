@@ -27,36 +27,11 @@
         <section id="downloads" class="clearfix">
           <a href="https://rubygems.org/gems/squib" id="download-zip" class="button"><span>On RubyGems</span></a>
           <a href="https://github.com/andymeneely/squib" id="view-on-github" class="button"><span>On GitHub</span></a>
-          <a href="doc/frames.html#!file.README.html" id="docs" class="button"><span>Docs</span></a>
+          <a href="doc/frames.html#!file.README.html" id="docs" class="button"><span>Get Started</span></a>
         </section>
         <hr/>
         <section id="main_content">
-          <p>Squib is a Ruby <a href="http://en.wikipedia.org/wiki/Domain-specific_language">DSL</a> for prototyping card and board games. With Squib, you just write a little bit of Ruby and you can compile your game's data and images into a series of images ready for print-and-play or even print-on-demand. Squib is very data-driven - think of it like <a href="http://www.nand.it/nandeck/">nanDeck</a> done "the Ruby way". Squib supports:</p>
-
-          <ul>
-            <li>A concise set of rules for laying out your cards</li>
-            <li>Loading PNGs and SVGs using <a href="http://cairographics.org/">Cairo</a>
-            </li>
-            <li>Complex text rendering using <a href="http://www.pango.org/">Pango</a>
-            </li>
-            <li>Reading <code>.xlsx</code> files</li>
-            <li>Basic shape drawing</li>
-            <li>Rendering decks to PNGs and PDFs</li>
-            <li>Data-driven layouts</li>
-            <li>Unit conversion</li>
-            <li>Plus the full power of Ruby! </li>
-          </ul><p>Check this out. </p>
-
-          <div class="highlight highlight-ruby">
-<pre>
-<span class="nb">require</span> <span class="s1">'squib'</span>
-<span class="no">Squib</span><span class="o">::</span><span class="no">Deck</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span>
-  <span class="n">text</span> <span class="ss">str</span><span class="p">:</span> <span class="s1">'Hello, World!'</span>
-  <span class="n">save_png</span>
-<span class="k">end</span>
-</pre></div>
-
-          <p>That script just created a deck of cards with 1 image at 825x1125 with the string "Hello, World" in the upper-left corner.</p>
+          {{ content }}
         </section>
 
         <footer>
