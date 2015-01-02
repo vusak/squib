@@ -47,10 +47,15 @@ module Squib
     # @option opts [Enumerable, :all] range (:all) the range of cards over which this will be rendered. See {file:README.md#Specifying_Ranges Specifying Ranges}
     # @option opts [Fixnum] trim (0) the margin around the card to trim before putting into the showcase
     # @option opts [Fixnum] trim_radius (0) the rounded rectangle radius around the card to trim before putting into the showcase
+    # @option opts [Fixnum] scale (0.8) percentage of original width of each (trimmed) card to scale to. Must be between 0.0 and 1.0, but starts looking bad around 0.6
+    # @option opts [Fixnum] offset (1.1) percentage of the scaled width of each card to shift each offset. e.g. 1.1 is a 10% shift, and 0.95 is overlapping by 5%
+    # @option opts [Fixnum] fill_color ('#0000') backdrop color. Usually black or white.
     # @option opts [String] dir (_output) the directory for the output to be sent to. Will be created if it doesn't exist.
     def showcase(opts = {})
       opts = needs(opts,[:range, :trim, :trim_radius, :creatable_dir, :file_to_save])
-      render_showcase(opts[:range], opts[:trim], opts[:trim_radius], opts[:dir], opts[:file])
+      render_showcase(opts[:range], opts[:trim], opts[:trim_radius],
+                      opts[:scale], opts[:offset], opts[:fill_color],
+                      opts[:dir], opts[:file])
     end
 
   end

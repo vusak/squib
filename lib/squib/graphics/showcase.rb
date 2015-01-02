@@ -9,39 +9,37 @@ module Squib
     #  http://zetcode.com/gui/pygtk/drawingII/
     # :nodoc:
     # @api private
-    def render_showcase(range, trim, trim_radius, dir, file_to_save)
+    def render_showcase(range, trim, trim_radius, scale, offset, fill_color, dir, file_to_save)
       ### MAKE INTO API ###
-      angle = 0.12 #OLD
-      scale = 0.85 # percentage of original width of each card to scale to
-      offset = 0.95 # percentage of original width of each card to shift each offset
-      fill_color = :white # backdrop color
+      reflect_offset = 15 # the amount to shift the reflection downwards
+      reflect_percent = 0.5 # the percentage of the reflection to show
+      reflect_strength = 0.20 #the percentage of alpha reflection starts at
+      margin = 50 # space around the edges
       #####################
 
-      out_width = range.size * (@width + 50)
-      out_height = @height * (2 + scale + angle)
+      out_width = range.size * ((@width - 2*trim) * scale * offset) + 2*margin
+      out_height = reflect_offset + (1.0 + reflect_percent) * (@height - 2*trim) + 2*margin
       out_cc = Cairo::Context.new(Cairo::ImageSurface.new(out_width, out_height))
-
       out_cc.set_source_color(fill_color)
       out_cc.paint
 
       cards = range.collect { |i| @cards[i] }
       cards.each_with_index do |card, i|
-        surface = perspective_reflect(trim_rounded(card.cairo_surface), angle, scale)
-        out_cc.set_source(surface, 25 + i * (surface.width*offset + 25) ,75)
+        trimmed = trim_rounded(card.cairo_surface, trim, trim_radius)
+        reflected = reflect(trimmed, reflect_offset, reflect_percent, reflect_strength)
+        perspectived = perspective(reflected, scale, )
+        out_cc.set_source(perspectived, margin + i * perspectived.width * offset, margin)
         out_cc.paint
       end
-
-      out_cc.target.write_to_png("#{dir}/#{file_to_save}.png")
+      out_cc.target.write_to_png("#{dir}/#{file_to_save}")
     end
 
     # :nodoc:
     # @api private
-    def trim_rounded(surface)
-      margin = 39
-      radius = 32
-      trim_cc = Cairo::Context.new(Cairo::ImageSurface.new(surface.width-2.0*margin, surface.height-2.0*margin))
+    def trim_rounded(src, trim, radius)
+      trim_cc = Cairo::Context.new(Cairo::ImageSurface.new(src.width-2.0*trim, src.height-2.0*trim))
       trim_cc.rounded_rectangle(0, 0, trim_cc.target.width, trim_cc.target.height, radius, radius)
-      trim_cc.set_source(surface, -1 * margin, -1 * margin)
+      trim_cc.set_source(src, -1 * trim, -1 * trim)
       trim_cc.clip
       trim_cc.paint
       return trim_cc.target
@@ -49,54 +47,39 @@ module Squib
 
     # :nodoc:
     # @api private
-    def perspective_reflect(surface, angle, scale)
-      tmp_cc = Cairo::Context.new(Cairo::ImageSurface.new(surface.width * (scale+angle/2), surface.height * (2 + angle/2.0)))
-
-      #### TOP PART ####
-      scale_x     = scale      # scale the width
-      scale_y     = 1.0        # same height, not reversed
-      rotate_x    = 0.0        #
-      rotate_y    = -1 * angle # don't rotate along y
-      translate_x = 0.0        # don't translate x
-      translate_y = 225 # make room for our top-right corner
-      matrix = Cairo::Matrix.new(scale_x, rotate_y,
-                                 rotate_x, scale_y,
-                                 translate_x, translate_y)
-      tmp_cc.transform(matrix)
-      tmp_cc.set_source(surface,0,0)
-
+    def reflect(src, roffset, rpercent, rstrength)
+      tmp_cc = Cairo::Context.new(Cairo::ImageSurface.new(src.width, src.height * (1.0 + rpercent) + roffset))
+      tmp_cc.set_source(src, 0, 0)
       tmp_cc.paint
-
-      tmp_cc.identity_matrix #reset
-      tmp_cc.new_path
-
-      #### BOTTOM PART ####
-
-      # Transformation
-      scale_x     = scale       # scale the width
-      scale_y     = -1.0  # same height, but reversed
-      rotate_x    = 0.0         #
-      rotate_y    = -1 * angle  # don't rotate along y
-      translate_x = 0.0         # don't translate
-      translate_y = surface.height * 2 + 250
-      matrix = Cairo::Matrix.new(scale_x, rotate_y,
-                                 rotate_x, scale_y,
-                                 translate_x, translate_y)
+      # Flip affine magic from: http://cairographics.org/matrix_transform/
+      matrix = Cairo::Matrix.new(1, 0, 0, -1, 0, 2 * src.height + roffset)
       tmp_cc.transform(matrix)
-      tmp_cc.set_source(surface,0,0)
-
-      # Gradient mask
-      gradient = Cairo::LinearPattern.new(0.0, 0.0, 0.0, 2000)
-      gradient.add_color_stop_rgba(0,   0,0,0, 0.0)
-      gradient.add_color_stop_rgba(1.0, 0,0,0, 0.3)
-      # tmp_cc.set_source(gradient)
-      # tmp_cc.paint
-      # tmp_cc.clip
+      top_y = 2 * src.height * rpercent + roffset # top of the reflection
+      bottom_y = src.height * rpercent + roffset # bottom of the reflection
+      gradient = Cairo::LinearPattern.new(0,bottom_y, 0,top_y)
+      gradient.add_color_stop_rgba(1.0, 0,0,0, rstrength) # start a little reflected
+      gradient.add_color_stop_rgba(0,   0,0,0, 0.0) # fade to nothing
+      tmp_cc.set_source(src, 0, 0)
       tmp_cc.mask(gradient)
-
-      # tmp_cc.paint
-
       return tmp_cc.target
+    end
+
+    def perspective(src, scale)
+      dest_cxt = Cairo::Context.new(Cairo::ImageSurface.new(src.width * scale, src.height))
+      in_thickness = 1 # Take strip 1 pixel-width at a time
+      out_thickness = 3 # Scale it to 3 pixels wider to cover any gaps
+      (0..src.width).step(in_thickness) do |i|
+        percentage = i / src.width.to_f
+        factor = scale + (percentage * (1.0 - scale)) #linear interpolation
+        dest_cxt.save
+        dest_cxt.translate 0, src.height / 2.0 * (1.0 - factor)
+        dest_cxt.scale factor * scale, factor
+        dest_cxt.set_source src, 0, 0
+        dest_cxt.rounded_rectangle i, 0, out_thickness, src.height, 0,0
+        dest_cxt.fill
+        dest_cxt.restore
+      end
+      return dest_cxt.target
     end
 
   end
