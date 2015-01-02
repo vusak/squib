@@ -38,8 +38,8 @@ module Squib
       end
     end
 
-    # Renders a range of files in a showcase 
-    # See {file:samples/showcase.rb} for an example
+    # Renders a range of files in a showcase as if they are sitting on a reflective surface
+    # See {file:samples/showcase.rb} for full example
     #
     # @example
     #   showcase file: 'showcase_output.png', trim: 78, trim_radius: 32
