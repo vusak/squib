@@ -8,11 +8,11 @@ module Squib
     # :nodoc:
     # @api private
     def needs(opts, params)
-      Squib.logger.debug {"Given opts: #{opts}"}
+      Squib.logger.debug {"Method #{caller(1,1)} was given the following opts: #{opts}"}
       opts = layoutify(opts) if params.include? :layout
       opts = Squib::SYSTEM_DEFAULTS.merge(opts)
       opts = expand_singletons(opts, params)
-      opts = rangeify(opts) if params.include? :range      
+      opts = rangeify(opts) if params.include? :range
       opts = fileify(opts) if params.include? :file
       opts = fileify(opts, false) if params.include? :file_to_save
       opts = colorify(opts, true) if params.include? :nillable_color
@@ -27,6 +27,8 @@ module Squib
       opts = svgidify(opts) if params.include? :svgid
       opts = formatify(opts) if params.include? :formats
       opts = rotateify(opts) if params.include? :rotate
+      opts = rowify(opts) if params.include? :rows
+      opts = convert_units(opts, params)
       opts
     end
     module_function :needs
@@ -37,7 +39,7 @@ module Squib
       Squib::EXPANDING_PARAMS.each_pair do |param_name, api_param|
         if needed_params.include? param_name
           unless opts[api_param].respond_to?(:each)
-            opts[api_param] = [opts[api_param]] * @cards.size 
+            opts[api_param] = [opts[api_param]] * @cards.size
           end
         end
       end
@@ -50,8 +52,8 @@ module Squib
     # :nodoc:
     # @api private
     def layoutify(opts)
-      unless opts[:layout].respond_to?(:each) 
-        opts[:layout] = [opts[:layout]] * @cards.size 
+      unless opts[:layout].respond_to?(:each)
+        opts[:layout] = [opts[:layout]] * @cards.size
       end
       opts[:layout].each_with_index do |layout, i|
         unless layout.nil?
@@ -61,7 +63,7 @@ module Squib
               opts[key.to_sym] = [] if opts[key.to_sym].nil?
               opts[key.to_sym][i] ||= entry[key] #don't override if it's already there
             end
-          else 
+          else
             Squib.logger.warn ("Layout entry '#{layout}' does not exist." )
           end
         end
@@ -99,7 +101,7 @@ module Squib
     # @api private
     def fileify(opts, file_must_exist=true)
       [opts[:file]].flatten.each do |file|
-        if file_must_exist and !File.exists?(file) 
+        if file_must_exist and !File.exists?(file)
           raise "File #{File.expand_path(file)} does not exist!"
         end
       end
@@ -112,9 +114,9 @@ module Squib
     def dirify(opts, key, allow_create=false)
       return opts if Dir.exists?(opts[key])
       if allow_create
-        Squib.logger.warn {"Dir #{opts[key]} does not exist, creating it."}
+        Squib.logger.warn("Dir '#{opts[key]}' does not exist, creating it.")
         Dir.mkdir opts[key]
-        return opts 
+        return opts
       else
         raise "'#{opts[key]}' does not exist!"
       end
@@ -145,14 +147,14 @@ module Squib
         opts[:font][i] = Squib::SYSTEM_DEFAULTS[:default_font] if font == :default
       end
       Squib.logger.debug {"After fontify: #{opts}"}
-      opts 
+      opts
     end
-    module_function :fontify 
+    module_function :fontify
 
     # :nodoc:
     # @api private
     def radiusify(opts)
-      opts[:radius].each_with_index do |radius, i| 
+      opts[:radius].each_with_index do |radius, i|
         unless radius.nil?
           opts[:x_radius][i] = radius
           opts[:y_radius][i] = radius
@@ -188,7 +190,40 @@ module Squib
       Squib.logger.debug {"After rotateify: #{opts}"}
       opts
     end
-    module_function :svgidify
+    module_function :rotateify
+
+    # Convert units
+    # :nodoc:
+    # @api private
+    def convert_units(opts, needed_params)
+      Squib::UNIT_CONVERSION_PARAMS.each_pair do |param_name, api_param|
+        if needed_params.include? param_name
+          opts[api_param].each_with_index do |arg, i|
+            case arg.to_s.rstrip
+            when /in$/ #ends with "in"
+              opts[api_param][i] = arg.rstrip[0..-2].to_f * @dpi
+            when /cm$/ #ends with "cm"
+              opts[api_param][i] = arg.rstrip[0..-2].to_f * @dpi * Squib::INCHES_IN_CM
+            end
+          end
+        end
+      end
+      Squib.logger.debug {"After convert_units: #{opts}"}
+      return opts
+    end
+    module_function :convert_units
+
+     # Handles expanding rows. If the "rows" does not respond to to_i (e.g. :infinite),
+    # then compute what we need based on number of cards and number of columns.
+    # :nodoc:
+    # @api private
+    def rowify(opts)
+      unless opts[:rows].respond_to? :to_i
+        raise "Columns must be an integer" unless opts[:columns].respond_to? :to_i
+        opts[:rows] = (@cards.size / opts[:columns].to_i).ceil
+      end
+      opts
+    end
 
   end
 end

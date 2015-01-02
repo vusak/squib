@@ -1,16 +1,17 @@
 require 'roo'
+require 'csv'
 
 module Squib
 
   # Pulls Excel data from `.xlsx` files into a column-based hash
   #
-  # Pulls the data into a Hash of arrays based on the columns. First row is assumed to be the header row. 
+  # Pulls the data into a Hash of arrays based on the columns. First row is assumed to be the header row.
   # See the example `samples/excel.rb` in the [source repository](https://github.com/andymeneely/squib/tree/master/samples)
   #
   # @example
   #   # Excel file looks like this:
   #   # | h1 | h2 |
-  #   # ------------ 
+  #   # ------------
   #   # | 1  | 2  |
   #   # | 3  | 4  |
   #   data = xlsx file: 'data.xlsx', sheet: 0
@@ -32,7 +33,7 @@ module Squib
       (s.first_row+1).upto(s.last_row) do |row|
         cell = s.cell(row,col)
         # Roo hack for avoiding unnecessary .0's on whole integers
-        cell = s.excelx_value(row,col) if s.excelx_type(row,col) == [:numeric_or_formula, "General"]
+        cell = s.excelx_value(row,col) if s.excelx_type(row,col) == [:numeric_or_formula, 'General']
         data[header] << cell
       end#row
     end#col
@@ -40,13 +41,59 @@ module Squib
   end#xlsx
   module_function :xlsx
 
+  # Pulls CSV data from `.csv` files into a column-based hash
+  #
+  # Pulls the data into a Hash of arrays based on the columns. First row is assumed to be the header row.
+  # See the example `samples/csv.rb` in the [source repository](https://github.com/andymeneely/squib/tree/master/samples)
+  #
+  # @example
+  #   # File data.csv looks like this (without the comment symbols)
+  #   # h1,h2
+  #   # 1,2
+  #   # 3,4
+  #   data = csv file: 'data.csv'
+  #   => {'h1' => [1,3], 'h2' => [2,4]}
+  #
+  # Parsing uses Ruby's CSV, with options `{headers: true, converters: :numeric}`
+  # http://www.ruby-doc.org/stdlib-2.0/libdoc/csv/rdoc/CSV.html
+  #
+  # @option opts file [String]  the CSV-formatted file to open. Opens relative to the current directory.
+  # @return [Hash] a hash of arrays based on columns in the table
+  # @api public
+  def csv(opts = {})
+    opts = Squib::SYSTEM_DEFAULTS.merge(opts)
+    opts = Squib::InputHelpers.fileify(opts)
+    table = CSV.read(opts[:file], headers: true, converters: :numeric)
+    check_duplicate_csv_headers(table)
+    hash = Hash.new
+    table.headers.each do |header|
+      hash[header.to_s] ||= table[header]
+    end
+    return hash
+  end
+  module_function :csv
+
+  # Check if the given CSV table has duplicate columns, and throw a warning
+  # @api private
+  def check_duplicate_csv_headers(table)
+    if table.headers.size != table.headers.uniq.size
+      dups = table.headers.select{|e| table.headers.count(e) > 1 }
+      Squib.logger.warn "CSV duplicated the following column keys: #{dups.join(',')}"
+    end
+  end
+  module_function :check_duplicate_csv_headers
+
   class Deck
-    
-    # Convenience call for Squib.xlsx
+
+    # Convenience call on deck goes to the module function
     def xlsx(opts = {})
       Squib.xlsx(opts)
-    end    
+    end
+
+    # Convenience call on deck goes to the module function
+    def csv(opts = {})
+      Squib.csv(opts)
+    end
 
   end
 end
-

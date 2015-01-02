@@ -1,18 +1,21 @@
 module Squib
     # Squib's defaults for when arguments are not specified in the command nor layouts.
-    # 
+    #
     # @api public
-    SYSTEM_DEFAULTS = { 
+    SYSTEM_DEFAULTS = {
       :align => :left,
       :alpha => 1.0,
+      :angle => 0,
       :blend => :none,
       :color => :black,
+      :columns => 1,
       :default_font => 'Arial 36',
-      :dir => "_output",
+      :dir => '_output',
       :ellipsize => :end,
       :fill_color => '#0000',
       :force_id => false,
       :font => :use_set,
+      :font_size => nil,
       :format => :png,
       :gap => 0,
       :height => :native,
@@ -21,10 +24,11 @@ module Squib
       :justify => false,
       :margin => 75,
       :markup => false,
-      :prefix => "card_",
+      :prefix => 'card_',
       :progress_bar => false,
       :range => :all,
       :rotate => false,
+      :rows => :infinite,
       :sheet => 0,
       :spacing => 0,
       :str => '',
@@ -38,7 +42,7 @@ module Squib
       :x1 => 100,
       :x2 => 150,
       :x3 => 100,
-      :x_radius => 0, 
+      :x_radius => 0,
       :y => 0,
       :y1 => 100,
       :y2 => 150,
@@ -47,9 +51,9 @@ module Squib
     }
 
     # Squib's configuration defaults
-    # 
+    #
     # @api public
-    CONFIG_DEFAULTS = { 
+    CONFIG_DEFAULTS = {
       'custom_colors' => {},
       'dpi' => 300,
       'hint' => :none,
@@ -57,10 +61,10 @@ module Squib
       'img_dir' => '.',
     }
 
-    # These are parameters that are intended to be "expanded" across 
-    # range if they are singletons. 
+    # These are parameters that are intended to be "expanded" across
+    # range if they are singletons.
     #
-    # For example, using a different font for each card, using one `text`
+    # For example: using a different font for each card, using one `text` command
     #
     # key: the internal name of the param (e.g. :files)
     # value: the user-facing API key (e.g. file: 'abc.png')
@@ -69,6 +73,7 @@ module Squib
     EXPANDING_PARAMS = {
           :align => :align,
           :alpha => :alpha,
+          :angle => :angle,
           :blend => :blend,
           :circle_radius => :radius,
           :color => :color,
@@ -77,6 +82,7 @@ module Squib
           :fill_color => :fill_color,
           :force_svgid => :force_id,
           :font => :font,
+          :font_size => :font_size,
           :height => :height,
           :hint => :hint,
           :justify => :justify,
@@ -99,7 +105,38 @@ module Squib
           :y => :y,
           :y1 => :y1,
           :y2 => :y2,
-          :y2 => :y3,
+          :y3 => :y3,
           :y_radius => :y_radius,
       }
+
+    # These parameters are considered for unit conversion
+    #
+    # For example
+    #    text str: 'Hello, World', x: '1in'
+    #
+    # key: the internal name of the param (e.g. :circle_radius)
+    # value: the user-facing API key (e.g. radius: '1in')
+    UNIT_CONVERSION_PARAMS = {
+      :circle_radius => :radius,
+      :height => :height,
+      :rect_radius => :radius,
+      :spacing => :spacing,
+      :stroke_width => :stroke_width,
+      :width => :width,
+      :x => :x,
+      :x1 => :x1,
+      :x2 => :x2,
+      :x3 => :x3,
+      :x_radius => :x_radius,
+      :y => :y,
+      :y1 => :y1,
+      :y2 => :y2,
+      :y3 => :y3,
+      :y_radius => :y_radius,
+    }
+
+    # Used for inch-cm conversion
+    # :nodoc:
+    # @api private
+    INCHES_IN_CM = 0.393700787
 end
