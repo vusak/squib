@@ -54,27 +54,11 @@ module Squib
       # Flip affine magic from: http://cairographics.org/matrix_transform/
       matrix = Cairo::Matrix.new(1, 0, 0, -1, 0, 2 * src.height + roffset)
       tmp_cc.transform(matrix) # flips the coordinate system
-      top_y    = src.height # top of the reflection
+      top_y    = src.height    # top of the reflection
       bottom_y = src.height * (1.0 - rpercent) + roffset # bottom of the reflection
-
-      ##################
-      # mark top and bottom
-      # tmp_cc.save
-      # tmp_cc.rounded_rectangle(0,top_y, 100,10, 0,0)
-      # tmp_cc.set_source_color(:red)
-      # tmp_cc.fill
-      # tmp_cc.restore
-
-      # tmp_cc.save
-      # tmp_cc.rounded_rectangle(0,bottom_y, 100, 10, 0,0)
-      # tmp_cc.set_source_color(:blue)
-      # tmp_cc.fill
-      # tmp_cc.restore
-      ###################
-
       gradient = Cairo::LinearPattern.new(0,top_y, 0,bottom_y)
       gradient.add_color_stop_rgba(0.0, 0,0,0, rstrength) # start a little reflected
-      gradient.add_color_stop_rgba(1.0, 0,0,0, 0.0) # fade to nothing
+      gradient.add_color_stop_rgba(1.0, 0,0,0, 0.0)       # fade to nothing
       tmp_cc.set_source(src, 0, 0)
       tmp_cc.mask(gradient)
       return tmp_cc.target
