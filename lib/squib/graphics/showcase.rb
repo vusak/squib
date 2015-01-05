@@ -11,10 +11,10 @@ module Squib
     # @api private
     def render_showcase(range, trim, trim_radius, scale, offset, fill_color, dir, file_to_save)
       ### MAKE INTO API ###
-      reflect_offset = 15 # the amount to shift the reflection downwards
-      reflect_percent = 0.5 # the percentage of the reflection to show
-      reflect_strength = 0.20 #the percentage of alpha reflection starts at
-      margin = 50 # space around the edges
+      reflect_offset   = 15   # the amount to shift the reflection downwards
+      reflect_percent  = 0.25 # the length of the reflection shadow, in percentage of the trimmed image
+      reflect_strength = 0.2  # the percentage of alpha the reflection starts at
+      margin           = 50   # space around the edges
       #####################
 
       out_width = range.size * ((@width - 2*trim) * scale * offset) + 2*margin
@@ -53,12 +53,28 @@ module Squib
       tmp_cc.paint
       # Flip affine magic from: http://cairographics.org/matrix_transform/
       matrix = Cairo::Matrix.new(1, 0, 0, -1, 0, 2 * src.height + roffset)
-      tmp_cc.transform(matrix)
-      top_y = 2 * src.height * rpercent + roffset # top of the reflection
-      bottom_y = src.height * rpercent + roffset # bottom of the reflection
-      gradient = Cairo::LinearPattern.new(0,bottom_y, 0,top_y)
-      gradient.add_color_stop_rgba(1.0, 0,0,0, rstrength) # start a little reflected
-      gradient.add_color_stop_rgba(0,   0,0,0, 0.0) # fade to nothing
+      tmp_cc.transform(matrix) # flips the coordinate system
+      top_y    = src.height # top of the reflection
+      bottom_y = src.height * (1.0 - rpercent) + roffset # bottom of the reflection
+
+      ##################
+      # mark top and bottom
+      # tmp_cc.save
+      # tmp_cc.rounded_rectangle(0,top_y, 100,10, 0,0)
+      # tmp_cc.set_source_color(:red)
+      # tmp_cc.fill
+      # tmp_cc.restore
+
+      # tmp_cc.save
+      # tmp_cc.rounded_rectangle(0,bottom_y, 100, 10, 0,0)
+      # tmp_cc.set_source_color(:blue)
+      # tmp_cc.fill
+      # tmp_cc.restore
+      ###################
+
+      gradient = Cairo::LinearPattern.new(0,top_y, 0,bottom_y)
+      gradient.add_color_stop_rgba(0.0, 0,0,0, rstrength) # start a little reflected
+      gradient.add_color_stop_rgba(1.0, 0,0,0, 0.0) # fade to nothing
       tmp_cc.set_source(src, 0, 0)
       tmp_cc.mask(gradient)
       return tmp_cc.target
