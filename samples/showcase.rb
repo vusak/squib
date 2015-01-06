@@ -11,9 +11,15 @@ Squib::Deck.new(cards: 4) do
        x: 78, y: 78, width: '2.25in', align: :center
   svg file: 'spanner.svg', x: (825-500)/2, y: 500, width: 500, height: 500
 
-  # Here's a more complete example
-  showcase trim: 32, trim_radius: 32,
-           scale: 0.85, offset: 1.05, fill_color: :white,
-           file: 'showcase_output.png'
-  save_png prefix: 'showcase_' # to show that they're not trimmed
+  # Defaults are pretty sensible.
+  showcase file: 'showcase.png'
+
+  # Here's a more complete example.
+  # Tons of ways to tweak it if you like - check the docs.
+  showcase trim: 32, trim_radius: 32, margin: 100, face: :right,
+           scale: 0.85, offset: 0.95, fill_color: :black,
+           reflect_offset: 25, reflect_strength: 0.1, reflect_percent: 0.4,
+           file: 'showcase2.png'
+
+  save_png prefix: 'showcase_individual_' # to show that they're not trimmed
 end

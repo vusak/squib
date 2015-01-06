@@ -9,14 +9,10 @@ module Squib
     #  http://zetcode.com/gui/pygtk/drawingII/
     # :nodoc:
     # @api private
-    def render_showcase(range, trim, trim_radius, scale, offset, fill_color, dir, file_to_save)
-      ### MAKE INTO API ###
-      reflect_offset   = 15   # the amount to shift the reflection downwards
-      reflect_percent  = 0.25 # the length of the reflection shadow, in percentage of the trimmed image
-      reflect_strength = 0.2  # the percentage of alpha the reflection starts at
-      margin           = 50   # space around the edges
-      #####################
-
+    def render_showcase(range,
+                        trim, trim_radius, scale, offset, fill_color,
+                        reflect_offset, reflect_percent, reflect_strength, margin, face_right,
+                        dir, file_to_save)
       out_width = range.size * ((@width - 2*trim) * scale * offset) + 2*margin
       out_height = reflect_offset + (1.0 + reflect_percent) * (@height - 2*trim) + 2*margin
       out_cc = Cairo::Context.new(Cairo::ImageSurface.new(out_width, out_height))
@@ -27,7 +23,7 @@ module Squib
       cards.each_with_index do |card, i|
         trimmed = trim_rounded(card.cairo_surface, trim, trim_radius)
         reflected = reflect(trimmed, reflect_offset, reflect_percent, reflect_strength)
-        perspectived = perspective(reflected, scale, )
+        perspectived = perspective(reflected, scale, face_right)
         out_cc.set_source(perspectived, margin + i * perspectived.width * offset, margin)
         out_cc.paint
       end
@@ -64,12 +60,13 @@ module Squib
       return tmp_cc.target
     end
 
-    def perspective(src, scale)
+    def perspective(src, scale, face_right)
       dest_cxt = Cairo::Context.new(Cairo::ImageSurface.new(src.width * scale, src.height))
       in_thickness = 1 # Take strip 1 pixel-width at a time
       out_thickness = 3 # Scale it to 3 pixels wider to cover any gaps
       (0..src.width).step(in_thickness) do |i|
         percentage = i / src.width.to_f
+        i = src.width - i if face_right
         factor = scale + (percentage * (1.0 - scale)) #linear interpolation
         dest_cxt.save
         dest_cxt.translate 0, src.height / 2.0 * (1.0 - factor)
