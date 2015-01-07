@@ -1,5 +1,6 @@
 require 'cairo'
 require 'squib/input_helpers'
+require 'squib/tmp_maker'
 
 module Squib
   # Back end graphics. Private.
@@ -29,7 +30,7 @@ module Squib
       when 'svg'
         Cairo::SVGSurface.new(Squib::TmpMaker.next, width, height)
       else
-        Squib.logger.fatal "Back end not recognized: #{backend}"
+        Squib.logger.fatal "Back end not recognized: '#{backend}'"
         abort
       end
     end
