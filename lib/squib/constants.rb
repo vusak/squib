@@ -66,6 +66,8 @@ module Squib
       'hint' => :none,
       'progress_bar' => false,
       'img_dir' => '.',
+      'tmp_dir' => '_tmp',
+      'backend' => 'memory'
     }
 
     # These are parameters that are intended to be "expanded" across

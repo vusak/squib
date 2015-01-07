@@ -22,8 +22,9 @@ module Squib
       y = p[:margin]
       @progress_bar.start("Saving PDF to #{p[:dir]}/#{p[:file]}", p[:range].size) do |bar|
         p[:range].each do |i|
-          surface = trim(@cards[i].cairo_surface, p[:trim], @width, @height)
-          cc.set_source(surface, x, y)
+          # surface = trim(@cards[i].cairo_surface, p[:trim], @width, @height)
+          # cc.set_source(surface, x, y)
+          cc.set_source(@cards[i].cairo_surface)
           cc.paint
           bar.increment
           x += surface.width + p[:gap]

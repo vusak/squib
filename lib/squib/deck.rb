@@ -97,6 +97,7 @@ module Squib
         @progress_bar.enabled = config['progress_bars']
         @custom_colors = config['custom_colors']
         @img_dir = config['img_dir']
+        @backend = config['backend'].to_s.downcase.strip
       end
     end
 
@@ -106,6 +107,7 @@ module Squib
     def show_info(config, layout)
       Squib::logger.info "Squib v#{Squib::VERSION}"
       Squib::logger.info "  building #{@cards.size} #{@width}x#{@height} cards"
+      Squib::logger.info "  using #{@backend}"
     end
 
     ##################
