@@ -12,5 +12,5 @@ Squib::Deck.new(cards: 4, layout: 'layout.yml') do
   svg file: 'defend.svg', layout: :DefendIcon
   text str: deck['Defend'], layout: :DefendText
 
-  save_png dir: '.', prefix: 'bigger_'
+  save_png prefix: 'bigger_'
 end

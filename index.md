@@ -25,8 +25,8 @@ Squib is a Ruby [DSL](http://en.wikipedia.org/wiki/Domain-specific_language) for
 <div class="downarrow"></div>
 
 <div class="example">
-  <img src="/squib/squib_examples/basic_0.png">
-  <img src="/squib/squib_examples/basic_1.png">
+  <img src="/squib/squib_examples/_output/basic_0.png">
+  <img src="/squib/squib_examples/_output/basic_1.png">
 </div>
 
 <hr/>
@@ -42,8 +42,8 @@ Squib is a Ruby [DSL](http://en.wikipedia.org/wiki/Domain-specific_language) for
 <div class="downarrow"></div>
 
 <div class="example">
-  <img src="/squib/squib_examples/better_0.png">
-  <img src="/squib/squib_examples/better_1.png">
+  <img src="/squib/squib_examples/_output/better_0.png">
+  <img src="/squib/squib_examples/_output/better_1.png">
 </div>
 
 <hr/>
@@ -76,10 +76,10 @@ And then this `deck.rb` file:
 <div class="downarrow"></div>
 
 <div class="example">
-  <img src="/squib/squib_examples/bigger_0.png">
-  <img src="/squib/squib_examples/bigger_1.png">
-  <img src="/squib/squib_examples/bigger_2.png">
-  <img src="/squib/squib_examples/bigger_3.png">
+  <img src="/squib/squib_examples/_output/bigger_0.png">
+  <img src="/squib/squib_examples/_output/bigger_1.png">
+  <img src="/squib/squib_examples/_output/bigger_2.png">
+  <img src="/squib/squib_examples/_output/bigger_3.png">
 </div>
 
 <hr/>
@@ -112,12 +112,18 @@ And then this `deck.rb` file:
 <div class="downarrow"></div>
 
 <div class="example">
-  <img src="/squib/squib_examples/even_bigger_0.png">
-  <img src="/squib/squib_examples/even_bigger_1.png">
-  <img src="/squib/squib_examples/even_bigger_2.png">
-  <img src="/squib/squib_examples/even_bigger_3.png">
+  <img src="/squib/squib_examples/_output/even_bigger_0.png">
+  <img src="/squib/squib_examples/_output/even_bigger_1.png">
+  <img src="/squib/squib_examples/_output/even_bigger_2.png">
+  <img src="/squib/squib_examples/_output/even_bigger_3.png">
+</div>
+
+<div>
+  <img src="/squib/squib_examples/_output/showcase.png">
 </div>
 
 <hr/>
 
-Ready to get started?
+Ready to [get started](doc/frames.html#!file.README.html)?
+
+The above examples can be found [here](https://github.com/andymeneely/squib/tree/gh-pages/squib_examples).

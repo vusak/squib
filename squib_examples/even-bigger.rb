@@ -14,5 +14,6 @@ Squib::Deck.new(cards: 4, layout: %w(hand.yml even-bigger.yml)) do
     text str: deck[key], layout: key
   end
 
-  save_png dir: '.', prefix: 'even_bigger_'
+  save_png prefix: 'even_bigger_'
+  showcase file: 'showcase.png', fill_color: '#0000'
 end

@@ -24,10 +24,7 @@ exclude:
 - Gemfile.lock
 - CNAME
 
-# - squib_examples/_output/basic_0.png
-# - squib_examples/_output/basic_1.png
-# include:
-#   - squib_examples/_output
+include: [ _output ]
 
 # Build settings
 markdown: redcarpet
@@ -35,3 +32,4 @@ redcarpet:
   extensions:
     - tables
 highlighter: pygments
+# highlighter: rouge

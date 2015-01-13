@@ -193,7 +193,7 @@ a.button:hover{
  margin-top: -15px;
 }
 
-.example {
+.example, .showcase {
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 25px;
@@ -203,6 +203,10 @@ a.button:hover{
 .example img{
   width: 48%;
   box-shadow: 10px 10px 5px #888888;
+}
+
+.showcase img{
+  width: 95%;
 }
 
 code, pre {

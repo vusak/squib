@@ -9,9 +9,9 @@ Squib::Deck.new(cards: 2, width: 825, height: 1125) do
        color: light, font: 'ChunkFive Roman,Sans 72',
        y: '2.5in', width: '2.75in', align: :center
 
-  svg file: %w(attack.svg shield.svg),
+  svg file: %w(attack.svg defend.svg),
       width: 500, height: 500,
       x: 150, y: 250 # icons adapted from game-icons.net
 
-  save_png dir: '.', prefix: 'better_'
+  save_png prefix: 'better_'
 end
