@@ -80,7 +80,7 @@
   
     <dt class="r1 last">Defined in:</dt>
     <dd class="r1 last">lib/squib/deck.rb<span class="defines">,<br />
-  lib/squib.rb,<br /> lib/squib/card.rb,<br /> lib/squib/version.rb,<br /> lib/squib/api/data.rb,<br /> lib/squib/progress.rb,<br /> lib/squib/api/text.rb,<br /> lib/squib/api/save.rb,<br /> lib/squib/api/units.rb,<br /> lib/squib/api/image.rb,<br /> lib/squib/constants.rb,<br /> lib/squib/api/shapes.rb,<br /> lib/squib/api/settings.rb,<br /> lib/squib/commands/new.rb,<br /> lib/squib/input_helpers.rb,<br /> lib/squib/graphics/text.rb,<br /> lib/squib/graphics/image.rb,<br /> lib/squib/api/background.rb,<br /> lib/squib/graphics/shapes.rb,<br /> lib/squib/graphics/save_doc.rb,<br /> lib/squib/graphics/background.rb,<br /> lib/squib/graphics/save_images.rb</span>
+  lib/squib.rb,<br /> lib/squib/card.rb,<br /> lib/squib/version.rb,<br /> lib/squib/api/text.rb,<br /> lib/squib/progress.rb,<br /> lib/squib/api/data.rb,<br /> lib/squib/api/save.rb,<br /> lib/squib/api/units.rb,<br /> lib/squib/constants.rb,<br /> lib/squib/api/image.rb,<br /> lib/squib/api/shapes.rb,<br /> lib/squib/api/settings.rb,<br /> lib/squib/commands/new.rb,<br /> lib/squib/input_helpers.rb,<br /> lib/squib/graphics/text.rb,<br /> lib/squib/layout_parser.rb,<br /> lib/squib/graphics/image.rb,<br /> lib/squib/api/background.rb,<br /> lib/squib/graphics/shapes.rb,<br /> lib/squib/graphics/showcase.rb,<br /> lib/squib/graphics/save_doc.rb,<br /> lib/squib/graphics/background.rb,<br /> lib/squib/graphics/save_images.rb</span>
 </dd>
   
 </dl>
@@ -130,7 +130,7 @@ e.g. v0.0.5a is on its way to becoming v0.0.5</p>
 
 </div>
         </dt>
-        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>0.1.0a</span><span class='tstring_end'>&#39;</span></span></pre></dd>
+        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>0.2.0a</span><span class='tstring_end'>&#39;</span></span></pre></dd>
       
         <dt id="SYSTEM_DEFAULTS-constant" class="">SYSTEM_DEFAULTS =
           <div class="docstring">
@@ -155,6 +155,7 @@ e.g. v0.0.5a is on its way to becoming v0.0.5</p>
   <span class='symbol'>:default_font</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Arial 36</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
   <span class='symbol'>:dir</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>_output</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
   <span class='symbol'>:ellipsize</span> <span class='op'>=&gt;</span> <span class='symbol'>:end</span><span class='comma'>,</span>
+  <span class='symbol'>:face</span> <span class='op'>=&gt;</span> <span class='symbol'>:left</span><span class='comma'>,</span>
   <span class='symbol'>:fill_color</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>#0000</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
   <span class='symbol'>:force_id</span> <span class='op'>=&gt;</span> <span class='kw'>false</span><span class='comma'>,</span>
   <span class='symbol'>:font</span> <span class='op'>=&gt;</span> <span class='symbol'>:use_set</span><span class='comma'>,</span>
@@ -167,17 +168,23 @@ e.g. v0.0.5a is on its way to becoming v0.0.5</p>
   <span class='symbol'>:justify</span> <span class='op'>=&gt;</span> <span class='kw'>false</span><span class='comma'>,</span>
   <span class='symbol'>:margin</span> <span class='op'>=&gt;</span> <span class='int'>75</span><span class='comma'>,</span>
   <span class='symbol'>:markup</span> <span class='op'>=&gt;</span> <span class='kw'>false</span><span class='comma'>,</span>
+  <span class='symbol'>:offset</span> <span class='op'>=&gt;</span> <span class='float'>1.1</span><span class='comma'>,</span>
   <span class='symbol'>:prefix</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>card_</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
   <span class='symbol'>:progress_bar</span> <span class='op'>=&gt;</span> <span class='kw'>false</span><span class='comma'>,</span>
+  <span class='symbol'>:reflect_offset</span> <span class='op'>=&gt;</span> <span class='int'>15</span><span class='comma'>,</span>
+  <span class='symbol'>:reflect_percent</span> <span class='op'>=&gt;</span> <span class='float'>0.25</span><span class='comma'>,</span>
+  <span class='symbol'>:reflect_strength</span> <span class='op'>=&gt;</span> <span class='float'>0.2</span><span class='comma'>,</span>
   <span class='symbol'>:range</span> <span class='op'>=&gt;</span> <span class='symbol'>:all</span><span class='comma'>,</span>
   <span class='symbol'>:rotate</span> <span class='op'>=&gt;</span> <span class='kw'>false</span><span class='comma'>,</span>
   <span class='symbol'>:rows</span> <span class='op'>=&gt;</span> <span class='symbol'>:infinite</span><span class='comma'>,</span>
+  <span class='symbol'>:scale</span> <span class='op'>=&gt;</span> <span class='float'>0.85</span><span class='comma'>,</span>
   <span class='symbol'>:sheet</span> <span class='op'>=&gt;</span> <span class='int'>0</span><span class='comma'>,</span>
   <span class='symbol'>:spacing</span> <span class='op'>=&gt;</span> <span class='int'>0</span><span class='comma'>,</span>
   <span class='symbol'>:str</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
   <span class='symbol'>:stroke_color</span> <span class='op'>=&gt;</span> <span class='symbol'>:black</span><span class='comma'>,</span>
   <span class='symbol'>:stroke_width</span> <span class='op'>=&gt;</span> <span class='float'>2.0</span><span class='comma'>,</span>
   <span class='symbol'>:trim</span> <span class='op'>=&gt;</span> <span class='int'>0</span><span class='comma'>,</span>
+  <span class='symbol'>:trim_radius</span> <span class='op'>=&gt;</span> <span class='int'>38</span><span class='comma'>,</span>
   <span class='symbol'>:valign</span> <span class='op'>=&gt;</span> <span class='symbol'>:top</span><span class='comma'>,</span>
   <span class='symbol'>:width</span> <span class='op'>=&gt;</span> <span class='symbol'>:native</span><span class='comma'>,</span>
   <span class='symbol'>:wrap</span> <span class='op'>=&gt;</span> <span class='kw'>true</span><span class='comma'>,</span>
@@ -549,7 +556,7 @@ Use this to suppress or increase output levels.</p>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_logger'>logger</span>
   <span class='kw'>if</span> <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
-    <span class='ivar'>@logger</span> <span class='op'>=</span> <span class='const'>Logger</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'>STDOUT</span><span class='rparen'>)</span><span class='semicolon'>;</span>
+    <span class='ivar'>@logger</span> <span class='op'>=</span> <span class='const'>Logger</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='gvar'>$stdout</span><span class='rparen'>)</span><span class='semicolon'>;</span>
     <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_level'>level</span> <span class='op'>=</span> <span class='const'>Logger</span><span class='op'>::</span><span class='const'>WARN</span><span class='semicolon'>;</span>
     <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_formatter'>formatter</span> <span class='op'>=</span> <span class='id identifier rubyid_proc'>proc</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_severity'>severity</span><span class='comma'>,</span> <span class='id identifier rubyid_datetime'>datetime</span><span class='comma'>,</span> <span class='id identifier rubyid_m_progname'>m_progname</span><span class='comma'>,</span> <span class='id identifier rubyid_msg'>msg</span><span class='op'>|</span>
       <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_datetime'>datetime</span><span class='embexpr_end'>}</span><span class='tstring_content'> </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_severity'>severity</span><span class='embexpr_end'>}</span><span class='tstring_content'>: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_msg'>msg</span><span class='embexpr_end'>}</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span>
@@ -728,7 +735,7 @@ See the example <code>samples/excel.rb</code> in the <a href="https://github.com
 </div>
 
     <div id="footer">
-  Generated on Wed Dec 31 10:35:20 2014 by
+  Generated on Mon Jan 12 22:13:29 2015 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.0.0).
 </div>
