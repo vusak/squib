@@ -1,21 +1,16 @@
-require 'squib/args/base'
+require 'squib/args/arg_extractor'
 
 module Squib
   module Args
     class Box
-      include Extractor
+      include ArgExtractor
 
       def self.parameters
-        [:x, :y, :width, :height]
+        %i(x y width height)
       end
-
-      attr_reader *(self.parameters)
 
       def expand_singletons?
         true
-      end
-
-      def defaults
       end
     end
   end
