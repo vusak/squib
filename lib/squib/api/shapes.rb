@@ -25,8 +25,9 @@ module Squib
     def rect(opts = {})
       opts = needs(opts, [:range, :x, :y, :width, :height, :rect_radius, :x_radius, :y_radius,
                           :fill_color, :stroke_color, :stroke_width, :layout])
+      box = Args::Box.new.extract(opts).convert_units(dpi: @dpi).expand(by: @cards.size)
       opts[:range].each do |i|
-        @cards[i].rect(opts[:x][i], opts[:y][i], opts[:width][i], opts[:height][i],
+        @cards[i].rect(box[i],
                        opts[:x_radius][i], opts[:y_radius][i],
                        opts[:fill_color][i], opts[:stroke_color][i],
                        opts[:stroke_width][i])

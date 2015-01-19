@@ -1,3 +1,4 @@
+require 'ostruct'
 require 'squib/constants'
 
 module Squib
@@ -5,7 +6,7 @@ module Squib
 
     module ArgExtractor
 
-      def extract(args={}, cmd_defaults={})
+      def extract(args={}, cmd_defaults)
         lookup = SYSTEM_DEFAULTS.merge(cmd_defaults).merge(args)
         self.class.parameters.each do |p|
           instance_variable_set "@#{p}", lookup[p]
@@ -51,6 +52,15 @@ module Squib
         else
           arg
         end
+      end
+
+      def [](i)
+        card_arg = OpenStruct.new
+        self.class.parameters.each do |p|
+          p_val = instance_variable_get("@#{p}")
+          card_arg[p] = p_val[i]
+        end
+        card_arg
       end
 
     end

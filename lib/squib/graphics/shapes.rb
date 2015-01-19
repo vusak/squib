@@ -3,15 +3,15 @@ module Squib
 
     # :nodoc:
     # @api private
-    def rect(x, y, width, height, x_radius, y_radius, fill_color, stroke_color, stroke_width)
-      width  = @width   if width == :native
-      height = @height  if height == :native
+    def rect(box, x_radius, y_radius, fill_color, stroke_color, stroke_width)
+      box.width  = @width   if box.width == :native
+      box.height = @height  if box.height == :native
       use_cairo do |cc|
-        cc.rounded_rectangle(x, y, width, height, x_radius, y_radius)
+        cc.rounded_rectangle(box.x, box.y, box.width, box.height, x_radius, y_radius)
         cc.set_source_color(stroke_color)
         cc.set_line_width(stroke_width)
         cc.stroke
-        cc.rounded_rectangle(x, y, width, height, x_radius, y_radius)
+        cc.rounded_rectangle(box.x, box.y, box.width, box.height, x_radius, y_radius)
         cc.set_source_color(fill_color)
         cc.fill
       end

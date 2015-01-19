@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'squib'
+require 'squib/args/box'
 
 describe Squib::Card do
 
@@ -27,7 +28,8 @@ describe Squib::Card do
       card = Squib::Card.new(@deck, 100, 150)
       # rect(x, y, width, height, x_radius, y_radius,
       #      fill_color, stroke_color, stroke_width)
-      card.rect(37, 38, 50, 100, 10, 15, '#fff', '#f00', 2.0)
+      box = Squib::Args::Box.new.extract({x: 37, y: 38, width: 50, height: 100})
+      card.rect(box, 10, 15, '#fff', '#f00', 2.0)
     end
   end
 

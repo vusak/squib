@@ -48,4 +48,11 @@ describe Squib::Args::Box do
             .convert_units(dpi: 100)
     expect(box.x).to      eq([100, 200])
   end
+
+  it 'uses array accessors' do
+    args = { x: [250, 350], y: 25 }
+    box = Squib::Args::Box.new.extract(args).expand(by: 2)
+    expect(box[1].x).to eq(350)
+    expect(box[1].y).to eq(25)
+  end
 end
