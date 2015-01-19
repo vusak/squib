@@ -14,12 +14,6 @@ module Squib
         %i(x y width height)
       end
 
-      def load(args, cmd_defaults = {}, dpi = 300, cards = 1)
-        extract(args, cmd_defaults)
-          .convert_units(parameters, dpi)
-          .expand(by: cards)
-      end
-
     end
 
   end
