@@ -66,7 +66,7 @@ module Squib
       cards.times{ @cards << Squib::Card.new(self, width, height) }
       show_info(config, layout)
       load_config(config)
-      @layout = LayoutParser.load_layout(layout)
+      @layout = LayoutParser.load_layout(layout, @dpi)
       if block_given?
         instance_eval(&block)
       end

@@ -1,3 +1,5 @@
+require 'squib/args/arg_extractor'
+
 module Squib
   # Internal class for handling layouts
   #@api private
@@ -5,7 +7,7 @@ module Squib
 
     # Load the layout file(s), if exists
     # @api private
-    def self.load_layout(files)
+    def self.load_layout(files, dpi = 300)
       layout = {}
       Squib::logger.info { "  using layout(s): #{files}" }
       Array(files).each do |file|
@@ -14,7 +16,7 @@ module Squib
         if File.exists? thefile
           yml = layout.merge(YAML.load_file(thefile) || {}) #load_file returns false on empty file
           yml.each do |key, value|
-            layout[key] = recurse_extends(yml, key, {})
+            layout[key] = recurse_extends(yml, key, {}, dpi)
           end
         else
           Squib::logger.error { "Layout file not found: #{file}. Skipping..." }
@@ -28,10 +30,15 @@ module Squib
       "#{File.dirname(__FILE__)}/layouts/#{file}"
     end
 
+    # Quick wrapper for easier reading
+    def self.units(str, dpi)
+      Args::ArgExtractor.convert_unit(str, dpi)
+    end
+
     # Process the extends recursively
     # :nodoc:
     # @api private
-    def self.recurse_extends(yml, key, visited )
+    def self.recurse_extends(yml, key, visited, dpi)
       assert_not_visited(key, visited)
       return yml[key] unless has_extends?(yml, key)
       return yml[key] unless parents_exist?(yml, key)
@@ -39,11 +46,11 @@ module Squib
       parent_keys = [yml[key]['extends']].flatten
       h = {}
       parent_keys.each do |parent_key|
-        from_extends = yml[key].merge(recurse_extends(yml, parent_key, visited)) do |key, child_val, parent_val|
+        from_extends = yml[key].merge(recurse_extends(yml, parent_key, visited, dpi)) do |key, child_val, parent_val|
           if child_val.to_s.strip.start_with?('+=')
-            parent_val + child_val.sub('+=','').strip.to_f
+            units(parent_val, dpi).to_f + units(child_val.sub('+=',''), dpi).to_f
           elsif child_val.to_s.strip.start_with?('-=')
-            parent_val - child_val.sub('-=','').strip.to_f
+            units(parent_val, dpi).to_f - units(child_val.sub('-=',''), dpi).to_f
           else
             child_val #child overrides parent when merging, no +=
           end

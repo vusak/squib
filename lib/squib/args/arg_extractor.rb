@@ -4,6 +4,7 @@ require 'squib/constants'
 module Squib
   module Args
 
+    # Intended to be used a a mix-in, e.g. Box
     module ArgExtractor
 
       def extract(args={}, cmd_defaults)
@@ -34,16 +35,16 @@ module Squib
           p_str = "@#{p}"
           p_val = instance_variable_get(p_str)
           if p_val.respond_to? :each
-            arr = p_val.map { |x| convert_one(x, dpi) }
+            arr = p_val.map { |x| convert_unit(x, dpi) }
             instance_variable_set p_str, arr
           else
-            instance_variable_set p_str, convert_one(p_val, dpi)
+            instance_variable_set p_str, convert_unit(p_val, dpi)
           end
         end
         self
       end
 
-      def convert_one(arg, dpi)
+      def convert_unit(arg, dpi)
         case arg.to_s.rstrip
         when /in$/ #ends with "in"
           arg.rstrip[0..-2].to_f * dpi
@@ -53,7 +54,9 @@ module Squib
           arg
         end
       end
+      module_function :convert_unit
 
+      # Access an individual XArg (where X is the includer parent class)
       def [](i)
         card_arg = OpenStruct.new
         self.class.parameters.each do |p|

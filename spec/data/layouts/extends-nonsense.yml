@@ -1,0 +1,5 @@
+Attack:
+  x: 1in
+Defend:
+  extends: Attack
+  x: += apple

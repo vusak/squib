@@ -186,4 +186,21 @@ describe Squib::LayoutParser do
       })
   end
 
+  it 'converts units when processing extends += and -=' do
+    layout = Squib::LayoutParser.load_layout(layout_file('extends-with-units.yml'))
+    expect(layout).to eq({
+      'Attack' => { 'x' => '1in' },
+      'Defend' => { 'x' => 900.0, 'extends' => 'Attack' },
+      'Health' => { 'x' => 150.0, 'extends' => 'Attack' },
+    })
+  end
+
+  it 'uses 0.0 when we do nonsense on +=' do
+    layout = Squib::LayoutParser.load_layout(layout_file('extends-nonsense.yml'))
+    expect(layout).to eq({
+      'Attack' => { 'x' => '1in' },
+      'Defend' => { 'x' => 300.0, 'extends' => 'Attack' },
+        })
+  end
+
 end

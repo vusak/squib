@@ -1,0 +1,8 @@
+Attack:
+  x: 1in
+Defend:
+  extends: Attack
+  x: += 2in
+Health:
+  extends: Attack
+  x: -= 0.5in
