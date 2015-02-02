@@ -95,11 +95,25 @@
 </span>  <span class='id identifier rubyid_png'>png</span> <span class='label'>file:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>shiny-purse.png</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>x:</span> <span class='int'>300</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>800</span><span class='comma'>,</span> <span class='label'>angle:</span> <span class='const'>Math</span><span class='op'>::</span><span class='const'>PI</span> <span class='op'>/</span> <span class='int'>4</span>
   <span class='id identifier rubyid_svg'>svg</span> <span class='label'>file:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>spanner.svg</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>     <span class='label'>x:</span> <span class='int'>300</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>900</span><span class='comma'>,</span> <span class='label'>angle:</span> <span class='const'>Math</span><span class='op'>::</span><span class='const'>PI</span> <span class='op'>/</span> <span class='int'>2</span> <span class='op'>-</span> <span class='float'>0.1</span>
 
+  <span class='comment'># Images can also be used as masks instead of being directly painted.
+</span>  <span class='comment'># This is particularly useful for switching directly over to black-and-white for printing
+</span>  <span class='comment'># Or, if you want the same image to be used but with different colors/gradients
+</span>  <span class='id identifier rubyid_svg'>svg</span> <span class='label'>mask:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>#00ff00</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>file:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>glass-heart.svg</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>x:</span> <span class='int'>500</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>600</span><span class='comma'>,</span> <span class='label'>width:</span> <span class='int'>200</span><span class='comma'>,</span> <span class='label'>height:</span> <span class='int'>200</span>
+  <span class='id identifier rubyid_svg'>svg</span> <span class='label'>mask:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>(500,1000)(500,800) #333@0.0 #ccc@1.0 </span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>file:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>glass-heart.svg</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>x:</span> <span class='int'>500</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>800</span><span class='comma'>,</span> <span class='label'>width:</span> <span class='int'>200</span><span class='comma'>,</span> <span class='label'>height:</span> <span class='int'>200</span>
+
+  <span class='comment'># Masks are based on transparency, so this is just a square
+</span>  <span class='id identifier rubyid_png'>png</span> <span class='label'>mask:</span> <span class='symbol'>:magenta</span><span class='comma'>,</span> <span class='label'>file:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>shiny-purse.png</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>x:</span> <span class='int'>650</span><span class='comma'>,</span> <span class='label'>y:</span> <span class='int'>950</span>
+
   <span class='id identifier rubyid_save'>save</span> <span class='label'>prefix:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>load_images_</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>format:</span> <span class='symbol'>:png</span>
 <span class='kw'>end</span></pre></div></div>
 
     <div id="footer">
-  Generated on Wed Jan 21 12:54:04 2015 by
+  Generated on Mon Feb  2 00:32:02 2015 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.0.0).
 </div>

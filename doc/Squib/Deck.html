@@ -99,7 +99,7 @@
   
     <dt class="r1 last">Defined in:</dt>
     <dd class="r1 last">lib/squib/deck.rb<span class="defines">,<br />
-  lib/squib/api/text.rb,<br /> lib/squib/api/data.rb,<br /> lib/squib/api/save.rb,<br /> lib/squib/api/units.rb,<br /> lib/squib/api/image.rb,<br /> lib/squib/api/shapes.rb,<br /> lib/squib/api/settings.rb,<br /> lib/squib/api/background.rb,<br /> lib/squib/graphics/showcase.rb,<br /> lib/squib/graphics/save_doc.rb</span>
+  lib/squib/api/save.rb,<br /> lib/squib/api/data.rb,<br /> lib/squib/api/text.rb,<br /> lib/squib/api/units.rb,<br /> lib/squib/api/image.rb,<br /> lib/squib/api/shapes.rb,<br /> lib/squib/api/settings.rb,<br /> lib/squib/api/background.rb,<br /> lib/squib/graphics/showcase.rb,<br /> lib/squib/graphics/save_doc.rb</span>
 </dd>
   
 </dl>
@@ -672,7 +672,7 @@ end</code></pre>
       
       
         &mdash;
-        <div class='inline'><p>the width of each card in pixels</p>
+        <div class='inline'><p>the width of each card in pixels. Supports unit conversion (e.g. &#39;2.5in&#39;).</p>
 </div>
       
     </li>
@@ -687,7 +687,7 @@ end</code></pre>
       
       
         &mdash;
-        <div class='inline'><p>the height of each card in pixels</p>
+        <div class='inline'><p>the height of each card in pixels. Supports unit conversion (e.g. &#39;3.5in&#39;).</p>
 </div>
       
     </li>
@@ -776,7 +776,6 @@ end</code></pre>
       <pre class="lines">
 
 
-57
 58
 59
 60
@@ -792,27 +791,30 @@ end</code></pre>
 70
 71
 72
-73</pre>
+73
+74
+75</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/squib/deck.rb', line 57</span>
+      <pre class="code"><span class="info file"># File 'lib/squib/deck.rb', line 58</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>width:</span> <span class='int'>825</span><span class='comma'>,</span> <span class='label'>height:</span> <span class='int'>1125</span><span class='comma'>,</span> <span class='label'>cards:</span> <span class='int'>1</span><span class='comma'>,</span> <span class='label'>dpi:</span> <span class='int'>300</span><span class='comma'>,</span> <span class='label'>config:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>config.yml</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>layout:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
-  <span class='ivar'>@width</span><span class='op'>=</span><span class='id identifier rubyid_width'>width</span><span class='semicolon'>;</span> <span class='ivar'>@height</span><span class='op'>=</span><span class='id identifier rubyid_height'>height</span>
-  <span class='ivar'>@dpi</span> <span class='op'>=</span> <span class='id identifier rubyid_dpi'>dpi</span>
-  <span class='ivar'>@font</span> <span class='op'>=</span> <span class='const'>Squib</span><span class='op'>::</span><span class='const'>SYSTEM_DEFAULTS</span><span class='lbracket'>[</span><span class='symbol'>:default_font</span><span class='rbracket'>]</span>
-  <span class='ivar'>@cards</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+  <span class='ivar'>@dpi</span>           <span class='op'>=</span> <span class='id identifier rubyid_dpi'>dpi</span>
+  <span class='ivar'>@width</span>         <span class='op'>=</span> <span class='const'>Args</span><span class='op'>::</span><span class='const'>UnitConversion</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span> <span class='id identifier rubyid_width'>width</span><span class='comma'>,</span> <span class='id identifier rubyid_dpi'>dpi</span>
+  <span class='ivar'>@height</span>        <span class='op'>=</span> <span class='const'>Args</span><span class='op'>::</span><span class='const'>UnitConversion</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span> <span class='id identifier rubyid_height'>height</span><span class='comma'>,</span> <span class='id identifier rubyid_dpi'>dpi</span>
+  <span class='ivar'>@font</span>          <span class='op'>=</span> <span class='const'>Squib</span><span class='op'>::</span><span class='const'>SYSTEM_DEFAULTS</span><span class='lbracket'>[</span><span class='symbol'>:default_font</span><span class='rbracket'>]</span>
+  <span class='ivar'>@cards</span>         <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
   <span class='ivar'>@custom_colors</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
-  <span class='ivar'>@img_dir</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>.</span><span class='tstring_end'>&#39;</span></span>
-  <span class='ivar'>@progress_bar</span> <span class='op'>=</span> <span class='const'>Squib</span><span class='op'>::</span><span class='const'>Progress</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>false</span><span class='rparen'>)</span>
-  <span class='ivar'>@text_hint</span> <span class='op'>=</span> <span class='symbol'>:off</span>
-  <span class='id identifier rubyid_cards'>cards</span><span class='period'>.</span><span class='id identifier rubyid_times'>times</span><span class='lbrace'>{</span> <span class='ivar'>@cards</span> <span class='op'>&lt;&lt;</span> <span class='const'>Squib</span><span class='op'>::</span><span class='const'>Card</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_width'>width</span><span class='comma'>,</span> <span class='id identifier rubyid_height'>height</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+  <span class='ivar'>@img_dir</span>       <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>.</span><span class='tstring_end'>&#39;</span></span>
+  <span class='ivar'>@progress_bar</span>  <span class='op'>=</span> <span class='const'>Squib</span><span class='op'>::</span><span class='const'>Progress</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>false</span><span class='rparen'>)</span>
+  <span class='ivar'>@text_hint</span>     <span class='op'>=</span> <span class='symbol'>:off</span>
+  <span class='id identifier rubyid_cards'>cards</span><span class='period'>.</span><span class='id identifier rubyid_times'>times</span><span class='lbrace'>{</span> <span class='ivar'>@cards</span> <span class='op'>&lt;&lt;</span> <span class='const'>Squib</span><span class='op'>::</span><span class='const'>Card</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='ivar'>@width</span><span class='comma'>,</span> <span class='ivar'>@height</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
   <span class='id identifier rubyid_show_info'>show_info</span><span class='lparen'>(</span><span class='id identifier rubyid_config'>config</span><span class='comma'>,</span> <span class='id identifier rubyid_layout'>layout</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_load_config'>load_config</span><span class='lparen'>(</span><span class='id identifier rubyid_config'>config</span><span class='rparen'>)</span>
-  <span class='ivar'>@layout</span> <span class='op'>=</span> <span class='const'>LayoutParser</span><span class='period'>.</span><span class='id identifier rubyid_load_layout'>load_layout</span><span class='lparen'>(</span><span class='id identifier rubyid_layout'>layout</span><span class='rparen'>)</span>
+  <span class='ivar'>@layout</span>        <span class='op'>=</span> <span class='const'>LayoutParser</span><span class='period'>.</span><span class='id identifier rubyid_load_layout'>load_layout</span><span class='lparen'>(</span><span class='id identifier rubyid_layout'>layout</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
-    <span class='id identifier rubyid_instance_eval'>instance_eval</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
-  <span class='kw'>end</span>
+    <span class='id identifier rubyid_instance_eval'>instance_eval</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span> <span class='comment'># here we go. wheeeee!
+</span>  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -905,7 +907,7 @@ Options support Arrays, see <a href="../index.html#Arrays_and_Singleton_Expansio
             
           </span>
           
-            &mdash; <div class='inline'><p>the color the font will render to. See <a href="../index.html#Specifying_Colors" title="Specifying Colors">Specifying Colors</a>.</p>
+            &mdash; <div class='inline'><p>the color the font will render to. See <a href="../index.html#Specifying_Colors___Gradients" title="Specifying Colors &amp;amp; Gradients">Specifying Colors &amp; Gradients</a>.</p>
 </div>
           
         </li>
@@ -1079,7 +1081,7 @@ Options support Arrays, see <a href="../index.html#Arrays_and_Singleton_Expansio
             
           </span>
           
-            &mdash; <div class='inline'><p>the color with which to fill the rectangle</p>
+            &mdash; <div class='inline'><p>the color with which to fill the rectangle. See <a href="../index.html#Specifying_Colors___Gradients" title="Specifying Colors &amp;amp; Gradients">Specifying Colors &amp; Gradients</a>.</p>
 </div>
           
         </li>
@@ -1094,7 +1096,7 @@ Options support Arrays, see <a href="../index.html#Arrays_and_Singleton_Expansio
             
           </span>
           
-            &mdash; <div class='inline'><p>the color with which to stroke the outside of the rectangle</p>
+            &mdash; <div class='inline'><p>the color with which to stroke the outside of the rectangle. See <a href="../index.html#Specifying_Colors___Gradients" title="Specifying Colors &amp;amp; Gradients">Specifying Colors &amp; Gradients</a>.</p>
 </div>
           
         </li>
@@ -1602,7 +1604,7 @@ Setting a hint to nil or to :off will disable hints. @see samples/text.rb</p>
             
           </span>
           
-            &mdash; <div class='inline'><p>the color with which to stroke the line</p>
+            &mdash; <div class='inline'><p>the color with which to stroke the line. See <a href="../index.html#Specifying_Colors___Gradients" title="Specifying Colors &amp;amp; Gradients">Specifying Colors &amp; Gradients</a>.</p>
 </div>
           
         </li>
@@ -1948,6 +1950,21 @@ Setting a hint to nil or to :off will disable hints. @see samples/text.rb</p>
           
         </li>
       
+        <li>
+          <span class="name">mask</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>nil</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>If specified, the image will be used as a mask for the given color/gradient. Transparent pixels are ignored, opaque pixels are the given color.</p>
+</div>
+          
+        </li>
+      
     </ul>
   
 
@@ -1975,7 +1992,6 @@ Setting a hint to nil or to :off will disable hints. @see samples/text.rb</p>
       <pre class="lines">
 
 
-22
 23
 24
 25
@@ -1987,19 +2003,20 @@ Setting a hint to nil or to :off will disable hints. @see samples/text.rb</p>
 31
 32
 33
-34</pre>
+34
+35</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/squib/api/image.rb', line 22</span>
+      <pre class="code"><span class="info file"># File 'lib/squib/api/image.rb', line 23</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_png'>png</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='id identifier rubyid_needs'>needs</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='symbol'>:range</span><span class='comma'>,</span> <span class='symbol'>:files</span><span class='comma'>,</span> <span class='symbol'>:x</span><span class='comma'>,</span> <span class='symbol'>:y</span><span class='comma'>,</span> <span class='symbol'>:width</span><span class='comma'>,</span> <span class='symbol'>:height</span><span class='comma'>,</span> <span class='symbol'>:alpha</span><span class='comma'>,</span> <span class='symbol'>:layout</span><span class='comma'>,</span> <span class='symbol'>:blend</span><span class='comma'>,</span> <span class='symbol'>:angle</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='id identifier rubyid_needs'>needs</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='symbol'>:range</span><span class='comma'>,</span> <span class='symbol'>:files</span><span class='comma'>,</span> <span class='symbol'>:x</span><span class='comma'>,</span> <span class='symbol'>:y</span><span class='comma'>,</span> <span class='symbol'>:width</span><span class='comma'>,</span> <span class='symbol'>:height</span><span class='comma'>,</span> <span class='symbol'>:alpha</span><span class='comma'>,</span> <span class='symbol'>:layout</span><span class='comma'>,</span> <span class='symbol'>:blend</span><span class='comma'>,</span> <span class='symbol'>:angle</span><span class='comma'>,</span> <span class='symbol'>:mask</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='const'>Dir</span><span class='period'>.</span><span class='id identifier rubyid_chdir'>chdir</span><span class='lparen'>(</span><span class='ivar'>@img_dir</span><span class='rparen'>)</span> <span class='kw'>do</span>
     <span class='ivar'>@progress_bar</span><span class='period'>.</span><span class='id identifier rubyid_start'>start</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Loading PNG(s)</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:range</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_bar'>bar</span><span class='op'>|</span>
       <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:range</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
         <span class='ivar'>@cards</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_png'>png</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:file</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span>
                       <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:x</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:y</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:width</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:height</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span>
-                      <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:alpha</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:blend</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:angle</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+                      <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:alpha</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:blend</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:angle</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:mask</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='rparen'>)</span>
         <span class='id identifier rubyid_bar'>bar</span><span class='period'>.</span><span class='id identifier rubyid_increment'>increment</span>
       <span class='kw'>end</span>
     <span class='kw'>end</span>
@@ -2189,7 +2206,7 @@ Setting a hint to nil or to :off will disable hints. @see samples/text.rb</p>
             
           </span>
           
-            &mdash; <div class='inline'><p>the color with which to fill the rectangle</p>
+            &mdash; <div class='inline'><p>the color with which to fill the rectangle. See <a href="../index.html#Specifying_Colors___Gradients" title="Specifying Colors &amp;amp; Gradients">Specifying Colors &amp; Gradients</a></p>
 </div>
           
         </li>
@@ -2204,7 +2221,7 @@ Setting a hint to nil or to :off will disable hints. @see samples/text.rb</p>
             
           </span>
           
-            &mdash; <div class='inline'><p>the color with which to stroke the outside of the rectangle</p>
+            &mdash; <div class='inline'><p>the color with which to stroke the outside of the rectangle. <a href="../index.html#Specifying_Colors___Gradients" title="Specifying Colors &amp;amp; Gradients">Specifying Colors &amp; Gradients</a></p>
 </div>
           
         </li>
@@ -2544,6 +2561,36 @@ Setting a hint to nil or to :off will disable hints. @see samples/text.rb</p>
         </li>
       
         <li>
+          <span class="name">width</span>
+          <span class="type">(<tt>Integer</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>3300</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>the height of the page in pixels. Default is 11in * 300dpi. Supports unit conversion.</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">height</span>
+          <span class="type">(<tt>Integer</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>2550</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>the height of the page in pixels. Default is 8.5in * 300dpi. Supports unit conversion.</p>
+</div>
+          
+        </li>
+      
+        <li>
           <span class="name">margin</span>
           <span class="type">(<tt>Integer</tt>)</span>
           <span class="default">
@@ -2553,7 +2600,7 @@ Setting a hint to nil or to :off will disable hints. @see samples/text.rb</p>
             
           </span>
           
-            &mdash; <div class='inline'><p>the margin around the outside of the page</p>
+            &mdash; <div class='inline'><p>the margin around the outside of the page. Supports unit conversion.</p>
 </div>
           
         </li>
@@ -2568,7 +2615,7 @@ Setting a hint to nil or to :off will disable hints. @see samples/text.rb</p>
             
           </span>
           
-            &mdash; <div class='inline'><p>the space in pixels between the cards</p>
+            &mdash; <div class='inline'><p>the space in pixels between the cards. Supports unit conversion.</p>
 </div>
           
         </li>
@@ -2583,7 +2630,7 @@ Setting a hint to nil or to :off will disable hints. @see samples/text.rb</p>
             
           </span>
           
-            &mdash; <div class='inline'><p>the space around the edge of each card to trim (e.g. to cut off the bleed margin for print-and-play)</p>
+            &mdash; <div class='inline'><p>the space around the edge of each card to trim (e.g. to cut off the bleed margin for print-and-play). Supports unit conversion.</p>
 </div>
           
         </li>
@@ -2611,8 +2658,6 @@ Setting a hint to nil or to :off will disable hints. @see samples/text.rb</p>
       <pre class="lines">
 
 
-16
-17
 18
 19
 20
@@ -2636,16 +2681,16 @@ Setting a hint to nil or to :off will disable hints. @see samples/text.rb</p>
 38
 39
 40
-41</pre>
+41
+42</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/squib/graphics/save_doc.rb', line 16</span>
+      <pre class="code"><span class="info file"># File 'lib/squib/graphics/save_doc.rb', line 18</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_save_pdf'>save_pdf</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_p'>p</span> <span class='op'>=</span> <span class='id identifier rubyid_needs'>needs</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='symbol'>:range</span><span class='comma'>,</span> <span class='symbol'>:file_to_save</span><span class='comma'>,</span> <span class='symbol'>:creatable_dir</span><span class='comma'>,</span> <span class='symbol'>:margin</span><span class='comma'>,</span> <span class='symbol'>:gap</span><span class='comma'>,</span> <span class='symbol'>:trim</span><span class='rbracket'>]</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_width'>width</span>  <span class='op'>=</span> <span class='int'>11</span>  <span class='op'>*</span> <span class='ivar'>@dpi</span>
-  <span class='id identifier rubyid_height'>height</span> <span class='op'>=</span> <span class='float'>8.5</span> <span class='op'>*</span> <span class='ivar'>@dpi</span> <span class='comment'>#TODO: allow this to be specified too
-</span>  <span class='id identifier rubyid_cc'>cc</span> <span class='op'>=</span> <span class='const'>Cairo</span><span class='op'>::</span><span class='const'>Context</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'>Cairo</span><span class='op'>::</span><span class='const'>PDFSurface</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:dir</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:file</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_width'>width</span><span class='comma'>,</span> <span class='id identifier rubyid_height'>height</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='label'>width:</span> <span class='int'>3300</span><span class='comma'>,</span> <span class='label'>height:</span> <span class='int'>2550</span><span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_p'>p</span> <span class='op'>=</span> <span class='id identifier rubyid_needs'>needs</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='symbol'>:range</span><span class='comma'>,</span> <span class='symbol'>:paper_width</span><span class='comma'>,</span> <span class='symbol'>:paper_height</span><span class='comma'>,</span> <span class='symbol'>:file_to_save</span><span class='comma'>,</span> <span class='symbol'>:creatable_dir</span><span class='comma'>,</span> <span class='symbol'>:margin</span><span class='comma'>,</span> <span class='symbol'>:gap</span><span class='comma'>,</span> <span class='symbol'>:trim</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_cc'>cc</span> <span class='op'>=</span> <span class='const'>Cairo</span><span class='op'>::</span><span class='const'>Context</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'>Cairo</span><span class='op'>::</span><span class='const'>PDFSurface</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:dir</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:file</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:width</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:height</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_x'>x</span> <span class='op'>=</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:margin</span><span class='rbracket'>]</span>
   <span class='id identifier rubyid_y'>y</span> <span class='op'>=</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:margin</span><span class='rbracket'>]</span>
   <span class='ivar'>@progress_bar</span><span class='period'>.</span><span class='id identifier rubyid_start'>start</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Saving PDF to </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:dir</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:file</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:range</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_bar'>bar</span><span class='op'>|</span>
@@ -2655,10 +2700,10 @@ Setting a hint to nil or to :off will disable hints. @see samples/text.rb</p>
       <span class='id identifier rubyid_cc'>cc</span><span class='period'>.</span><span class='id identifier rubyid_paint'>paint</span>
       <span class='id identifier rubyid_bar'>bar</span><span class='period'>.</span><span class='id identifier rubyid_increment'>increment</span>
       <span class='id identifier rubyid_x'>x</span> <span class='op'>+=</span> <span class='id identifier rubyid_surface'>surface</span><span class='period'>.</span><span class='id identifier rubyid_width'>width</span> <span class='op'>+</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:gap</span><span class='rbracket'>]</span>
-      <span class='kw'>if</span> <span class='id identifier rubyid_x'>x</span> <span class='op'>&gt;</span> <span class='lparen'>(</span><span class='id identifier rubyid_width'>width</span> <span class='op'>-</span> <span class='id identifier rubyid_surface'>surface</span><span class='period'>.</span><span class='id identifier rubyid_width'>width</span> <span class='op'>-</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:margin</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+      <span class='kw'>if</span> <span class='id identifier rubyid_x'>x</span> <span class='op'>&gt;</span> <span class='lparen'>(</span><span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:width</span><span class='rbracket'>]</span> <span class='op'>-</span> <span class='id identifier rubyid_surface'>surface</span><span class='period'>.</span><span class='id identifier rubyid_width'>width</span> <span class='op'>-</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:margin</span><span class='rbracket'>]</span><span class='rparen'>)</span>
         <span class='id identifier rubyid_x'>x</span> <span class='op'>=</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:margin</span><span class='rbracket'>]</span>
         <span class='id identifier rubyid_y'>y</span> <span class='op'>+=</span> <span class='id identifier rubyid_surface'>surface</span><span class='period'>.</span><span class='id identifier rubyid_height'>height</span> <span class='op'>+</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:gap</span><span class='rbracket'>]</span>
-        <span class='kw'>if</span> <span class='id identifier rubyid_y'>y</span> <span class='op'>&gt;</span> <span class='lparen'>(</span><span class='id identifier rubyid_height'>height</span> <span class='op'>-</span> <span class='id identifier rubyid_surface'>surface</span><span class='period'>.</span><span class='id identifier rubyid_height'>height</span> <span class='op'>-</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:margin</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+        <span class='kw'>if</span> <span class='id identifier rubyid_y'>y</span> <span class='op'>&gt;</span> <span class='lparen'>(</span><span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:height</span><span class='rbracket'>]</span> <span class='op'>-</span> <span class='id identifier rubyid_surface'>surface</span><span class='period'>.</span><span class='id identifier rubyid_height'>height</span> <span class='op'>-</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:margin</span><span class='rbracket'>]</span><span class='rparen'>)</span>
           <span class='id identifier rubyid_x'>x</span> <span class='op'>=</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:margin</span><span class='rbracket'>]</span>
           <span class='id identifier rubyid_y'>y</span> <span class='op'>=</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:margin</span><span class='rbracket'>]</span>
           <span class='id identifier rubyid_cc'>cc</span><span class='period'>.</span><span class='id identifier rubyid_show_page'>show_page</span> <span class='comment'>#next page
@@ -2771,6 +2816,21 @@ Setting a hint to nil or to :off will disable hints. @see samples/text.rb</p>
         </li>
       
         <li>
+          <span class="name">count_format</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>%02d</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>the format string used for formatting the card count (e.g. padding zeros). Uses a Ruby format string (see the Ruby doc for Kernel::sprintf for specifics)</p>
+</div>
+          
+        </li>
+      
+        <li>
           <span class="name">rotate</span>
           <span class="type">(<tt>Boolean</tt>, <tt>:clockwise</tt>, <tt>:counterclockwise</tt>)</span>
           <span class="default">
@@ -2812,7 +2872,6 @@ Setting a hint to nil or to :off will disable hints. @see samples/text.rb</p>
       <pre class="lines">
 
 
-31
 32
 33
 34
@@ -2820,16 +2879,17 @@ Setting a hint to nil or to :off will disable hints. @see samples/text.rb</p>
 36
 37
 38
-39</pre>
+39
+40</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/squib/api/save.rb', line 31</span>
+      <pre class="code"><span class="info file"># File 'lib/squib/api/save.rb', line 32</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_save_png'>save_png</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='id identifier rubyid_needs'>needs</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span><span class='lbracket'>[</span><span class='symbol'>:range</span><span class='comma'>,</span> <span class='symbol'>:creatable_dir</span><span class='comma'>,</span> <span class='symbol'>:prefix</span><span class='comma'>,</span> <span class='symbol'>:rotate</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='id identifier rubyid_needs'>needs</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span><span class='lbracket'>[</span><span class='symbol'>:range</span><span class='comma'>,</span> <span class='symbol'>:creatable_dir</span><span class='comma'>,</span> <span class='symbol'>:prefix</span><span class='comma'>,</span> <span class='symbol'>:count_format</span><span class='comma'>,</span> <span class='symbol'>:rotate</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='ivar'>@progress_bar</span><span class='period'>.</span><span class='id identifier rubyid_start'>start</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Saving PNGs to </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:dir</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:prefix</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>*</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='ivar'>@cards</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_bar'>bar</span><span class='op'>|</span>
     <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:range</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
-      <span class='ivar'>@cards</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_save_png'>save_png</span><span class='lparen'>(</span><span class='id identifier rubyid_i'>i</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:dir</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:prefix</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:rotate</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:angle</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+      <span class='ivar'>@cards</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_save_png'>save_png</span><span class='lparen'>(</span><span class='id identifier rubyid_i'>i</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:dir</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:prefix</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:count_format</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:rotate</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:angle</span><span class='rbracket'>]</span><span class='rparen'>)</span>
       <span class='id identifier rubyid_bar'>bar</span><span class='period'>.</span><span class='id identifier rubyid_increment'>increment</span>
     <span class='kw'>end</span>
   <span class='kw'>end</span>
@@ -2953,6 +3013,21 @@ Setting a hint to nil or to :off will disable hints. @see samples/text.rb</p>
         </li>
       
         <li>
+          <span class="name">count_format</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>%02d</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>the format string used for formatting the card count (e.g. padding zeros). Uses a Ruby format string (see the Ruby doc for Kernel::sprintf for specifics)</p>
+</div>
+          
+        </li>
+      
+        <li>
           <span class="name">dir</span>
           <span class="type">(<tt>String</tt>)</span>
           <span class="default">
@@ -2977,7 +3052,7 @@ Setting a hint to nil or to :off will disable hints. @see samples/text.rb</p>
             
           </span>
           
-            &mdash; <div class='inline'><p>the margin around the outside of the page</p>
+            &mdash; <div class='inline'><p>the margin around the outside of the page.</p>
 </div>
           
         </li>
@@ -3035,8 +3110,6 @@ Setting a hint to nil or to :off will disable hints. @see samples/text.rb</p>
       <pre class="lines">
 
 
-58
-59
 60
 61
 62
@@ -3069,14 +3142,17 @@ Setting a hint to nil or to :off will disable hints. @see samples/text.rb</p>
 89
 90
 91
-92</pre>
+92
+93
+94
+95</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/squib/graphics/save_doc.rb', line 58</span>
+      <pre class="code"><span class="info file"># File 'lib/squib/graphics/save_doc.rb', line 60</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_save_sheet'>save_sheet</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='label'>margin:</span> <span class='int'>0</span><span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span> <span class='comment'># overriding the non-system default
-</span>  <span class='id identifier rubyid_p'>p</span> <span class='op'>=</span> <span class='id identifier rubyid_needs'>needs</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='symbol'>:range</span><span class='comma'>,</span> <span class='symbol'>:prefix</span><span class='comma'>,</span> <span class='symbol'>:creatable_dir</span><span class='comma'>,</span> <span class='symbol'>:margin</span><span class='comma'>,</span> <span class='symbol'>:gap</span><span class='comma'>,</span> <span class='symbol'>:trim</span><span class='comma'>,</span> <span class='symbol'>:rows</span><span class='comma'>,</span> <span class='symbol'>:columns</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+</span>  <span class='id identifier rubyid_p'>p</span> <span class='op'>=</span> <span class='id identifier rubyid_needs'>needs</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='symbol'>:range</span><span class='comma'>,</span> <span class='symbol'>:prefix</span><span class='comma'>,</span> <span class='symbol'>:count_format</span><span class='comma'>,</span> <span class='symbol'>:creatable_dir</span><span class='comma'>,</span> <span class='symbol'>:margin</span><span class='comma'>,</span> <span class='symbol'>:gap</span><span class='comma'>,</span> <span class='symbol'>:trim</span><span class='comma'>,</span> <span class='symbol'>:rows</span><span class='comma'>,</span> <span class='symbol'>:columns</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='comment'># EXTRACT METHOD HERE
 </span>  <span class='id identifier rubyid_sheet_width'>sheet_width</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:columns</span><span class='rbracket'>]</span> <span class='op'>*</span> <span class='lparen'>(</span><span class='ivar'>@width</span> <span class='op'>+</span> <span class='int'>2</span> <span class='op'>*</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:gap</span><span class='rbracket'>]</span> <span class='op'>-</span> <span class='int'>2</span> <span class='op'>*</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:trim</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='op'>+</span> <span class='lparen'>(</span><span class='int'>2</span> <span class='op'>*</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:margin</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_sheet_height'>sheet_height</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:rows</span><span class='rbracket'>]</span> <span class='op'>*</span> <span class='lparen'>(</span><span class='ivar'>@height</span> <span class='op'>+</span> <span class='int'>2</span> <span class='op'>*</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:gap</span><span class='rbracket'>]</span> <span class='op'>-</span> <span class='int'>2</span> <span class='op'>*</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:trim</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='op'>+</span> <span class='lparen'>(</span><span class='int'>2</span> <span class='op'>*</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:margin</span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -3087,7 +3163,8 @@ Setting a hint to nil or to :off will disable hints. @see samples/text.rb</p>
   <span class='ivar'>@progress_bar</span><span class='period'>.</span><span class='id identifier rubyid_start'>start</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Saving PNG sheet to </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:dir</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:prefix</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>_*</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='ivar'>@cards</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span> <span class='op'>+</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_bar'>bar</span><span class='op'>|</span>
     <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:range</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
       <span class='kw'>if</span> <span class='id identifier rubyid_num_this_sheet'>num_this_sheet</span> <span class='op'>&gt;=</span> <span class='lparen'>(</span><span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:columns</span><span class='rbracket'>]</span> <span class='op'>*</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:rows</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='comment'># new sheet
-</span>        <span class='id identifier rubyid_cc'>cc</span><span class='period'>.</span><span class='id identifier rubyid_target'>target</span><span class='period'>.</span><span class='id identifier rubyid_write_to_png'>write_to_png</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:dir</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:prefix</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_sheet_num'>sheet_num</span><span class='embexpr_end'>}</span><span class='tstring_content'>.png</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+</span>        <span class='id identifier rubyid_filename'>filename</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:dir</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:prefix</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:count_format</span><span class='rbracket'>]</span> <span class='op'>%</span> <span class='id identifier rubyid_sheet_num'>sheet_num</span><span class='embexpr_end'>}</span><span class='tstring_content'>.png</span><span class='tstring_end'>&quot;</span></span>
+        <span class='id identifier rubyid_cc'>cc</span><span class='period'>.</span><span class='id identifier rubyid_target'>target</span><span class='period'>.</span><span class='id identifier rubyid_write_to_png'>write_to_png</span><span class='lparen'>(</span><span class='id identifier rubyid_filename'>filename</span><span class='rparen'>)</span>
         <span class='id identifier rubyid_new_sheet'>new_sheet</span> <span class='op'>=</span> <span class='kw'>false</span>
         <span class='id identifier rubyid_num_this_sheet'>num_this_sheet</span> <span class='op'>=</span> <span class='int'>0</span>
         <span class='id identifier rubyid_sheet_num'>sheet_num</span> <span class='op'>+=</span> <span class='int'>1</span>
@@ -3106,7 +3183,7 @@ Setting a hint to nil or to :off will disable hints. @see samples/text.rb</p>
       <span class='kw'>end</span>
       <span class='id identifier rubyid_bar'>bar</span><span class='period'>.</span><span class='id identifier rubyid_increment'>increment</span>
     <span class='kw'>end</span>
-    <span class='id identifier rubyid_cc'>cc</span><span class='period'>.</span><span class='id identifier rubyid_target'>target</span><span class='period'>.</span><span class='id identifier rubyid_write_to_png'>write_to_png</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:dir</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:prefix</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_sheet_num'>sheet_num</span><span class='embexpr_end'>}</span><span class='tstring_content'>.png</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_cc'>cc</span><span class='period'>.</span><span class='id identifier rubyid_target'>target</span><span class='period'>.</span><span class='id identifier rubyid_write_to_png'>write_to_png</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:dir</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:prefix</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:count_format</span><span class='rbracket'>]</span> <span class='op'>%</span> <span class='id identifier rubyid_sheet_num'>sheet_num</span><span class='embexpr_end'>}</span><span class='tstring_content'>.png</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -3516,7 +3593,6 @@ See <a href="../file.showcase.html" title="showcase">showcase</a> for full examp
       <pre class="lines">
 
 
-62
 63
 64
 65
@@ -3524,14 +3600,15 @@ See <a href="../file.showcase.html" title="showcase">showcase</a> for full examp
 67
 68
 69
-70</pre>
+70
+71</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/squib/api/save.rb', line 62</span>
+      <pre class="code"><span class="info file"># File 'lib/squib/api/save.rb', line 63</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_showcase'>showcase</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='label'>file:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>showcase.png</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>fill_color:</span> <span class='symbol'>:white</span><span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='id identifier rubyid_needs'>needs</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span><span class='lbracket'>[</span><span class='symbol'>:range</span><span class='comma'>,</span> <span class='symbol'>:trim</span><span class='comma'>,</span> <span class='symbol'>:trim_radius</span><span class='comma'>,</span> <span class='symbol'>:creatable_dir</span><span class='comma'>,</span> <span class='symbol'>:file_to_save</span><span class='comma'>,</span> <span class='symbol'>:face</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='id identifier rubyid_needs'>needs</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span><span class='lbracket'>[</span><span class='symbol'>:range</span><span class='comma'>,</span> <span class='symbol'>:margin</span><span class='comma'>,</span> <span class='symbol'>:trim</span><span class='comma'>,</span> <span class='symbol'>:trim_radius</span><span class='comma'>,</span> <span class='symbol'>:creatable_dir</span><span class='comma'>,</span> <span class='symbol'>:file_to_save</span><span class='comma'>,</span> <span class='symbol'>:face</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_render_showcase'>render_showcase</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:range</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:trim</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:trim_radius</span><span class='rbracket'>]</span><span class='comma'>,</span>
                   <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:scale</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:offset</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:fill_color</span><span class='rbracket'>]</span><span class='comma'>,</span>
                   <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:reflect_offset</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:reflect_percent</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:reflect_strength</span><span class='rbracket'>]</span><span class='comma'>,</span>
@@ -3778,6 +3855,21 @@ See <a href="../file.showcase.html" title="showcase">showcase</a> for full examp
           
         </li>
       
+        <li>
+          <span class="name">mask</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>nil</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>If specified, the image will be used as a mask for the given color/gradient. Transparent pixels are ignored, opaque pixels are the given color.</p>
+</div>
+          
+        </li>
+      
     </ul>
   
 
@@ -3805,8 +3897,6 @@ See <a href="../file.showcase.html" title="showcase">showcase</a> for full examp
       <pre class="lines">
 
 
-56
-57
 58
 59
 60
@@ -3818,19 +3908,21 @@ See <a href="../file.showcase.html" title="showcase">showcase</a> for full examp
 66
 67
 68
-69</pre>
+69
+70
+71</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/squib/api/image.rb', line 56</span>
+      <pre class="code"><span class="info file"># File 'lib/squib/api/image.rb', line 58</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_svg'>svg</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_p'>p</span> <span class='op'>=</span> <span class='id identifier rubyid_needs'>needs</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span><span class='lbracket'>[</span><span class='symbol'>:range</span><span class='comma'>,</span> <span class='symbol'>:files</span><span class='comma'>,</span> <span class='symbol'>:svgid</span><span class='comma'>,</span> <span class='symbol'>:force_svgid</span><span class='comma'>,</span> <span class='symbol'>:x</span><span class='comma'>,</span> <span class='symbol'>:y</span><span class='comma'>,</span> <span class='symbol'>:width</span><span class='comma'>,</span> <span class='symbol'>:height</span><span class='comma'>,</span> <span class='symbol'>:layout</span><span class='comma'>,</span> <span class='symbol'>:alpha</span><span class='comma'>,</span> <span class='symbol'>:blend</span><span class='comma'>,</span> <span class='symbol'>:angle</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_p'>p</span> <span class='op'>=</span> <span class='id identifier rubyid_needs'>needs</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span><span class='lbracket'>[</span><span class='symbol'>:range</span><span class='comma'>,</span> <span class='symbol'>:files</span><span class='comma'>,</span> <span class='symbol'>:svgid</span><span class='comma'>,</span> <span class='symbol'>:force_svgid</span><span class='comma'>,</span> <span class='symbol'>:x</span><span class='comma'>,</span> <span class='symbol'>:y</span><span class='comma'>,</span> <span class='symbol'>:width</span><span class='comma'>,</span> <span class='symbol'>:height</span><span class='comma'>,</span> <span class='symbol'>:layout</span><span class='comma'>,</span> <span class='symbol'>:alpha</span><span class='comma'>,</span> <span class='symbol'>:blend</span><span class='comma'>,</span> <span class='symbol'>:angle</span><span class='comma'>,</span> <span class='symbol'>:mask</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='const'>Dir</span><span class='period'>.</span><span class='id identifier rubyid_chdir'>chdir</span><span class='lparen'>(</span><span class='ivar'>@img_dir</span><span class='rparen'>)</span> <span class='kw'>do</span>
     <span class='ivar'>@progress_bar</span><span class='period'>.</span><span class='id identifier rubyid_start'>start</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Loading SVG(s)</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:range</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_bar'>bar</span><span class='op'>|</span>
       <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:range</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
         <span class='kw'>unless</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:force_id</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
           <span class='ivar'>@cards</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_svg'>svg</span><span class='lparen'>(</span><span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:file</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:x</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:y</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span>
-                        <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:width</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:height</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:alpha</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:blend</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:angle</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+                        <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:width</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:height</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:alpha</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:blend</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:angle</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='comma'>,</span><span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='symbol'>:mask</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='rparen'>)</span>
         <span class='kw'>end</span>
         <span class='id identifier rubyid_bar'>bar</span><span class='period'>.</span><span class='id identifier rubyid_increment'>increment</span>
       <span class='kw'>end</span>
@@ -4005,7 +4097,7 @@ See the <a href="../file.text-options.html" title="samples/text.rb">samples/text
             
           </span>
           
-            &mdash; <div class='inline'><p>the color the font will render to. See <a href="../index.html#Specifying_Colors" title="Specifying Colors">Specifying Colors</a></p>
+            &mdash; <div class='inline'><p>the color the font will render to. Gradients supported. See <a href="../index.html#Specifying_Colors___Gradients" title="Specifying Colors">Specifying Colors</a></p>
 </div>
           
         </li>
@@ -4420,7 +4512,7 @@ Options are <code>:none, :word, :char, :word_char</code>. Also: <code>true</code
             
           </span>
           
-            &mdash; <div class='inline'><p>the color with which to fill the triangle</p>
+            &mdash; <div class='inline'><p>the color with which to fill the triangle. See <a href="../index.html#Specifying_Colors___Gradients" title="Specifying Colors &amp;amp; Gradients">Specifying Colors &amp; Gradients</a></p>
 </div>
           
         </li>
@@ -4435,7 +4527,7 @@ Options are <code>:none, :word, :char, :word_char</code>. Also: <code>true</code
             
           </span>
           
-            &mdash; <div class='inline'><p>the color with which to stroke the outside of the triangle</p>
+            &mdash; <div class='inline'><p>the color with which to stroke the outside of the triangle. See <a href="../index.html#Specifying_Colors___Gradients" title="Specifying Colors &amp;amp; Gradients">Specifying Colors &amp; Gradients</a></p>
 </div>
           
         </li>
@@ -4558,7 +4650,7 @@ Options are <code>:none, :word, :char, :word_char</code>. Also: <code>true</code
 </div>
 
     <div id="footer">
-  Generated on Wed Jan 21 12:54:06 2015 by
+  Generated on Mon Feb  2 00:32:03 2015 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.0.0).
 </div>
