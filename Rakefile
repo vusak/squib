@@ -15,8 +15,11 @@ task :run,[:file] => :install do |t, args|
   end
 end
 
-
-RSpec::Core::RakeTask.new(:spec)
+# usage: rake pattern=some_glob_string
+RSpec::Core::RakeTask.new(:spec) do |t, args|
+  ENV['pattern'] ||= t.pattern
+  t.pattern = ENV['pattern']
+end
 
 task doc: [:yarddoc, :apply_google_analytics]
 
