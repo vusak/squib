@@ -22,6 +22,37 @@ describe Squib::Graphics::CairoContextWrapper do
     subject.set_source_squibcolor('#aabbccdd')
   end
 
+  context 'embed' do
+    context 'svg image' do
+      it 'is ignored if no layout exists' do
+        subject.svg embed: ':match:', file: 'spec/data/images/spanner.svg'
+      end
+
+      context 'into existing layout' do
+        subject { Squib::Graphics::CairoContextWrapper.new(Cairo::Context.new(Cairo::ImageSurface.new(100,100))) }
+
+        before(:each) do
+          layout = subject.create_pango_layout
+          layout.text = "an arbitrary :match: string"
+        end
+
+        it 'is ignored if the embed text doesnt match' do
+          subject.svg embed: ':mismatch:', file: 'spec/data/images/spanner.svg'
+        end
+
+        it 'errors if the embed file is inaccessible' do
+          expect{
+            subject.svg embed: ':match:', file: 'missing_file.svg'  
+          }.to raise_error(GLib::Error,"Error opening file: No such file or directory")
+        end
+
+        it 'is embedded if the embed text does match' do
+          subject.svg embed: ':match:', file: 'spec/data/images/spanner.svg'
+        end
+      end
+    end
+  end
+
   context 'regex variations for linear gradients' do
     before(:each) do
       dbl = double(Cairo::LinearPattern)

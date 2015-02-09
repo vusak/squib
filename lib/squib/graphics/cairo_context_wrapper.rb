@@ -5,17 +5,18 @@ module Squib
   module Graphics
     class CairoContextWrapper
       extend Forwardable
-      attr_accessor :cairo_cxt
+      attr_accessor :cairo_cxt, :pango_layout
 
       def initialize(cairo_cxt)
         @cairo_cxt = cairo_cxt
+        @pango_layout = nil
       end
 
       def_delegators :cairo_cxt, :save, :set_source_color, :paint, :restore,
-        :translate, :rotate, :move_to, :update_pango_layout, :width, :height,
-        :show_pango_layout, :rounded_rectangle, :set_line_width, :stroke, :fill,
+        :translate, :rotate, :move_to, :width, :height,
+        :rounded_rectangle, :set_line_width, :stroke, :fill,
         :set_source, :scale, :render_rsvg_handle, :circle, :triangle, :line_to,
-        :operator=, :show_page, :clip, :transform, :mask, :create_pango_layout
+        :operator=, :show_page, :clip, :transform, :mask
 
       def set_source_squibcolor(arg)
         if match = arg.match(LINEAR_GRADIENT)
@@ -35,6 +36,43 @@ module Squib
           @cairo_cxt.set_source(linear)
         else
           @cairo_cxt.set_source_color(arg)
+        end
+      end
+
+      def create_pango_layout
+        @pango_layout = @cairo_cxt.create_pango_layout
+        return @pango_layout
+      end
+
+      def update_pango_layout
+        @cairo_cxt.update_pango_layout(@pango_layout)
+      end
+
+      def show_pango_layout
+        @cairo_cxt.show_pango_layout(@pango_layout)
+      end
+
+      def svg(embed:, file:)
+        if @pango_layout != nil
+          puts "CairoContextWrapper::svg there is a pango_layout"
+          if @pango_layout.text.length > 0
+            puts "CairoContextWrapper::svg there is text"
+            if @pango_layout.text.include? embed
+              puts "CairoContextWrapper::svg there is an embed match"
+              svg = RSVG::Handle.new_from_file(file)
+              if svg != nil
+                puts "CairoContextWrapper::svg file exists"
+
+                iter = @pango_layout.iter
+
+                glyph = iter.run
+
+                puts "glyph.item.length = #{glyph.item.length}"
+
+                puts "glyph.item.to_s = #{glyph.item.to_s}"
+              end
+            end
+          end
         end
       end
     end

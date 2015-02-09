@@ -87,7 +87,7 @@ module Squib
     def text(str, font, font_size, color,
              x, y, width, height,
              markup, justify, wrap, ellipsize,
-             spacing, align, valign, hint, angle)
+             spacing, align, valign, hint, angle, &context_modifier)
       Squib.logger.debug {"Placing '#{str}'' with font '#{font}' @ #{x}, #{y}, color: #{color}, angle: #{angle} etc."}
       extents = nil
       use_cairo do |cc|
@@ -103,15 +103,17 @@ module Squib
         layout.font_description = font_desc
         layout.text = str.to_s
         layout.markup = str.to_s if markup
+        context_modifier.call(cc)
+        cc.update_pango_layout
         set_wh!(layout, width, height)
         set_wrap!(layout, wrap)
         set_ellipsize!(layout, ellipsize)
         set_align!(layout, align)
         layout.justify = justify unless justify.nil?
         layout.spacing = spacing * Pango::SCALE unless spacing.nil?
-        cc.update_pango_layout(layout)
+        cc.update_pango_layout
         valign!(cc, layout, x, y, valign)
-        cc.update_pango_layout(layout) ; cc.show_pango_layout(layout)
+        cc.update_pango_layout ; cc.show_pango_layout
         draw_text_hint(cc,x,y,layout,hint,angle)
         extents = { width: layout.extents[1].width / Pango::SCALE,
                     height: layout.extents[1].height / Pango::SCALE }
